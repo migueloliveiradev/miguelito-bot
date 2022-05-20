@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "miguelito-bot-commands", "miguelito-bot-commands\miguelito-bot-commands.csproj", "{AFFA5D5D-FC97-4B00-ACF1-40E67219EA80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "miguelito-bot-music", "miguelito-bot-music\miguelito-bot-music.csproj", "{459D8120-FAD9-46B8-AF11-F058AAA2954B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "miguelito-bot-events", "miguelito-bot-events\miguelito-bot-events.csproj", "{4DBBCD99-ED20-49CA-9C7F-0C70E7F89922}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "miguelito-bot-slashcommands", "miguelito-bot-slashcommands\miguelito-bot-slashcommands.csproj", "{288C3864-038C-4622-B3AF-DBFA599C7384}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AFFA5D5D-FC97-4B00-ACF1-40E67219EA80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFFA5D5D-FC97-4B00-ACF1-40E67219EA80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFFA5D5D-FC97-4B00-ACF1-40E67219EA80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFFA5D5D-FC97-4B00-ACF1-40E67219EA80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{459D8120-FAD9-46B8-AF11-F058AAA2954B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{459D8120-FAD9-46B8-AF11-F058AAA2954B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{459D8120-FAD9-46B8-AF11-F058AAA2954B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{459D8120-FAD9-46B8-AF11-F058AAA2954B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DBBCD99-ED20-49CA-9C7F-0C70E7F89922}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DBBCD99-ED20-49CA-9C7F-0C70E7F89922}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DBBCD99-ED20-49CA-9C7F-0C70E7F89922}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DBBCD99-ED20-49CA-9C7F-0C70E7F89922}.Release|Any CPU.Build.0 = Release|Any CPU
+		{288C3864-038C-4622-B3AF-DBFA599C7384}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{288C3864-038C-4622-B3AF-DBFA599C7384}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{288C3864-038C-4622-B3AF-DBFA599C7384}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{288C3864-038C-4622-B3AF-DBFA599C7384}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {56E3DB62-39C6-4CAC-8586-44E7F43D4594}
+	EndGlobalSection
+EndGlobal
