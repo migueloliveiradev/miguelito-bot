@@ -19,8 +19,7 @@ namespace miguelito_bot_music
         public static Dictionary<ulong, TimeSpan> time = new Dictionary<ulong, TimeSpan>();
         public static Dictionary<ulong, string> directory = new Dictionary<ulong, string>();
 
-        [Command("play")]
-        [Aliases("p")]
+        [Command("play"), Aliases("p")]
         public async Task Play(CommandContext ctx, [RemainingText] string musica = "")
         {
             await ctx.TriggerTypingAsync();
@@ -84,7 +83,7 @@ namespace miguelito_bot_music
                             await youtube.Videos.DownloadAsync(videoid, directory[ctx.Guild.Id].ToString(), o => o
                                 .SetContainer(YoutubeExplode.Videos.Streams.Container.Mp3)
                                 .SetPreset(ConversionPreset.UltraFast)
-                                .SetFFmpegPath(Path.Combine(GetDirectory() + "//ffmpeg//ffmpeg")));
+                                .SetFFmpegPath(Path.Combine(GetDirectory() + "//ffmpeg//ffmpeg.exe")));
                         }
                         var pcm = ConvertAudioToPcm(directory[ctx.Guild.Id]);
                         await pcm.CopyToAsync(transmit);
@@ -105,8 +104,7 @@ namespace miguelito_bot_music
             }
         }
 
-        [Command("stop")]
-        [Aliases("parar")]
+        [Command("stop"), Aliases("parar")]
         public async Task stop(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();
@@ -200,11 +198,86 @@ namespace miguelito_bot_music
                 await ctx.RespondAsync("Uai meu rei, tu quer embaralhar qual musica? :thinking:");
             }
         }
+
+        [Command("volume"), Aliases("vol")]
+        public async Task volume(CommandContext ctx, int volume)
+        {
+            await ctx.TriggerTypingAsync();
+            VoiceNextExtension vnext = ctx.Client.GetVoiceNext();
+            VoiceNextConnection connection = vnext.GetConnection(ctx.Guild);
+            VoiceTransmitSink transmit = connection.GetTransmitSink();
+            if (connection.IsPlaying)
+            {
+                if (volume > 100)
+                {
+                    await ctx.RespondAsync("O volume não pode ser maior que 100 :thinking:");
+                }
+                else
+                {
+                    transmit.VolumeModifier = volume;
+                    await ctx.RespondAsync($"Volume alterado para {volume}% :loud_sound:");
+                }
+            }
+            else
+            {
+                await ctx.RespondAsync("Nenhuma musica esta tocando para usar esse comando");
+            }
+        }
+
+        [Command("queue"), Aliases("lista")]
+        public async Task queue(CommandContext ctx)
+        {
+            await ctx.TriggerTypingAsync();
+            DiscordMember bot = await ctx.Guild.GetMemberAsync(Program.cliente.CurrentUser.Id);
+            if (bot.VoiceState?.Channel == ctx.Member?.VoiceState?.Channel)
+            {
+                if (track[ctx.Guild.Id].Count == 0)
+                {
+                    await ctx.RespondAsync("Nenhuma musica na fila :face_with_raised_eyebrow:");
+                }
+                else
+                {
+                    string music = "";
+                    for (int i = 0; i <= 10; i++)
+                    {
+                        music += $"{i + 1} - {track[ctx.Guild.Id].ElementAt(i)}\n";
+                    }
+                    await ctx.RespondAsync(music);
+                }
+            }
+            else
+            {
+                await ctx.RespondAsync("Uai meu rei, tu quer ver a fila de musicas? :thinking:");
+            }
+        }
+
+        [Command("clear"), Aliases("limpar")]
+        public async Task clear(CommandContext ctx)
+        {
+            await ctx.TriggerTypingAsync();
+            DiscordMember bot = await ctx.Guild.GetMemberAsync(Program.cliente.CurrentUser.Id);
+            if (bot.VoiceState?.Channel == ctx.Member?.VoiceState?.Channel)
+            {
+                if (track[ctx.Guild.Id].Count == 0)
+                {
+                    await ctx.RespondAsync("Nenhuma musica na fila :face_with_raised_eyebrow:");
+                }
+                else
+                {
+                    track[ctx.Guild.Id].Clear();
+                    await ctx.RespondAsync("Fila de musicas limpa com sucesso :stop_button:");
+                }
+            }
+            else
+            {
+                await ctx.RespondAsync("Uai meu rei, tu quer limpar a fila de musicas? :thinking:");
+            }
+        }
         private Stream ConvertAudioToPcm(string filePath)
         {
             var ffmpeg = Process.Start(new ProcessStartInfo
             {
-                FileName = "ffmpeg",
+                FileName = GetDirectory() + "//ffmpeg//ffmpeg.exe",
                 Arguments = $@"-i ""{filePath}"" -ac 2 -f s16le -ar 48000 pipe:1",
                 RedirectStandardOutput = true,
                 UseShellExecute = false

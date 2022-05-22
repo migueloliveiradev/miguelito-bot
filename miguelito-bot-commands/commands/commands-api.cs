@@ -9,6 +9,7 @@ using HG_Finance;
 using MediaWikiApi.Wiki;
 using MediaWikiApi.Wiki.Response.OpenSearch;
 using MediaWikiApi.Wiki.Response.Query.Extracts;
+using Newtonsoft.Json;
 using System.Globalization;
 using System.Net;
 using VirusTotalNet;
@@ -64,24 +65,21 @@ namespace miguelito_bot_commands.commands
                 }
             }
         }
+        
         [Command("cotação"), Aliases("cotacao")]
         public async Task cotacao(CommandContext ctx, string moeda)
         {
-            clientHG.Currencies(moeda.ToUpper());
-            if(clientHG.CurrencyResponse.Buy != 0)
+            clientHG.Currencies(moeda);
+            if (clientHG.CurrencyResponse.Buy != 0)
             {
                 if (clientHG.CurrencyResponse.Variation < 0)
                 {
-                    await ctx.RespondAsync($"Eita, o {clientHG.CurrencyResponse.Name} sumiu, esta exatamente R${decimal.Round(clientHG.CurrencyResponse.Buy, 2)}");
+                    await ctx.RespondAsync($"Eita, o dólar sumiu, esta exatamente R${decimal.Round(clientHG.CurrencyResponse.Buy, 2)}");
                 }
                 else
                 {
-                    await ctx.RespondAsync($"Eita, o {clientHG.CurrencyResponse.Name} caiu, esta exatamente R${decimal.Round(clientHG.CurrencyResponse.Buy, 2)}");
+                    await ctx.RespondAsync($"Eita, o dólar caiu, esta exatamente R${decimal.Round(clientHG.CurrencyResponse.Buy, 2)}");
                 }
-            }
-            else
-            {
-                await ctx.RespondAsync("não consegui achar a moeda pedida :pensive:");
             }
         }
 
@@ -383,6 +381,49 @@ namespace miguelito_bot_commands.commands
             {
                 await ctx.RespondAsync("Por gentileza insira as informações necessarias para fazer a tradução\n\n" +
                     "**-traduzir** [prefixo do idioma final] [texto em qualquer idioma que eu me viro pra descobrir qual é]");
+            }
+        }
+
+        [Command("weather"), Aliases("clima", "tempo")]
+        public async Task weather(CommandContext ctx, [RemainingText] string city = "")
+        {
+            string url = $"https://api.hgbrasil.com/weather?array_limit=1&fields=only_results,temp,city_name,forecast,max,min,date&key={Program.config[6]}&city_name={city}";
+            string json = new WebClient().DownloadString(url);
+            dynamic data = JsonConvert.DeserializeObject(json);
+            string temp = data.temp;
+            string city_name = data.city_name;
+            var forecast = data.forecast;
+
+            string temp_max = forecast[0].max;
+            string temp_min = forecast[0].min;
+
+            DiscordEmbedBuilder embed = new DiscordEmbedBuilder
+            {
+                Title = $"{city_name}",
+                Color = DiscordColor.CornflowerBlue,
+                Description = $"**Temperatura:** {temp}°C\n" +
+                              $"**Temperatura máxima:** {temp_max}°C\n" +
+                              $"**Temperatura mínima:** {temp_min}°C\n"
+            };
+            await ctx.RespondAsync(embed);
+                
+             
+        }
+        //make search google 
+        [Command("search"), Aliases("busca", "google", "pesquisa")]
+        public async Task Search(CommandContext ctx, [RemainingText] string search)
+        {
+            try
+            {
+                string url = $"https://www.google.com/search?q={search}";
+                string json = new WebClient().DownloadString(url);
+                dynamic data = JsonConvert.DeserializeObject(json);
+                string resultado = data.items[0].link;
+                await ctx.RespondAsync(resultado);
+            }
+            catch
+            {
+                await ctx.RespondAsync("Ocorreu algum erro ao tentar buscar");
             }
         }
     }

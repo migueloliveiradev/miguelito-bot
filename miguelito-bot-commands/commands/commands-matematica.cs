@@ -7,120 +7,154 @@ namespace miguelito_bot_commands.commands
     {
         [Command("soma")]
         [Aliases("somar")]
-        public async Task soma(CommandContext ctx, long a = 0, long b = 0,
-           long c = 0, long d = 0, long e = 0, long f = 0, long j = 0,
-           long k = 0, long l = 0, long m = 0, long n = 0, long o = 0,
-           long p = 0, long q = 0, long r = 0, long s = 0, long t = 0,
-           long u = 0, long v = 0, long x = 0, [RemainingText] long ruim = 0)
+        public async Task soma(CommandContext ctx, [RemainingText] string value = "")
         {
-            await ctx.TriggerTypingAsync();
-            if (ruim == 0)
+            if (value == "")
             {
-                await ctx.RespondAsync((a + b + c + d + e + f + j + k + l + m + n + o + p + q + r + s + t + u + v + x).ToString());
+                await ctx.RespondAsync("Você deve informar pelo menos dois valores para realizar a soma.");
             }
             else
             {
-                await ctx.RespondAsync("O maximo de numeros que eu consigo somar por vez é apenas 20 meu rei :pensive:");
+                string[] valores = value.Split(' ');
+                int soma = 0;
+                foreach (string valor in valores)
+                {
+                    soma += int.Parse(valor);
+                }
+                await ctx.RespondAsync(soma.ToString());
             }
             await Program.log("soma");
         }
+       
 
         [Command("subtrair")]
         [Aliases("diminuir")]
-        public async Task subtrair(CommandContext ctx, long a = 0, long b = 0,
-           long c = 0, long d = 0, long e = 0, long f = 0, long j = 0,
-           long k = 0, long l = 0, long m = 0, long n = 0, long o = 0,
-           long p = 0, long q = 0, long r = 0, long s = 0, long t = 0,
-           long u = 0, long v = 0, long x = 0, [RemainingText] long ruim = 0)
+        public async Task subtrair(CommandContext ctx, [RemainingText] string value = "")
         {
-            await ctx.TriggerTypingAsync();
-            if (ruim == 0)
+            if (value == "")
             {
-                await ctx.RespondAsync((a - b - c - d - e - f - j - k - l - m - n - o - p - q - r - s - t - u - v - x).ToString());
+                await ctx.RespondAsync("Você deve informar pelo menos dois valores para realizar a subtração.");
             }
             else
             {
-                await ctx.RespondAsync("O maximo de numeros que eu consigo subtrair por vez é apenas 20 meu rei :pensive:");
+                string[] valores = value.Split(' ');
+                int subtrair = int.Parse(valores[0]);
+                for (int i = 1; i < valores.Length; i++)
+                {
+                    subtrair -= int.Parse(valores[i]);
+                }
+                await ctx.RespondAsync(subtrair.ToString());
             }
-            await Program.log("soma");
+            await Program.log("subtrair");
         }
 
         [Command("Bhaskara")]
-        public async Task Bhaskara(CommandContext ctx, double a = 0, double b = 0, double c = 0)
+        public async Task Bhaskara(CommandContext ctx, int a, int b, int c)
         {
-            await ctx.TriggerTypingAsync();
-            if (c < 0)
+            if (a == 0)
             {
-                c = c * -1;
-            }
-            double delta_p1 = Math.Sqrt(b * b);
-            double delta_p2 = Math.Sqrt(4 * (a * c));
-            double delta = (delta_p1 - delta_p2);
-            if (delta < 0)
-            {
-                double a1 = (-b + (delta)) / (2 * a);
-                double a2 = (-b - (delta)) / (2 * a);
-                await ctx.RespondAsync($"O resultado é:\n\n{a1}\nou\n{a2}");
+                await ctx.RespondAsync("A equação não é do tipo ax²+bx+c=0");
             }
             else
             {
-                await ctx.RespondAsync($"O resultado é Ø");
+                double delta = Math.Pow(b, 2) - 4 * a * c;
+                if (delta < 0)
+                {
+                    await ctx.RespondAsync("A equação não possui raízes reais");
+                }
+                else if (delta == 0)
+                {
+                    double x = -b / (2 * a);
+                    await ctx.RespondAsync("A equação possui apenas uma raiz real: " + x);
+                }
+                else
+                {
+                    double x1 = (-b + Math.Sqrt(delta)) / (2 * a);
+                    double x2 = (-b - Math.Sqrt(delta)) / (2 * a);
+                    await ctx.RespondAsync("A equação possui duas raízes reais: " + x1 + " e " + x2);
+                }
             }
-            await Program.log("soma");
+            await Program.log("Bhaskara");
         }
         [Command("raiz")]
-        public async Task raiz(CommandContext ctx, double a = 0)
+        public async Task raiz(CommandContext ctx, double a)
         {
-            await ctx.TriggerTypingAsync();
-            await ctx.RespondAsync(Math.Sqrt(a).ToString());
-            await Program.log("soma");
+            await ctx.TriggerTypingAsync();            
+            if (a < 0)
+            {
+                await ctx.RespondAsync("A raiz de um número negativo não existe meu nobre.");
+            }
+            else
+            {
+                double raiz = Math.Sqrt(a);
+                await ctx.RespondAsync("A raiz de " + a + " é " + raiz);
+            }
+            await Program.log("raiz");
         }
         [Command("multiplicar")]
-        public async Task multiplicar(CommandContext ctx, long a = 0, long b = 0,
-           long c = 0, long d = 0, long e = 0, long f = 0, long j = 0,
-           long k = 0, long l = 0, long m = 0, long n = 0, long o = 0,
-           long p = 0, long q = 0, long r = 0, long s = 0, long t = 0,
-           long u = 0, long v = 0, long x = 0)
+        public async Task multiplicar(CommandContext ctx, [RemainingText] string value = "")
         {
-            await ctx.TriggerTypingAsync();
-            await ctx.RespondAsync((a * b * c * d * e * f * j * k * l * m * n * o * p * q * r * s * t * u * v * x).ToString());
-            await Program.log("soma");
+            if (value == "")
+            {
+                await ctx.RespondAsync("Você deve informar pelo menos dois valores para realizar a multiplicação meu nobre.");
+            }
+            else
+            {
+                string[] valores = value.Split(' ');
+                int multiplicar = int.Parse(valores[0]);
+                for (int i = 1; i < valores.Length; i++)
+                {
+                    multiplicar *= int.Parse(valores[i]);
+                }
+                await ctx.RespondAsync(multiplicar.ToString());
+            }
+            await Program.log("multiplicar");
         }
         [Command("dividir")]
-        public async Task dividir(CommandContext ctx, long a = 0, long b = 0,
-           long c = 0, long d = 0, long e = 0, long f = 0, long j = 0,
-           long k = 0, long l = 0, long m = 0, long n = 0, long o = 0,
-           long p = 0, long q = 0, long r = 0, long s = 0, long t = 0,
-           long u = 0, long v = 0, long x = 0)
+        public async Task dividir(CommandContext ctx, [RemainingText] string value = "")
         {
-            await ctx.TriggerTypingAsync();
-            await ctx.RespondAsync((a / b / c / d / e / f / j / k / l / m / n / o / p / q / r / s / t / u / v / x).ToString());
-            await Program.log("soma");
+            if (value == "")
+            {
+                await ctx.RespondAsync("Você deve informar pelo menos dois valores para realizar a divisão meu nobre.");
+            }
+            else
+            {
+                string[] valores = value.Split(' ');
+                int dividir = int.Parse(valores[0]);
+                for (int i = 1; i < valores.Length; i++)
+                {
+                    dividir /= int.Parse(valores[i]);
+                }
+                await ctx.RespondAsync(dividir.ToString());
+            }
+            await Program.log("dividir");
         }
         [Command("pi")]
         public async Task pi(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();
-            await ctx.RespondAsync(Math.PI.ToString());
-            await Program.log("soma");
+            await ctx.RespondAsync($"O valor de pi é: {Math.PI}");
+            await Program.log("pi");
         }
         [Command("Potência")]
         [Aliases("Potencia", "potenciação", "potenciaçao", "potenciacao")]
-        public async Task Potencia(CommandContext ctx, long a = 0, long b = 0)
+        public async Task Potencia(CommandContext ctx, int base_, int expoente)
         {
             await ctx.TriggerTypingAsync();
-            if (a != 0 && b != 0)
+            if (expoente == 0)
             {
-                await ctx.RespondAsync(Math.Pow(a, b).ToString());
-                await Program.log("soma");
+                await ctx.RespondAsync("A potência de um número elevado a zero é 1");
             }
             else
             {
-                await ctx.RespondAsync($"Opa {ctx.Member.Mention}, por gentileza coloque os numeros pois ainda não tenho" +
-                    $"poder de advinhar\n\n" +
-                    $"**-Potência** [denominador] [numerador]\n\n" +
-                    $"Aliases: Potencia, potenciação, potenciaçao, potenciacao");
+                int potencia = 1;
+                for (int i = 0; i < expoente; i++)
+                {
+                    potencia *= base_;
+                }
+                await ctx.RespondAsync("A potência de " + base_ + " elevado a " + expoente + " é " + potencia);
             }
+            await Program.log("Potencia");
         }
     }
 }

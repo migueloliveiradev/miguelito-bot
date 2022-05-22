@@ -34,9 +34,9 @@
 
   <ItemGroup>
     <PackageReference Include="Cutt.ly" Version="1.0.0" />
-    <PackageReference Include="DSharpPlus" Version="4.3.0-nightly-01134" />
-    <PackageReference Include="DSharpPlus.CommandsNext" Version="4.3.0-nightly-01134" />
-    <PackageReference Include="DSharpPlus.Interactivity" Version="4.3.0-nightly-01134" />
+    <PackageReference Include="DSharpPlus" Version="4.3.0-nightly-01135" />
+    <PackageReference Include="DSharpPlus.CommandsNext" Version="4.3.0-nightly-01135" />
+    <PackageReference Include="DSharpPlus.Interactivity" Version="4.3.0-nightly-01135" />
     <PackageReference Include="Google.Apis.SearchConsole.v1" Version="1.57.0.2620" />
     <PackageReference Include="Google.Apis.Translate.v2" Version="1.57.0.875" />
     <PackageReference Include="Google.Cloud.Translation.V2" Version="2.1.0" />

@@ -366,62 +366,23 @@ namespace miguelito_bot_commands
             }
         }
 
-        [Command("dado"), Aliases("roll", "sortear")]
-        public async Task sortear(CommandContext ctx, ulong i = 6)
-        {
-            Random NunRandom = new Random();
-            int numero = NunRandom.Next(1, 20);
-            if (numero == 1)
-            {
-                await ctx.RespondAsync("Vc não tem dado em casa?");
-            }
-            else
-            {
-                try
-                {
-                    await ctx.TriggerTypingAsync();
-                    if (i <= 1)
-                    {
-                        await ctx.RespondAsync("tu acha q sou idiota?");
-                    }
-                    else if (i > 0)
-                    {
-                        await ctx.RespondAsync(NunRandom.Next(1, (int)i).ToString());
-                    }
-                }
-                catch
-                {
-                    await ctx.TriggerTypingAsync();
-                    await ctx.RespondAsync("meu brother, eu não aguento isso tudo não, tenha dó de mim");
-                }
-            }
-            await Program.log("sortear");
-        }
+        
 
         [RequirePermissions(Permissions.ManageMessages)]
         [Command("say"), Aliases("dizer", "falar")]
-        public async Task say(CommandContext ctx, string id = "", [RemainingText] string text = "")
+        public async Task say(CommandContext ctx, DiscordChannel channel = null, [RemainingText] string text = "")
         {
-            DiscordChannel channel = ctx.Channel;
-            try
+            if (channel == null)
             {
-                channel = ctx.Guild.GetChannel(Convert.ToUInt64(id));
-            }
-            catch
-            {
-                text = id + text;
-            }
-            if(id != "" && text != "")
-            {
-                await ctx.Message.DeleteAsync();
-                await ctx.Client.SendMessageAsync(channel, text);
+                await ctx.TriggerTypingAsync();
+                await ctx.RespondAsync(text);
             }
             else
             {
-                await ctx.RespondAsync($"Opa {ctx.Member.Mention} por gentileza adicione o texto ou adicione marque o canal q deseja usar ex:\n\n" +
-                    $"-say Olá, o Miguelito é legal\n\n" +
-                    $"-say [ID do canal] Olá, o Miguelito é legal");
+                await channel.TriggerTypingAsync();
+                await channel.SendMessageAsync(text);
             }
+            await Program.log("say");
         }
 
         [Command("botinfo")]

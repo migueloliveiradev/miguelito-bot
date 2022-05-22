@@ -26,6 +26,7 @@ namespace miguelito_bot_commands
         //Line 10  Api Twitter CONSUMER_SECRET
         //Line 11  Api Twitter ACCESS_TOKEN
         //Line 12  Api Twitter ACCESS_TOKEN_SECRET
+        //Line 13  Api Weather API
 
         public static DiscordClient cliente { get; private set; }
         public static async Task Main(string[] args) => new Program().rodarBot().GetAwaiter().GetResult();
@@ -80,8 +81,9 @@ namespace miguelito_bot_commands
             cnt.RegisterCommands<commands_twitter>();
             cnt.RegisterCommands<commands_api>();
             cnt.RegisterCommands<commands_texto>();
-            //cnt.RegisterCommands<commands_games>();
+            cnt.RegisterCommands<commands_games>();
             cnt.RegisterCommands<random_commands>();
+            cnt.RegisterCommands<roll_commands>();
             await cliente.ConnectAsync();
             await Task.Delay(-1);
         }
