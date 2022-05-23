@@ -504,5 +504,6 @@ namespace miguelito_bot_commands.commands
                 await ctx.RespondAsync("Ocorreu algum erro ao tentar pesquisar esté Pokemon");
             }
         }
+
     }
 }
