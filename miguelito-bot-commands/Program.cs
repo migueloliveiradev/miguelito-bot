@@ -26,7 +26,7 @@ namespace miguelito_bot_commands
         //Line 10  Api Twitter CONSUMER_SECRET
         //Line 11  Api Twitter ACCESS_TOKEN
         //Line 12  Api Twitter ACCESS_TOKEN_SECRET
-        //Line 13  Api Weather API
+        //Line 13  Api Custom Search key
 
         public static DiscordClient cliente { get; private set; }
         public static async Task Main(string[] args) => new Program().rodarBot().GetAwaiter().GetResult();
@@ -37,10 +37,15 @@ namespace miguelito_bot_commands
             {
                 config = File.ReadAllLines($@"C:\Users\Miguel Oliveira\Documents\config.miguelito");
             }
+            else if(Environment.UserName == "Paulo")
+            {
+                config = File.ReadAllLines($@"C:\Users\Paulo\Documents\config.miguelito");
+            }
             else
             {
                 config = File.ReadAllLines($@"/home/ubuntu/github/config/config.miguelito");
             }
+            
             DiscordConfiguration cfg = new DiscordConfiguration
             {
                 Token = config[0],

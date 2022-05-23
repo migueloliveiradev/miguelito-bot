@@ -103,7 +103,7 @@ namespace miguelito_bot_music
                 await ctx.RespondAsync("infelizmente eu não tenho poder o suficiente para advinhar qual musica você quer escutar :pensive:");
             }
         }
-
+        
         [Command("stop"), Aliases("parar")]
         public async Task stop(CommandContext ctx)
         {
@@ -385,7 +385,7 @@ namespace miguelito_bot_music
                 .WithThumbnail($"https://img.youtube.com/vi/{videosSubset[0].Id}/default.jpg")
                 .WithAuthor(playlist.Title, playlist.Url, $"https://img.youtube.com/vi/{videosSubset[0].Id}/default.jpg"); ;
                 await ctx.RespondAsync(embed);
-            }
+            }   
             if (quantidade != 0)
             {
                 await ctx.Client.SendMessageAsync(ctx.Channel, $"infelizmente ainda sou um pobre bot que suporta e suporto no maximo musicas de **uma hora**, " +
