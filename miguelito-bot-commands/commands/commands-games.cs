@@ -11,7 +11,7 @@ namespace miguelito_bot_commands.commands
         public async Task jogo_da_velha(CommandContext ctx, DiscordUser user = null)
         {
             await ctx.TriggerTypingAsync();
-            string[,] jogo = new string[2, 2];
+            string[,] jogo = new string[3, 3] { { " ", " ", " " }, { " ", " ", " " }, { " ", " ", " " } };
             List<DiscordButtonComponent> ButtonsDisponiveis = new List<DiscordButtonComponent>();
             List<DiscordButtonComponent> Buttons = new List<DiscordButtonComponent>();
             Random rnd = new();
@@ -29,8 +29,8 @@ namespace miguelito_bot_commands.commands
                 .AddComponents(Buttons[0], Buttons[1], Buttons[2])
                 .AddComponents(Buttons[3], Buttons[4], Buttons[5])
                 .AddComponents(Buttons[6], Buttons[7], Buttons[8]);
-            
-            if(user == null)
+            bool ganho = false;
+            if (user == null)
             {
                 await ctx.RespondAsync($"Opa {ctx.Member.Mention}, vamo jogar um jogo da velha?\n\n" +
                 $"Você é o **X**\nEu sou o **O**");
@@ -45,47 +45,47 @@ namespace miguelito_bot_commands.commands
                         if (e.Id == Buttons[0].CustomId)
                         {
                             Buttons[0] = new(ButtonStyle.Danger, "BT1", "X", true);
-                            //jogo[0, 0] = "X";
+                            jogo[0, 0] = "X";
                         }
                         else if (e.Id == Buttons[1].CustomId)
                         {
                             Buttons[1] = new(ButtonStyle.Danger, "BT2", "X", true);
-                            //jogo[0, 1] = "X";
+                            jogo[0, 1] = "X";
                         }
                         else if (e.Id == Buttons[2].CustomId)
                         {
                             Buttons[2] = new(ButtonStyle.Danger, "BT3", "X", true);
-                            //jogo[0, 2] = "X";
+                            jogo[0, 2] = "X";
                         }
                         else if (e.Id == Buttons[3].CustomId)
                         {
                             Buttons[3] = new(ButtonStyle.Danger, "BT4", "X", true);
-                            //jogo[1, 0] = "X";
+                            jogo[1, 0] = "X";
                         }
                         else if (e.Id == Buttons[4].CustomId)
                         {
                             Buttons[4] = new(ButtonStyle.Danger, "BT5", "X", true);
-                            //jogo[1, 1] = "X";
+                            jogo[1, 1] = "X";
                         }
                         else if (e.Id == Buttons[5].CustomId)
                         {
                             Buttons[5] = new(ButtonStyle.Danger, "BT6", "X", true);
-                            //jogo[1, 2] = "X";
+                            jogo[1, 2] = "X";
                         }
                         else if (e.Id == Buttons[6].CustomId)
                         {
                             Buttons[6] = new(ButtonStyle.Danger, "BT7", "X", true);
-                            //jogo[2, 0] = "X";
+                            jogo[2, 0] = "X";
                         }
                         else if (e.Id == Buttons[7].CustomId)
                         {
                             Buttons[7] = new(ButtonStyle.Danger, "BT8", "X", true);
-                            //jogo[2, 1] = "X";
+                            jogo[2, 1] = "X";
                         }
                         else if (e.Id == Buttons[8].CustomId)
                         {
                             Buttons[8] = new(ButtonStyle.Danger, "BT9", "X", true);
-                            //jogo[2, 2] = "X";
+                            jogo[2, 2] = "X";
                         }
                         builder = new DiscordMessageBuilder();
                         builder.WithContent("Boa jogada, minha vez");
@@ -94,7 +94,6 @@ namespace miguelito_bot_commands.commands
                                .AddComponents(Buttons[3], Buttons[4], Buttons[5])
                                .AddComponents(Buttons[6], Buttons[7], Buttons[8]);
                         await message.ModifyAsync(builder);
-                        
 
                         if (!Buttons[0].Disabled)
                         {
@@ -132,23 +131,95 @@ namespace miguelito_bot_commands.commands
                         {
                             ButtonsDisponiveis.Add(Buttons[8]);
                         }
-                        DiscordButtonComponent JogadaBot = ButtonsDisponiveis[rnd.Next(0, ButtonsDisponiveis.Count)];
-                        for (int i = 0; i < Buttons.Count; i++)
+                        if (jogo[0, 0] == "X" && jogo[0, 1] == "X" && jogo[0, 2] == "X"
+                        || jogo[0, 0] == "X" && jogo[1, 0] == "X" && jogo[2, 0] == "X"
+                        || jogo[0, 0] == "X" && jogo[1, 1] == "X" && jogo[2, 2] == "X"
+                        || jogo[1, 0] == "X" && jogo[1, 1] == "X" && jogo[1, 2] == "X"
+                        || jogo[1, 1] == "X" && jogo[2, 1] == "X" && jogo[2, 1] == "X"
+                        || jogo[2, 0] == "X" && jogo[2, 1] == "X" && jogo[2, 2] == "X"
+                        || jogo[2, 0] == "X" && jogo[1, 1] == "X" && jogo[0, 2] == "X"
+                        || jogo[0, 2] == "X" && jogo[1, 2] == "X" && jogo[2, 2] == "X")
                         {
-                            if (Buttons[i].CustomId == JogadaBot.CustomId)
-                            {
-                                Buttons[i] = new(ButtonStyle.Success, "BT" + (i + 1), "O", true);
-                                //jogo[i, 0] = "O";
-                            }
+                            ganho = true;
+                            await ctx.RespondAsync($"Opa {ctx.Member.Mention}, você ganhou!");
                         }
-                        builder = new DiscordMessageBuilder();
-                        builder.WithContent($"Joguei, sua vez {ctx.Member.Mention}");
-                        builder
-                               .AddComponents(Buttons[0], Buttons[1], Buttons[2])
-                               .AddComponents(Buttons[3], Buttons[4], Buttons[5])
-                               .AddComponents(Buttons[6], Buttons[7], Buttons[8]);
-                        await message.ModifyAsync(builder);
-                        ButtonsDisponiveis.Clear();
+                        else if (jogo[0, 0] == "O" && jogo[0, 1] == "O" && jogo[0, 2] == "O"
+                        || jogo[0, 0] == "O" && jogo[1, 0] == "O" && jogo[2, 0] == "O"
+                        || jogo[0, 0] == "O" && jogo[1, 1] == "O" && jogo[2, 2] == "O"
+                        || jogo[1, 0] == "O" && jogo[1, 1] == "O" && jogo[1, 2] == "O"
+                        || jogo[1, 1] == "O" && jogo[2, 1] == "O" && jogo[2, 1] == "O"
+                        || jogo[2, 0] == "O" && jogo[2, 1] == "O" && jogo[2, 2] == "O"
+                        || jogo[2, 0] == "O" && jogo[1, 1] == "O" && jogo[0, 2] == "O"
+                        || jogo[0, 2] == "O" && jogo[1, 2] == "O" && jogo[2, 2] == "O")
+                        {
+                            ganho = true;
+                            await ctx.RespondAsync($"Opa Eu Ganhei");
+                        }
+                        else if (ButtonsDisponiveis.Count == 0)
+                        {
+                            ganho = true;
+                            await ctx.RespondAsync($"Opa {ctx.Member.Mention}, você empatou!");
+                        }
+
+
+                        if (!ganho)
+                        {
+                            DiscordButtonComponent JogadaBot = ButtonsDisponiveis[rnd.Next(0, ButtonsDisponiveis.Count)];
+                            for (int i = 0; i < Buttons.Count; i++)
+                            {
+                                if (Buttons[i].CustomId == JogadaBot.CustomId)
+                                {
+                                    Buttons[i] = new(ButtonStyle.Success, Buttons[i].CustomId, "O", true);
+                                    if (Buttons[i].CustomId == "BT1")
+                                    {
+                                        jogo[0, 0] = "O";
+                                        Console.WriteLine(jogo[0, 0]);
+                                    }
+                                    else if (Buttons[i].CustomId == "BT2")
+                                    {
+                                        jogo[0, 1] = "O";
+                                        Console.WriteLine(jogo[0, 1]);
+                                    }
+                                    else if (Buttons[i].CustomId == "BT3")
+                                    {
+                                        jogo[0, 2] = "O";
+                                        Console.WriteLine(jogo[0, 2]);
+                                    }
+                                    else if (Buttons[i].CustomId == "BT4")
+                                    {
+                                        jogo[1, 0] = "O";
+                                    }
+                                    else if (Buttons[i].CustomId == "BT5")
+                                    {
+                                        jogo[1, 1] = "O";
+                                    }
+                                    else if (Buttons[i].CustomId == "BT6")
+                                    {
+                                        jogo[1, 2] = "O";
+                                    }
+                                    else if (Buttons[i].CustomId == "BT7")
+                                    {
+                                        jogo[2, 0] = "O";
+                                    }
+                                    else if (Buttons[i].CustomId == "BT8")
+                                    {
+                                        jogo[2, 1] = "O";
+                                    }
+                                    else if (Buttons[i].CustomId == "BT9")
+                                    {
+                                        jogo[2, 2] = "O";
+                                    }
+                                }
+                            }
+                            builder = new DiscordMessageBuilder();
+                            builder.WithContent($"Joguei, sua vez {ctx.Member.Mention}");
+                            builder
+                                   .AddComponents(Buttons[0], Buttons[1], Buttons[2])
+                                   .AddComponents(Buttons[3], Buttons[4], Buttons[5])
+                                   .AddComponents(Buttons[6], Buttons[7], Buttons[8]);
+                            await message.ModifyAsync(builder);
+                            ButtonsDisponiveis.Clear();
+                        }
                     }
                     
                 };
