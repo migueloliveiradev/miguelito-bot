@@ -121,219 +121,153 @@ namespace miguelito_bot_commands.commands
         {
             try
             {
-                if (url != "")
+                if (url.Contains("https://cdn.discordapp.com/attachments/") || ctx.Message.Attachments.Count > 0)
                 {
-                    if (url.Contains("https://cdn.discordapp.com/attachments/"))
+                    byte[] file = null;
+                    if (ctx.Message.Attachments.Count > 0)
                     {
-                        int detectado = 0;
-                        int notdetectado = 0;
-                        string BitDefender = "passou :white_check_mark:";
-                        string Malwarebytes = "passou :white_check_mark:";
-                        string Avast = "passou :white_check_mark:";
-                        string McAfee = "passou :white_check_mark:";
-                        string avira = "passou :white_check_mark:";
-                        string Microsoft = "passou :white_check_mark:";
-                        string Baidu = "passou :white_check_mark:";
-
-                        byte[] imageBytes = client.DownloadData(url);
-                        FileReport fileReport = await virusTotal.GetFileReportAsync(imageBytes);
-                        if (fileReport.ResponseCode == FileReportResponseCode.Present)
-                        {
-                            foreach (KeyValuePair<string, ScanEngine> scan in fileReport.Scans)
-                            {
-
-                                if (scan.Value.Detected)
-                                {
-                                    detectado++;
-                                }
-                                else
-                                {
-                                    notdetectado++;
-                                }
-                                if (scan.Key == "BitDefender" && scan.Value.Detected)
-                                {
-                                    BitDefender = "não passou :warning:";
-                                }
-                                else if (scan.Key == "Malwarebytes" && scan.Value.Detected)
-                                {
-                                    Malwarebytes = "não passou :warning:";
-                                }
-                                else if (scan.Key == "Avast" && scan.Value.Detected)
-                                {
-                                    Avast = "não passou :warning:";
-                                }
-                                else if (scan.Key == "McAfee-GW-Edition" && scan.Value.Detected)
-                                {
-                                    McAfee = "não passou :warning:";
-                                }
-                                else if (scan.Key == "Microsoft" && scan.Value.Detected)
-                                {
-                                    Microsoft = "não passou :warning:";
-                                }
-                                else if (scan.Key == "Baidu" && scan.Value.Detected)
-                                {
-                                    Baidu = "não passou :warning:";
-                                }
-                                else if (scan.Key == "Avira" && scan.Value.Detected)
-                                {
-                                    Baidu = "não passou :warning:";
-                                }
-                            }
-                            DiscordEmbedBuilder embed = new DiscordEmbedBuilder
-                            {
-                                Title = ":warning: **Verificação de virus concluida**",
-                                Color = DiscordColor.CornflowerBlue,
-                                Description =
-                                $"**`{detectado}` sinalizaram este arquivo como malicioso**\n" +
-                                 $"**`{notdetectado}` não sinalizaram este arquivo como malicioso**\n\n" +
-                                $"**PRINCIPAIS ANTIVIRUS**\n" +
-                                 $"BitDefender: {BitDefender}\n" +
-                                $"Malwarebytes: {Malwarebytes}\n" +
-                                $"Avast: {Avast}\n" +
-                                $"McAfee: {McAfee}\n" +
-                                $"Microsoft: {Microsoft}\n" +
-                                $"Avira: {avira}\n" +
-                                $"Baidu: {Baidu}\n"
-                            };
-                            await ctx.RespondAsync(embed);
-                        }
+                        file = client.DownloadData(ctx.Message.Attachments.First().Url);
                     }
-                    else if (url.Contains("http://") || url.Contains("https://"))
+                    else if (url.Contains("https://cdn.discordapp.com/attachments/"))
                     {
-                        int detectado = 0;
-                        int notdetectado = 0;
-                        string BitDefender = "passou :white_check_mark:";
-                        string google = "passou :white_check_mark:";
-                        string Avira = "passou :white_check_mark:";
-                        string Baidu = "passou :white_check_mark:";
-                        UrlReport urlReport = await virusTotal.GetUrlReportAsync(url);
-                        if (urlReport.ResponseCode == UrlReportResponseCode.Present)
+                        file = client.DownloadData(url);
+                    }
+                    int detectado = 0;
+                    int notdetectado = 0;
+                    string BitDefender = "passou :white_check_mark:";
+                    string Malwarebytes = "passou :white_check_mark:";
+                    string Avast = "passou :white_check_mark:";
+                    string McAfee = "passou :white_check_mark:";
+                    string avira = "passou :white_check_mark:";
+                    string Microsoft = "passou :white_check_mark:";
+                    string Baidu = "passou :white_check_mark:";
+                    FileReport fileReport = await virusTotal.GetFileReportAsync(file);
+                    if (fileReport.ResponseCode == FileReportResponseCode.Present)
+                    {
+                        foreach (KeyValuePair<string, ScanEngine> scan in fileReport.Scans)
                         {
-                            Console.WriteLine("uai5");
-                            foreach (KeyValuePair<string, UrlScanEngine> scan in urlReport.Scans)
+
+                            if (scan.Value.Detected)
                             {
-                                if (scan.Value.Detected)
-                                {
-                                    detectado++;
-                                }
-                                else
-                                {
-                                    notdetectado++;
-                                }
-                                if (scan.Key == "BitDefender" && scan.Value.Detected)
-                                {
-                                    BitDefender = "não passou :warning:";
-                                }
-                                else if (scan.Key == "Google Safebrowsing" && scan.Value.Detected)
-                                {
-                                    google = "não passou :warning:";
-                                }
-                                else if (scan.Key == "Avira" && scan.Value.Detected)
-                                {
-                                    Avira = "não passou :warning:";
-                                }
-                                else if (scan.Key == "Baidu-International" && scan.Value.Detected)
-                                {
-                                    Baidu = "não passou :warning:";
-                                }
+                                detectado++;
                             }
-                            DiscordEmbedBuilder embed = new DiscordEmbedBuilder
+                            else
                             {
-                                Title = ":warning: **Verificação de virus concluida**",
-                                Color = DiscordColor.CornflowerBlue,
-                                Description =
-                               $"**`{detectado}` sinalizaram este arquivo como malicioso**\n" +
-                               $"**`{notdetectado}` não sinalizaram este arquivo como malicioso**\n\n" +
-                               $"**PRINCIPAIS ANTIVIRUS**\n" +
-                               $"BitDefender: {BitDefender}\n" +
-                               $"Google: {google}\n" +
-                               $"Avira: {Avira}\n" +
-                               $"Baidu: {Baidu}\n"
-                            };
-                            await ctx.RespondAsync(embed);
+                                notdetectado++;
+                            }
+                            if (scan.Key == "BitDefender" && scan.Value.Detected)
+                            {
+                                BitDefender = "não passou :warning:";
+                            }
+                            else if (scan.Key == "Malwarebytes" && scan.Value.Detected)
+                            {
+                                Malwarebytes = "não passou :warning:";
+                            }
+                            else if (scan.Key == "Avast" && scan.Value.Detected)
+                            {
+                                Avast = "não passou :warning:";
+                            }
+                            else if (scan.Key == "McAfee-GW-Edition" && scan.Value.Detected)
+                            {
+                                McAfee = "não passou :warning:";
+                            }
+                            else if (scan.Key == "Microsoft" && scan.Value.Detected)
+                            {
+                                Microsoft = "não passou :warning:";
+                            }
+                            else if (scan.Key == "Baidu" && scan.Value.Detected)
+                            {
+                                Baidu = "não passou :warning:";
+                            }
+                            else if (scan.Key == "Avira" && scan.Value.Detected)
+                            {
+                                Baidu = "não passou :warning:";
+                            }
                         }
+                        DiscordEmbedBuilder embed = new DiscordEmbedBuilder
+                        {
+                            Title = ":warning: **Verificação de virus concluida**",
+                            Color = DiscordColor.CornflowerBlue,
+                            Description =
+                            $"**`{detectado}` sinalizaram este arquivo como malicioso**\n" +
+                             $"**`{notdetectado}` não sinalizaram este arquivo como malicioso**\n\n" +
+                            $"**PRINCIPAIS ANTIVIRUS**\n" +
+                             $"BitDefender: {BitDefender}\n" +
+                            $"Malwarebytes: {Malwarebytes}\n" +
+                            $"Avast: {Avast}\n" +
+                            $"McAfee: {McAfee}\n" +
+                            $"Microsoft: {Microsoft}\n" +
+                            $"Avira: {avira}\n" +
+                            $"Baidu: {Baidu}\n"
+                        };
+                        await ctx.RespondAsync(embed);
+                    }
+
+                }
+                else if (url.Contains("http://") || url.Contains("https://"))
+                {
+                    int detectado = 0;
+                    int notdetectado = 0;
+                    string BitDefender = "passou :white_check_mark:";
+                    string google = "passou :white_check_mark:";
+                    string Avira = "passou :white_check_mark:";
+                    string Baidu = "passou :white_check_mark:";
+                    UrlReport urlReport = await virusTotal.GetUrlReportAsync(url);
+                    if (urlReport.ResponseCode == UrlReportResponseCode.Present)
+                    {
+                        Console.WriteLine("uai5");
+                        foreach (KeyValuePair<string, UrlScanEngine> scan in urlReport.Scans)
+                        {
+                            if (scan.Value.Detected)
+                            {
+                                detectado++;
+                            }
+                            else
+                            {
+                                notdetectado++;
+                            }
+                            if (scan.Key == "BitDefender" && scan.Value.Detected)
+                            {
+                                BitDefender = "não passou :warning:";
+                            }
+                            else if (scan.Key == "Google Safebrowsing" && scan.Value.Detected)
+                            {
+                                google = "não passou :warning:";
+                            }
+                            else if (scan.Key == "Avira" && scan.Value.Detected)
+                            {
+                                Avira = "não passou :warning:";
+                            }
+                            else if (scan.Key == "Baidu-International" && scan.Value.Detected)
+                            {
+                                Baidu = "não passou :warning:";
+                            }
+                        }
+                        DiscordEmbedBuilder embed = new DiscordEmbedBuilder
+                        {
+                            Title = ":warning: **Verificação de virus concluida**",
+                            Color = DiscordColor.CornflowerBlue,
+                            Description =
+                           $"**`{detectado}` sinalizaram este arquivo como malicioso**\n" +
+                           $"**`{notdetectado}` não sinalizaram este arquivo como malicioso**\n\n" +
+                           $"**PRINCIPAIS ANTIVIRUS**\n" +
+                           $"BitDefender: {BitDefender}\n" +
+                           $"Google: {google}\n" +
+                           $"Avira: {Avira}\n" +
+                           $"Baidu: {Baidu}\n"
+                        };
+                        await ctx.RespondAsync(embed);
                     }
                 }
                 else
                 {
-                    if (ctx.Message.Attachments.Count > 0)
-                    {
-                        int detectado = 0;
-                        int notdetectado = 0;
-                        string BitDefender = "passou :white_check_mark:";
-                        string Malwarebytes = "passou :white_check_mark:";
-                        string Avast = "passou :white_check_mark:";
-                        string McAfee = "passou :white_check_mark:";
-                        string Microsoft = "passou :white_check_mark:";
-                        string Baidu = "passou :white_check_mark:";
-
-                        byte[] imageBytes = client.DownloadData(ctx.Message.Attachments.First().Url);
-                        FileReport fileReport = await virusTotal.GetFileReportAsync(imageBytes);
-                        if (fileReport.ResponseCode == FileReportResponseCode.Present)
-                        {
-                            foreach (KeyValuePair<string, ScanEngine> scan in fileReport.Scans)
-                            {
-
-                                if (scan.Value.Detected)
-                                {
-                                    detectado++;
-                                }
-                                else
-                                {
-                                    notdetectado++;
-                                }
-                                if (scan.Key == "BitDefender" && scan.Value.Detected)
-                                {
-                                    BitDefender = "não passou :warning:";
-                                }
-                                else if (scan.Key == "Malwarebytes" && scan.Value.Detected)
-                                {
-                                    Malwarebytes = "não passou :warning:";
-                                }
-                                else if (scan.Key == "Avast" && scan.Value.Detected)
-                                {
-                                    Avast = "não passou :warning:";
-                                }
-                                else if (scan.Key == "McAfee" && scan.Value.Detected)
-                                {
-                                    McAfee = "não passou :warning:";
-                                }
-                                else if (scan.Key == "Microsoft" && scan.Value.Detected)
-                                {
-                                    Microsoft = "não passou :warning:";
-                                }
-                                else if (scan.Key == "Baidu" && scan.Value.Detected)
-                                {
-                                    Baidu = "não passou :warning:";
-                                }
-                            }
-                            DiscordEmbedBuilder embed = new DiscordEmbedBuilder
-                            {
-                                Title = ":warning: **Verificação de virus concluida**",
-                                Color = DiscordColor.CornflowerBlue,
-                                Description =
-                              $"**`{detectado}` sinalizaram este arquivo como malicioso**\n" +
-                              $"**`{notdetectado}` não sinalizaram este arquivo como malicioso**\n\n" +
-                              $"**PRINCIPAIS ANTIVIRUS**\n" +
-                              $"BitDefender: {BitDefender}\n" +
-                                                  $"Malwarebytes: {Malwarebytes}\n" +
-                                                  $"Avast: {Avast}\n" +
-                                                  $"McAfee: {McAfee}\n" +
-                                                  $"Microsoft: {Microsoft}\n" +
-                                                  $"Baidu: {Baidu}\n"
-                            };
-                            await ctx.RespondAsync(embed);
-                        }
-                    }
-                    else
-                    {
-                        await ctx.RespondAsync("por gentileza coloque um link ou um arquivo para eu poder verificar :face_with_monocle:");
-                    }
+                    await ctx.RespondAsync("Por gentileza colocar o link desejado, link do arquivo ou anexe o arquivo na mensagem, " +
+                        "ainda não tenho poder de adivinhar o que você quer verificar");
                 }
             }
             catch
             {
-                await ctx.RespondAsync("limite excedido, tente novamente por gentileza em 1 minuto");
+                await ctx.RespondAsync("Ocorreu um erro ao verificar o arquivo, por gentileza tente novamente");
             }
             await Program.log("virus");
         }
@@ -493,7 +427,7 @@ namespace miguelito_bot_commands.commands
                     {
                         Title = $"{name}",
                         Color = DiscordColor.CornflowerBlue
-                    }.AddField($"**ID:**:", id ,true).AddField($"**Altura:**", height+ "m", true)
+                    }.AddField($"**ID:**:", id, true).AddField($"**Altura:**", height + "m", true)
                     .AddField($"**Peso:**", weight + "kg", true).AddField($"**XP base:**", base_experience, true)
                     .AddField($"**Tipo:**", category, true).AddField($"**Ordem:**", order, true).WithThumbnail(image);
                     await ctx.RespondAsync(embed);
@@ -505,5 +439,164 @@ namespace miguelito_bot_commands.commands
             }
         }
 
+        [Command("anime"), Aliases("manga", "animes", "mangas")]
+        public async Task Anime(CommandContext ctx, [RemainingText] string anime = "")
+        {
+            await ctx.TriggerTypingAsync();
+            try
+            {
+                if (anime != "")
+                {
+                    string url = $"https://api.jikan.moe/v3/search/anime?q={anime}";
+                    string json = new WebClient().DownloadString(url);
+                    dynamic data = JsonConvert.DeserializeObject(json);
+                    string title = data.results[0].title;
+                    string image = data.results[0].image_url;
+                    string synopsis = data.results[0].synopsis;
+                    TranslateService service = new TranslateService(new BaseClientService.Initializer { ApiKey = Program.config[4] });
+                    TranslationClientImpl client = new TranslationClientImpl(service, TranslationModel.ServiceDefault);
+                    TranslationResult result = client.TranslateText(synopsis, "pt");
+                    synopsis = result.TranslatedText;
+                    string type = data.results[0].type;
+                    string episodes = data.results[0].episodes;
+                    string start_date = data.results[0].start_date;
+                    start_date = start_date.Replace("21:00:00", "");
+                    string end_date = data.results[0].end_date;
+                    end_date = end_date.Replace("21:00:00", "");
+                    DiscordEmbedBuilder embed = new DiscordEmbedBuilder
+                    {
+                        Title = $"{title}",
+                        Color = DiscordColor.CornflowerBlue,
+                        ImageUrl = image
+                    }
+                    .AddField($"**Tipo:**", type, true)
+                    .AddField($"**Episódios:**", episodes, true)
+                    .AddField($"**Data de início:**", start_date, true)
+                    .AddField($"**Data de término:**", end_date, true)
+                    .WithDescription(synopsis);
+                    await ctx.RespondAsync(embed);
+                }
+                else
+                {
+                    await ctx.RespondAsync("Por gentileza insira o nome do anime que deseja pesquisar");
+                }
+            }
+            catch (Exception ex)
+            {
+                await ctx.RespondAsync("Ocorreu um erro ao pesquisar o anime solicitado");
+            }
+
+        }
+
+        [Command("minecraftskin"), Aliases("mc", "skin")]
+        public async Task MinecraftSkin(CommandContext ctx, [RemainingText] string nick = "")
+        {
+            await ctx.TriggerTypingAsync();
+            try
+            {
+                if (nick != "")
+                {
+                    string url = $"https://api.mojang.com/users/profiles/minecraft/{nick}";
+                    string json = new WebClient().DownloadString(url);
+                    dynamic data = JsonConvert.DeserializeObject(json);
+                    string id = data.id;
+                    string name = data.name;
+                    DiscordMessageBuilder builder = new();
+                    DiscordLinkButtonComponent download = new($"https://crafatar.com/renders/body/{id}?size=4&default=MHF_Steve&overlay", "Baixar");
+                    DiscordLinkButtonComponent Skin = new($"https://crafatar.com/skins/{id}?default=MHF_Steve&overlay", "Skin");
+                    DiscordEmbedBuilder embed = new DiscordEmbedBuilder
+                    {
+                        Title = $"Skin de {name}",
+                        Color = DiscordColor.CornflowerBlue,
+                        ImageUrl = $"https://crafatar.com/renders/body/{id}?size=4&default=MHF_Steve&overlay"
+                    };
+                    builder.AddEmbed(embed);
+                    builder.AddComponents(download,Skin);
+                    await ctx.RespondAsync(builder);
+                }
+                else
+                {
+                    await ctx.RespondAsync("Por gentileza insira o nome do cara que você deseja a skin");
+                }
+            }
+            catch
+            {
+                await ctx.RespondAsync("Ocorreu algum erro ao tentar pesquisar o skin do Minecraft");
+            }
+        }
+
+        [Command("minecrafthead"), Aliases("head")]
+        public async Task minecraftHead(CommandContext ctx, [RemainingText] string nick = "")
+        {
+            await ctx.TriggerTypingAsync();
+            try
+            {
+                if (nick != "")
+                {
+                    string url = $"https://api.mojang.com/users/profiles/minecraft/{nick}";
+                    string json = new WebClient().DownloadString(url);
+                    dynamic data = JsonConvert.DeserializeObject(json);
+                    string id = data.id;
+                    string name = data.name;
+                    DiscordMessageBuilder builder = new();
+                    DiscordLinkButtonComponent download = new($"https://crafatar.com/renders/head/{id}?size=4&default=MHF_Steve&overlay", "Baixar");
+                    DiscordLinkButtonComponent Skin = new($"https://crafatar.com/skins/{id}?default=MHF_Steve&overlay", "Skin");
+                    DiscordEmbedBuilder embed = new DiscordEmbedBuilder
+                    {
+                        Title = $"Skin de {name}",
+                        Color = DiscordColor.CornflowerBlue,
+                        ImageUrl = $"https://crafatar.com/renders/head/{id}?size=4&default=MHF_Steve&overlay"
+                    };
+                    builder.AddEmbed(embed);
+                    builder.AddComponents(download, Skin);
+                    await ctx.RespondAsync(builder);
+                }
+                else
+                {
+                    await ctx.RespondAsync("Por gentileza insira o nome do cara que você deseja a skin");
+                }
+            }
+            catch 
+            {
+                await ctx.RespondAsync("Ocorreu algum erro ao tentar pesquisar o skin do Minecraft");
+            }
+        }
+
+        [Command("minecraftcape"), Aliases("cape")]
+        public async Task minecraftCape(CommandContext ctx, [RemainingText] string nick = "")
+        {
+            await ctx.TriggerTypingAsync();
+            try
+            {
+                if (nick != "")
+                {
+                    string url = $"https://api.mojang.com/users/profiles/minecraft/{nick}";
+                    string json = new WebClient().DownloadString(url);
+                    dynamic data = JsonConvert.DeserializeObject(json);
+                    string id = data.id;
+                    string name = data.name;
+                    DiscordMessageBuilder builder = new();
+                    DiscordLinkButtonComponent download = new($"https://crafatar.com/renders/cape/{id}?size=4&default=MHF_Steve&overlay", "Baixar");
+                    DiscordLinkButtonComponent Skin = new($"https://crafatar.com/skins/{id}?default=MHF_Steve&overlay", "Skin");
+                    DiscordEmbedBuilder embed = new DiscordEmbedBuilder
+                    {
+                        Title = $"Skin de {name}",
+                        Color = DiscordColor.CornflowerBlue,
+                        ImageUrl = $"https://crafatar.com/renders/cape/{id}?size=4&default=MHF_Steve&overlay"
+                    };
+                    builder.AddEmbed(embed);
+                    builder.AddComponents(download, Skin);
+                    await ctx.RespondAsync(builder);
+                }
+                else
+                {
+                    await ctx.RespondAsync("Por gentileza insira o nome do cara que você deseja a skin");
+                }
+            }
+            catch
+            {
+                await ctx.RespondAsync("Ocorreu algum erro ao tentar pesquisar o skin do Minecraft");
+            }
+        }
     }
 }

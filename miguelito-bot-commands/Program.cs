@@ -45,7 +45,7 @@ namespace miguelito_bot_commands
             {
                 config = File.ReadAllLines($@"/home/ubuntu/github/config/config.miguelito");
             }
-            
+            Console.WriteLine("Setting...");
             DiscordConfiguration cfg = new DiscordConfiguration
             {
                 Token = config[0],
@@ -53,9 +53,11 @@ namespace miguelito_bot_commands
                 AutoReconnect = true,
                 ReconnectIndefinitely = true,
                 GatewayCompressionLevel = GatewayCompressionLevel.Stream,
-                MinimumLogLevel = LogLevel.Debug,
+                MinimumLogLevel = LogLevel.Critical,
                 Intents = DiscordIntents.All,
             };
+            //I'm satoshi nakamoto
+            Console.WriteLine("Loading...");            
             cliente = new DiscordClient(cfg);
             string[] prefix = new string[1];
             prefix[0] = "-";
@@ -64,6 +66,7 @@ namespace miguelito_bot_commands
                 PollBehaviour = PollBehaviour.KeepEmojis,
                 Timeout = TimeSpan.FromSeconds(20)
             });
+            Console.WriteLine("Registering commands...");
             CommandsNextExtension cnt = cliente.UseCommandsNext(new CommandsNextConfiguration()
             {
                 StringPrefixes = prefix,
@@ -73,11 +76,6 @@ namespace miguelito_bot_commands
                 EnableMentionPrefix = true,
                 IgnoreExtraArguments = true,
             });
-            cnt.CommandErrored += (cnext, e) =>
-            {
-                Console.WriteLine($"error: {e.Exception.Message}");
-                return Task.CompletedTask;
-            };
             cliente.ClientErrored += this.Client_ClientErrored;
             cnt.RegisterCommands<main_commands>();
             cnt.RegisterCommands<commands_administration>();
@@ -89,7 +87,9 @@ namespace miguelito_bot_commands
             cnt.RegisterCommands<commands_games>();
             cnt.RegisterCommands<random_commands>();
             cnt.RegisterCommands<roll_commands>();
+            Console.WriteLine("Connecting...");
             await cliente.ConnectAsync();
+            Console.WriteLine("Running...");
             await Task.Delay(-1);
         }
         private async Task Client_ClientErrored(DiscordClient sender, ClientErrorEventArgs e)

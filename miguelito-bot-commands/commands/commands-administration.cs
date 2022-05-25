@@ -22,7 +22,7 @@ namespace miguelito_bot_commands.commands
                 DiscordMessage messagem = await ctx.RespondAsync(builder);
                 Program.cliente.ComponentInteractionCreated += async (s, e) =>
                 {
-                    if (e.User == ctx.User)
+                    if (e.User == ctx.User && e.Message.Id == messagem.Id)
                     {
                         await e.Interaction.CreateResponseAsync(InteractionResponseType.DeferredMessageUpdate);
                         if (e.Id == "ButtonBan")
@@ -55,7 +55,7 @@ namespace miguelito_bot_commands.commands
                         DiscordMessage messagem = await ctx.RespondAsync(builder);
                         Program.cliente.ComponentInteractionCreated += async (s, e) =>
                         {
-                            if (e.User == ctx.User)
+                            if (e.User == ctx.User && e.Message.Id == messagem.Id)
                             {
                                 await e.Interaction.CreateResponseAsync(InteractionResponseType.DeferredMessageUpdate);
                                 if (e.Id == "ButtonBan")
