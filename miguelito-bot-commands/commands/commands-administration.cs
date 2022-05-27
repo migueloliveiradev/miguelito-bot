@@ -20,7 +20,7 @@ namespace miguelito_bot_commands.commands
                 builder.WithContent($"Opa {ctx.Member.Mention} pelo visto você não vai muito com a propia cara, mas por favor confirme seu auto banimento.")
                        .AddComponents(ButtonBan, ButtonBanCancel);
                 DiscordMessage messagem = await ctx.RespondAsync(builder);
-                Program.cliente.ComponentInteractionCreated += async (s, e) =>
+                ctx.Client.ComponentInteractionCreated += async (s, e) =>
                 {
                     if (e.User == ctx.User && e.Message.Id == messagem.Id)
                     {
@@ -30,12 +30,14 @@ namespace miguelito_bot_commands.commands
                             await user.RemoveAsync();
                             await messagem.DeleteAsync();
                             await ctx.Client.SendMessageAsync(ctx.Channel, "O trouxa se baniu do servidor :joy::joy::joy::joy:");
+                            return;
                         }
                         else if (e.Id == "ButtonBanCancel")
                         {
                             await messagem.DeleteAsync();
                             await ctx.Message.DeleteAsync();
                             await ctx.Client.SendMessageAsync(ctx.Channel, $"Ala, o {ctx.Member.Mention} queria se banir mas peidou :joy:");
+                            return;
                         }
                     }
                 };
@@ -53,7 +55,7 @@ namespace miguelito_bot_commands.commands
                         builder.WithContent($"Opa {ctx.Member.Mention} por favor confirme o banimento.")
                                .AddComponents(ButtonBan, ButtonBanCancel);
                         DiscordMessage messagem = await ctx.RespondAsync(builder);
-                        Program.cliente.ComponentInteractionCreated += async (s, e) =>
+                        ctx.Client.ComponentInteractionCreated += async (s, e) =>
                         {
                             if (e.User == ctx.User && e.Message.Id == messagem.Id)
                             {
@@ -62,12 +64,14 @@ namespace miguelito_bot_commands.commands
                                 {
                                     await user.BanAsync();
                                     await messagem.DeleteAsync();
-                                    await ctx.Client.SendMessageAsync(ctx.Channel, "banido. banido, banido");
+                                    await ctx.Client.SendMessageAsync(ctx.Channel, $"{user.DisplayName}({user.Id}) foi banido por {ctx.Member.Mention}");
+                                    return;
                                 }
                                 else if (e.Id == "ButtonBanCancel")
                                 {
                                     await messagem.DeleteAsync();
                                     await ctx.Message.DeleteAsync();
+                                    return;
                                 }
                             }
                         };
@@ -79,7 +83,7 @@ namespace miguelito_bot_commands.commands
                         $"confirme ou cancele seu auto banimento.")
                                .AddComponents(ButtonBan, ButtonBanCancel);
                         DiscordMessage messagem = await ctx.RespondAsync(builder);
-                        Program.cliente.ComponentInteractionCreated += async (s, e) =>
+                        ctx.Client.ComponentInteractionCreated += async (s, e) =>
                         {
                             if (e.User == ctx.User)
                             {
@@ -88,12 +92,14 @@ namespace miguelito_bot_commands.commands
                                 {
                                     await user.BanAsync();
                                     await messagem.DeleteAsync();
-                                    await ctx.Client.SendMessageAsync(ctx.Channel, "banido. banido, banido");
+                                    await ctx.Client.SendMessageAsync(ctx.Channel, $"{user.DisplayName}({user.Id}) foi banido por {ctx.Member.Mention}");
+                                    return;
                                 }
                                 else if (e.Id == "ButtonBanCancel")
                                 {
                                     await messagem.DeleteAsync();
                                     await ctx.Message.DeleteAsync();
+                                    return;
                                 }
                             }
                         };
@@ -159,7 +165,7 @@ namespace miguelito_bot_commands.commands
                 builder.WithContent($"Opa {ctx.Member.Mention} por favor confirme o kick.")
                        .AddComponents(ButtonKick, ButtonKickCancel);
                 DiscordMessage messagem = await ctx.RespondAsync(builder);
-                Program.cliente.ComponentInteractionCreated += async (s, e) =>
+                ctx.Client.ComponentInteractionCreated += async (s, e) =>
                 {
                     if (e.User == ctx.User)
                     {
@@ -168,12 +174,14 @@ namespace miguelito_bot_commands.commands
                         {
                             await user.RemoveAsync();
                             await messagem.DeleteAsync();
-                            await ctx.Client.SendMessageAsync(ctx.Channel, "banido. banido, banido");
+                            await ctx.Client.SendMessageAsync(ctx.Channel, $"{user.DisplayName}({user.Id}) foi expulso por {ctx.Member.Mention}");
+                            return;
                         }
                         else if (e.Id.Contains("ButtonKickCancel"))
                         {
                             await messagem.DeleteAsync();
                             await ctx.Message.DeleteAsync();
+                            return;
                         }
                     }
                 };

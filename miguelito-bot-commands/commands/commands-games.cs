@@ -37,7 +37,7 @@ namespace miguelito_bot_commands.commands
                 builder.WithContent($"Vc começa :smiley:");
                 DiscordMessage message = await ctx.Client.SendMessageAsync(ctx.Channel, builder);
 
-                Program.cliente.ComponentInteractionCreated += async (s, e) =>
+                ctx.Client.ComponentInteractionCreated += async (s, e) =>
                 {
                     if (e.User == ctx.User && e.Message.Id == message.Id)
                     {
@@ -259,6 +259,7 @@ namespace miguelito_bot_commands.commands
                                       .AddComponents(Buttons[6], Buttons[7], Buttons[8])
                                       .WithContent(message.Content);
                                 await message.ModifyAsync(builder);
+                                return;
                             }
                         }
                     }

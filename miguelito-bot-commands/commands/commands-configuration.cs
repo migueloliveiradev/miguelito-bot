@@ -45,6 +45,40 @@ namespace miguelito_bot_commands.commands
         }
 
         [RequirePermissions(Permissions.ManageGuild)]
+        [Command("ConfigureTextChatInput")]
+        public async Task ConfigureTextChatInput(CommandContext ctx, [RemainingText] string text = "")
+        {
+            await ctx.TriggerTypingAsync();
+            try
+            {
+                if (text != "")
+                {
+                    string cs = Program.config[2];
+                    using var con = new MySqlConnection(cs);
+                    await con.OpenAsync();
+                    using var cmd = new MySqlCommand();
+                    cmd.Connection = con;
+                    cmd.CommandText = $"UPDATE GERAL SET MENSAGUEM_ENTRADA = '{text}' WHERE ID_SERVIDOR = '{ctx.Guild.Id}'";
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    await ctx.RespondAsync($"{ctx.User.Mention} Otimo, texto de boas vindas configurado com sucesso.");
+                }
+                else
+                {
+                    
+                    await ctx.RespondAsync($"{ctx.User.Mention} Me perdoa mas eu ainda não tenho inteligência o suficiente para advinhar qual mensagem você quer configurar :pensive:");
+                }
+            }
+            catch 
+            {
+                
+                await ctx.RespondAsync($"{ctx.User.Mention} Meu chapa, algo deu errado, poderia entrar em contato com o suporte :pensive: \n\n https://miguelito.miguelsoft.com.br/suporte/");
+
+            }
+        }
+
+
+        [RequirePermissions(Permissions.ManageGuild)]
         [Command("RemoveChatInput")]
         public async Task RemoveChatInput(CommandContext ctx)
         {

@@ -13,18 +13,36 @@ namespace miguelito_bot_events.events
             string cs = Program.config[2];
             using MySqlConnection con = new(cs);
             await con.OpenAsync();
-            using MySqlCommand cmd = new();
-            cmd.CommandText = $"SELECT CHAT_ENTRADA FROM GERAL WHERE ID_SERVIDOR = '{e.Guild.Id}'";
-            var reader = cmd.ExecuteReader();
-            reader.Read();
-            Console.WriteLine(reader["CHAT_ENTRADA"].ToString());
-            if (reader != null)
+            string sql = $"SELECT CHAT_ENTRADA, MENSAGUEM_ENTRADA FROM GERAL WHERE ID_SERVIDOR='{e.Guild.Id}'";
+            MySqlCommand cmd = new (sql, con);
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            rdr.Read();
+            if (rdr[0] != null)
             {
-                Console.WriteLine("n é nulo, eu acho");
-            }
-            else
-            {
-                Console.WriteLine("nada configurado otario");
+                try
+                {
+                    string desc = rdr[1].ToString();
+                    desc = desc.Replace("{name}", e.Member.Username);
+                    desc = desc.Replace("{id}", e.Member.Id.ToString());
+                    desc = desc.Replace("{servidor_name}", e.Guild.Name);
+                    desc = desc.Replace("{servidor_id}", e.Guild.Id.ToString());
+                    desc = desc.Replace("{data}", DateTime.Now.ToString());
+                    desc = desc.Replace("{member_count}", e.Guild.MemberCount.ToString());
+                    desc = desc.Replace("\n", "\n");
+                    desc = desc.Replace("{data_hora}", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
+                    
+                    DiscordChannel channel = e.Guild.GetChannel(ulong.Parse(rdr[0].ToString()));
+                    DiscordEmbedBuilder embed = new()
+                    {
+                        Description = desc,
+                        Color = DiscordColor.Blue,
+                        ImageUrl = "https://media.discordapp.net/attachments/949836472985460766/979604657309626368/fundo_1.png"
+                    };
+                    embed.WithAuthor(e.Member.Username, null, e.Member.AvatarUrl);
+                    embed.WithThumbnail(e.Member.AvatarUrl);
+                    await channel.SendMessageAsync($"{e.Member.Mention} :smiley:", embed);
+                }
+                catch { }
             }
             con.Close();
         }
@@ -157,7 +175,7 @@ namespace miguelito_bot_events.events
 
         public static async Task Channel_Create(DiscordClient sender, ChannelCreateEventArgs e)
         {
-            Random random = new Random();
+            Random random = new();
             string[] texts =
             {
                 ":face_with_spiral_eyes:",
