@@ -53,30 +53,37 @@ namespace miguelito_bot_commands.commands
             {
                 if (text != "")
                 {
-                    string cs = Program.config[2];
-                    using var con = new MySqlConnection(cs);
-                    await con.OpenAsync();
-                    using var cmd = new MySqlCommand();
-                    cmd.Connection = con;
-                    cmd.CommandText = $"UPDATE GERAL SET MENSAGUEM_ENTRADA = '{text}' WHERE ID_SERVIDOR = '{ctx.Guild.Id}'";
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    await ctx.RespondAsync($"{ctx.User.Mention} Otimo, texto de boas vindas configurado com sucesso.");
+                    if(text.Length < 500)
+                    {
+                        string cs = Program.config[2];
+                        using var con = new MySqlConnection(cs);
+                        await con.OpenAsync();
+                        using var cmd = new MySqlCommand();
+                        cmd.Connection = con;
+                        cmd.CommandText = $"UPDATE GERAL SET MENSAGUEM_ENTRADA = '{text}' WHERE ID_SERVIDOR = '{ctx.Guild.Id}'";
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                        await ctx.RespondAsync($"{ctx.User.Mention} Otimo, texto de boas vindas configurado com sucesso.");
+                    }
+                    else
+                    {
+                        await ctx.TriggerTypingAsync();
+                        await ctx.RespondAsync($"{ctx.User.Mention} Me perdoa mas o texto que você está tentando configurar é muito grande, o limite é de 500 caracteres.");
+                    }
                 }
                 else
                 {
-                    
+
                     await ctx.RespondAsync($"{ctx.User.Mention} Me perdoa mas eu ainda não tenho inteligência o suficiente para advinhar qual mensagem você quer configurar :pensive:");
                 }
             }
-            catch 
+            catch
             {
-                
+
                 await ctx.RespondAsync($"{ctx.User.Mention} Meu chapa, algo deu errado, poderia entrar em contato com o suporte :pensive: \n\n https://miguelito.miguelsoft.com.br/suporte/");
 
             }
         }
-
 
         [RequirePermissions(Permissions.ManageGuild)]
         [Command("RemoveChatInput")]
@@ -302,6 +309,65 @@ namespace miguelito_bot_commands.commands
                 await ctx.TriggerTypingAsync();
                 await ctx.RespondAsync($"{ctx.User.Mention} Meu chapa, algo deu errado, poderia entrar em contato com o suporte :pensive: \n\n https://miguelito.miguelsoft.com.br/suporte/");
             }
+        }
+
+        [RequirePermissions(Permissions.ManageGuild)]
+        [Command("BotGuildConfiguration")]
+        public async Task BotGuildConfiguration(CommandContext ctx)
+        {
+            await ctx.TriggerTypingAsync();
+            string cs = Program.config[2];
+            using MySqlConnection con = new(cs);
+            await con.OpenAsync();
+            string sql = $"SELECT CHAT_ENTRADA, CHAT_SAIDA, CHAT_LOG, CHAT_PRINCIPAL, MENSAGUEM_ENTRADA FROM GERAL WHERE ID_SERVIDOR='{ctx.Guild.Id}'";
+            MySqlCommand cmd = new(sql, con);
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            rdr.Read();
+            string mensagem = rdr[4].ToString();
+            DiscordEmbedBuilder embed = new()
+            {
+                Title = "Configurações do servidor",
+                Description = $"",
+                Color = DiscordColor.CornflowerBlue
+            };
+            if (rdr[0].ToString() != "")
+            {
+                DiscordChannel entrada = ctx.Guild.GetChannel(Convert.ToUInt64(rdr[0]));
+                embed.Description += $"**Channel entrada** {entrada.Mention}";
+            }
+            else
+            {
+                embed.Description += $"\n\n**Channel entrada** Não configurado";
+            }
+            if (rdr[1].ToString() != "")
+            {
+                DiscordChannel saida = ctx.Guild.GetChannel(Convert.ToUInt64(rdr[1]));
+                embed.Description += $"\n\n**Channel saida** {saida.Mention}";
+            }
+            else
+            {
+                embed.Description += $"\n\n**Channel saida** Não configurado";
+            }
+            if (rdr[2].ToString() != "")
+            {
+                DiscordChannel log = ctx.Guild.GetChannel(Convert.ToUInt64(rdr[2]));
+                embed.Description += $"\n\n**Channel log** {log.Mention}";
+            }
+            else
+            {
+                embed.Description += $"\n\n**Channel log** Não configurado";
+            }
+            if (rdr[3].ToString() != "")
+            {
+                DiscordChannel principal = ctx.Guild.GetChannel(Convert.ToUInt64(rdr[3]));
+                embed.Description += $"\n\n**Channel principal** {principal.Mention}";
+            }
+            else
+            {
+                embed.Description += $"\n\n**Channel principal** Não configurado";
+            }
+            embed.Description += $"\n\n**Mensagem entrada** ```{mensagem}```";
+            await ctx.RespondAsync(embed);
         }
     }
 }

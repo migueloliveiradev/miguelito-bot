@@ -53,10 +53,11 @@ namespace miguelito_bot_commands
             {
                 Title = "Ajuda do Miguelito",
                 Color = cores(),
-                Description = $"O Miguelito é um pequeno bot para ajudar na diversão e moderação do seu servidor\n\n" +
+                Description = $"O Miguelito é um pequeno bot para ajudar na diversão e moderação do seu servidor, com varios jogos, funções para moderação e muitas outras, descubra\n\n" +
                 $":cowboy: veja todos os comandos {Formatter.MaskedUrl("aqui", new Uri("https://miguelito.miguelsoft.com.br/comandos/"), "tem comandos secretos que não são divulgados")}\n\n" +
                 $":tools: Esta com duvidas ou algum problema, entre em contato com meu suporte {Formatter.MaskedUrl("aqui", new Uri("https://miguelito.miguelsoft.com.br/suporte/"), "não venha atrás de suporte se a culpa foi sua")}\n\n" +
-                $":hotdog: Me ajude comprar o leite das crianças {Formatter.MaskedUrl("aqui", new Uri("https://miguelito.miguelsoft.com.br/donate/"), "as crianças morreram de fome semana passada")}\n\n",
+                $":hotdog: Me ajude comprar o leite das crianças {Formatter.MaskedUrl("aqui", new Uri("https://miguelito.miguelsoft.com.br/donate/"), "as crianças morreram de fome semana passada")}\n\n" +
+                $":nerd: Dashboard do Miguelito {Formatter.MaskedUrl("aqui", new Uri("https://bit.ly/3t3Ics5"), "dashboard")}\n\n" 
             };
             embed.WithAuthor(bot.Username, "https://miguelito.miguelsoft.com.br", bot.AvatarUrl)
                 .WithThumbnail(bot.AvatarUrl);
@@ -136,7 +137,7 @@ namespace miguelito_bot_commands
         public async Task hora(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();
-            await ctx.RespondAsync(DateTime.Now.ToShortTimeString());
+            await ctx.RespondAsync(DateTime.Now.Hour - 3 + ":" + DateTime.Now.Minute);
             await Program.log("hora");
         }
 
@@ -144,7 +145,7 @@ namespace miguelito_bot_commands
         public async Task data(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();
-            await ctx.RespondAsync(DateTime.Now.Date.ToString().Remove(10));
+            await ctx.RespondAsync(DateTime.Now.Date.ToString("dd/MM/yyyy HH:mm:ss").Remove(10));
             await Program.log("data");
         }
 
@@ -366,21 +367,20 @@ namespace miguelito_bot_commands
             }
         }
 
-        
-
         [RequirePermissions(Permissions.ManageMessages)]
         [Command("say"), Aliases("dizer", "falar")]
-        public async Task say(CommandContext ctx, DiscordChannel channel = null, [RemainingText] string text = "")
+        public async Task say(CommandContext ctx, DiscordChannel channel, [RemainingText] string text = "")
         {
-            if (channel == null)
+            try
             {
-                await ctx.TriggerTypingAsync();
-                await ctx.RespondAsync(text);
-            }
-            else
-            {
+                await ctx.Message.DeleteAsync();
                 await channel.TriggerTypingAsync();
                 await channel.SendMessageAsync(text);
+            }
+            catch
+            {
+                await ctx.TriggerTypingAsync();
+                await ctx.Client.SendMessageAsync(ctx.Channel, $"{ctx.Member.Mention}, infelizmente por algum motivo eu não posso dizer isso :pensive:");
             }
             await Program.log("say");
         }

@@ -19,10 +19,15 @@ namespace miguelito_bot_commands
             {
                 config = File.ReadAllLines($@"C:\Users\Miguel Oliveira\Documents\config.miguelito");
             }
+            else if (Environment.UserName == "Paulo")
+            {
+                config = File.ReadAllLines($@"C:\Users\Paulo\Documents\config.miguelito");
+            }
             else
             {
                 config = File.ReadAllLines($@"/home/ubuntu/github/config/config.miguelito");
             }
+            Console.WriteLine("Setting...");
             DiscordConfiguration cfg = new DiscordConfiguration
             {
                 Token = config[0],
@@ -30,18 +35,22 @@ namespace miguelito_bot_commands
                 AutoReconnect = true,
                 ReconnectIndefinitely = true,
                 GatewayCompressionLevel = GatewayCompressionLevel.Stream,
-                MinimumLogLevel = LogLevel.Debug,
+                MinimumLogLevel = LogLevel.Error,
                 Intents = DiscordIntents.All,
             };
+            Console.WriteLine("Loading...");
             cliente = new DiscordClient(cfg);
             cliente.ClientErrored += this.Client_ClientErrored;
-            cliente.GuildMemberAdded += events.Client_entrada;
-            cliente.GuildCreated += events.entrada_server;
-            cliente.ChannelCreated += events.Channel_Create;
-            cliente.GuildDeleted += events.saida_server;
-            cliente.MessageReactionAdded += events.registro;
-            
+            cliente.GuildMemberAdded += Events.GuildMemberAddEvent;
+            cliente.GuildCreated += Events.GuildCreateEvent;
+            cliente.ChannelCreated += Events.ChannelCreateEvent;
+            cliente.GuildDeleted += Events.GuildDeleteEvent;
+            cliente.MessageReactionAdded += Events.MessageReactionAddEvent;
+            cliente.MessageDeleted += Events.MessageDeleteEvent;
+            cliente.MessageUpdated += Events.MessageUpdateEvent;
+            Console.WriteLine("Connecting...");
             await cliente.ConnectAsync();
+            Console.WriteLine("Running...");
             await Task.Delay(-1);
         }
         private async Task Client_ClientErrored(DiscordClient sender, ClientErrorEventArgs e)
