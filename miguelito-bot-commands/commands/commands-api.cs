@@ -11,6 +11,7 @@ using MediaWikiApi.Wiki;
 using MediaWikiApi.Wiki.Response.OpenSearch;
 using MediaWikiApi.Wiki.Response.Query.Extracts;
 using Newtonsoft.Json;
+using Octokit;
 using System.Globalization;
 using System.Net;
 using VirusTotalNet;
@@ -596,6 +597,87 @@ namespace miguelito_bot_commands.commands
             catch
             {
                 await ctx.RespondAsync("Ocorreu algum erro ao tentar pesquisar o skin do Minecraft");
+            }
+        }
+        [Command("github"), Aliases("git")]
+        public async Task Github(CommandContext ctx, [RemainingText] string nick = "")
+        {
+            await ctx.TriggerTypingAsync();
+            try
+            {
+                if (nick != "")
+                {
+                    var token = Program.config[14];
+                    var github = new GitHubClient(new ProductHeaderValue("MyAmazingApp"));
+                    var user = await github.User.Get(nick);
+
+                    DiscordEmbedBuilder embed = new DiscordEmbedBuilder
+                    {
+                        Title = $"Github de {user.Name}",
+                        Color = DiscordColor.CornflowerBlue
+                    };
+                    embed.AddField($"**Nome:**", user.Name, true);
+                    if (!string.IsNullOrEmpty(user.Company))
+                    {
+                        embed.AddField($"**Empresa:**", user.Company, true);
+                    }
+                    if (!string.IsNullOrEmpty(user.Blog))
+                    {
+                        embed.AddField($"**Blog:**", user.Blog, true);
+                    }
+                    if (!string.IsNullOrEmpty(user.Location))
+                    {
+                        embed.AddField($"**Localização:**", user.Location, true);
+                    }
+                    if (!string.IsNullOrEmpty(user.Email))
+                    {
+                        embed.AddField($"**Email:**", user.Email, true);
+                    }
+                    if (!string.IsNullOrEmpty(user.Bio))
+                    {
+                        embed.AddField($"**Bio:**", user.Bio, true);
+                    }
+                    if (!string.IsNullOrEmpty(user.PublicRepos.ToString()))
+                    {
+                        embed.AddField($"**Repositórios:**", user.PublicRepos.ToString(), true);
+                    }
+                    if (!string.IsNullOrEmpty(user.Followers.ToString()))
+                    {
+                        embed.AddField($"**Seguidores:**", user.Followers.ToString(), true);
+                    }
+                    if (!string.IsNullOrEmpty(user.Following.ToString()))
+                    {
+                        embed.AddField($"**Seguindo:**", user.Following.ToString(), true);
+                    }
+                    if (!string.IsNullOrEmpty(user.PublicGists.ToString()))
+                    {
+                        embed.AddField($"**Gists:**", user.PublicGists.ToString(), true);
+                    }
+                    if (!string.IsNullOrEmpty(user.HtmlUrl))
+                    {
+                        embed.AddField($"**Link:**", user.HtmlUrl, true);
+                    }
+                    if (!string.IsNullOrEmpty(user.CreatedAt.ToString()))
+                    {
+                        embed.AddField($"**Criado em:**", user.CreatedAt.ToString().Remove(10), true);
+                    }
+                    if (!string.IsNullOrEmpty(user.UpdatedAt.ToString()))
+                    {
+                        embed.AddField($"**Atualizado em:**", user.UpdatedAt.ToString().Remove(10), true);
+                    }
+                    embed.WithThumbnail(user.AvatarUrl);
+
+
+                    await ctx.RespondAsync(embed);
+                }
+                else
+                {
+                    await ctx.RespondAsync("Por gentileza insira o nome do cara que você deseja o perfil");
+                }
+            }
+            catch (Exception ex)
+            {
+                await ctx.RespondAsync("Ocorreu algum erro ao tentar pesquisar o Github" + ex.Message);
             }
         }
     }

@@ -44,6 +44,7 @@
     <PackageReference Include="HG-Finance" Version="1.1.1" />
     <PackageReference Include="MediaWikiApi" Version="1.0.2" />
     <PackageReference Include="MySql.Data" Version="8.0.29" />
+    <PackageReference Include="Octokit" Version="0.51.0" />
     <PackageReference Include="TweetinviAPI" Version="5.0.4" />
     <PackageReference Include="VirusTotalNet" Version="2.0.1" />
   </ItemGroup>
