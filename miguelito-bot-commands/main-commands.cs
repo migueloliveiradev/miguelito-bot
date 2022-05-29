@@ -427,6 +427,9 @@ namespace miguelito_bot_commands
                 $"> Ping Database: `{pingdatabase}ms`"
             };
             await ctx.RespondAsync(embed);
+            await Task.Delay(2000);
         }
+
+        
     }
 }
