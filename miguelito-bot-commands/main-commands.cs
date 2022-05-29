@@ -137,7 +137,7 @@ namespace miguelito_bot_commands
         public async Task hora(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();
-            await ctx.RespondAsync(DateTime.Now.Hour - 3 + ":" + DateTime.Now.Minute);
+            await ctx.RespondAsync(DateTime.Now.Hour + ":" + DateTime.Now.Minute);
             await Program.log("hora");
         }
 

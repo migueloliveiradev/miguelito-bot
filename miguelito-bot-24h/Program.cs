@@ -6,6 +6,7 @@ using DSharpPlus.Interactivity;
 using DSharpPlus.Interactivity.Enums;
 using DSharpPlus.Interactivity.Extensions;
 using Microsoft.Extensions.Logging;
+using miguelito_bot_24h.events;
 
 
 namespace miguelito_bot_24h
@@ -61,11 +62,7 @@ namespace miguelito_bot_24h
             cliente = new DiscordClient(cfg);
             string[] prefix = new string[1];
             prefix[0] = "-";
-            cliente.UseInteractivity(new InteractivityConfiguration()
-            {
-                PollBehaviour = PollBehaviour.KeepEmojis,
-                Timeout = TimeSpan.FromSeconds(20)
-            });
+            
             Console.WriteLine("Registering commands...");
             CommandsNextExtension cnt = cliente.UseCommandsNext(new CommandsNextConfiguration()
             {
@@ -78,7 +75,7 @@ namespace miguelito_bot_24h
             });
             cliente.ClientErrored += this.Client_ClientErrored;
             cnt.RegisterCommands<Main_Commands>();
-            
+            Events.remind();
             Console.WriteLine("Connecting...");
             await cliente.ConnectAsync();
             Console.WriteLine("Running...");

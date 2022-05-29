@@ -79,6 +79,7 @@ namespace miguelito_bot_events.events
                     };
                     embed.WithAuthor(e.Member.Username, null, e.Member.AvatarUrl);
                     embed.WithThumbnail(e.Member.AvatarUrl);
+                    await sender.SendMessageAsync(channel, $"{e.Member.Mention} :pensive:", embed);
                 }
                 catch { }
             }
