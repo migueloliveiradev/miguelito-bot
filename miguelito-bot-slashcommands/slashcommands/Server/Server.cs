@@ -1,16 +1,11 @@
 ﻿using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace miguelito_bot_slashcommands.slashcommands.Server
 {
     internal class Server : ApplicationCommandModule
-    {
+    {/*
         [SlashCommandGroup("user", "commands to the user")]
         public class GroupContainer : ApplicationCommandModule
         {
@@ -85,6 +80,6 @@ namespace miguelito_bot_slashcommands.slashcommands.Server
                 embed.WithThumbnail(user.AvatarUrl);
                 await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AddEmbed(embed));
             }
-        }
+        }*/
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Cutt_ly;
-using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
@@ -12,6 +11,8 @@ using MediaWikiApi.Wiki.Response.OpenSearch;
 using MediaWikiApi.Wiki.Response.Query.Extracts;
 using Newtonsoft.Json;
 using Octokit;
+using PexelsDotNetSDK.Api;
+using PexelsDotNetSDK.Models;
 using System.Globalization;
 using System.Net;
 using VirusTotalNet;
@@ -26,11 +27,12 @@ namespace miguelito_bot_commands.commands
         #region clients
         VirusTotal virusTotal = new(Program.config[3]);
         WebClient client;
-        Cutt cutt = new Cutt();
+        Cutt cutt = new();
         HG_Client clientHG = new()
         {
             Key = Program.config[6],
         };
+        PexelsClient pexels = new(Program.config[14]);
         #endregion
 
         [Command("dolar"), Aliases("dólar")]
@@ -41,14 +43,14 @@ namespace miguelito_bot_commands.commands
             {
                 if (clientHG.CurrencyResponse.Variation < 0)
                 {
-                    await ctx.RespondAsync($"Eita, o dólar sumiu, esta exatamente R${decimal.Round(clientHG.CurrencyResponse.Buy, 2)}");
+                    await ctx.RespondAsync($"Eita, o dólar subiu, esta exatamente R${decimal.Round(clientHG.CurrencyResponse.Buy, 2)}");
                 }
                 else
                 {
                     await ctx.RespondAsync($"Eita, o dólar caiu, esta exatamente R${decimal.Round(clientHG.CurrencyResponse.Buy, 2)}");
                 }
             }
-            await Program.log("dolar");
+            await Program.Log("dolar");
         }
 
         [Command("euro")]
@@ -66,7 +68,7 @@ namespace miguelito_bot_commands.commands
                     await ctx.RespondAsync($"Eita, o dólar caiu, esta exatamente R${decimal.Round(clientHG.CurrencyResponse.Buy, 2)}");
                 }
             }
-            await Program.log("euro");
+            await Program.Log("euro");
         }
 
         [Command("cotação"), Aliases("cotacao")]
@@ -84,14 +86,14 @@ namespace miguelito_bot_commands.commands
                     await ctx.RespondAsync($"Eita, o dólar caiu, esta exatamente R${decimal.Round(clientHG.CurrencyResponse.Buy, 2)}");
                 }
             }
-            await Program.log("cotacao");
+            await Program.Log("cotacao");
         }
 
         [Command("real")]
         public async Task Real(CommandContext ctx)
         {
             await ctx.RespondAsync("Atualmente o real esta estavel, valendo exatamente 1 real");
-            await Program.log("real");
+            await Program.Log("real");
         }
 
         [Command("encurtar"), Aliases("encurtardor", "encurta")]
@@ -107,14 +109,14 @@ namespace miguelito_bot_commands.commands
                 }
                 catch
                 {
-                    await ctx.RespondAsync("não foi possivel encurtar o link pedido :pensive");
+                    await ctx.RespondAsync("não foi possivel encurtar o link pedido :pensive:");
                 }
             }
             else
             {
                 await ctx.RespondAsync("Poderia por gentileza colocar o link desejado, ainda não tenho poder de adivinhar '-'");
             }
-            await Program.log("encurtar");
+            await Program.Log("encurtar");
         }
 
         [Command("virus")]
@@ -270,7 +272,7 @@ namespace miguelito_bot_commands.commands
             {
                 await ctx.RespondAsync("Ocorreu um erro ao verificar o arquivo, por gentileza tente novamente");
             }
-            await Program.log("virus");
+            await Program.Log("virus");
         }
 
         [Command("wiki"), Aliases("Wikipédia", "Wikipedia")]
@@ -299,7 +301,7 @@ namespace miguelito_bot_commands.commands
             {
                 await ctx.RespondAsync(":pensive: resultado não encontrado, por gentileza verifique sua ortografia");
             }
-            await Program.log("wiki");
+            await Program.Log("wiki");
         }
 
         [Command("tradutor"), Aliases("traduzir", "traduz")]
@@ -309,8 +311,8 @@ namespace miguelito_bot_commands.commands
             {
                 try
                 {
-                    TranslateService service = new TranslateService(new BaseClientService.Initializer { ApiKey = Program.config[4] });
-                    TranslationClientImpl client = new TranslationClientImpl(service, TranslationModel.ServiceDefault);
+                    TranslateService service = new(new BaseClientService.Initializer { ApiKey = Program.config[4] });
+                    TranslationClientImpl client = new(service, TranslationModel.ServiceDefault);
                     TranslationResult result = client.TranslateText(texto, idioma);
                     await ctx.RespondAsync(result.TranslatedText);
                 }
@@ -324,7 +326,7 @@ namespace miguelito_bot_commands.commands
                 await ctx.RespondAsync("Por gentileza insira as informações necessarias para fazer a tradução\n\n" +
                     "**-traduzir** [prefixo do idioma final] [texto em qualquer idioma que eu me viro pra descobrir qual é]");
             }
-            await Program.log("tradutor");
+            await Program.Log("tradutor");
         }
 
         [Command("weather"), Aliases("clima", "tempo")]
@@ -349,7 +351,7 @@ namespace miguelito_bot_commands.commands
                               $"**Temperatura mínima:** {temp_min}°C\n"
             };
             await ctx.RespondAsync(embed);
-            await Program.log("clima");
+            await Program.Log("clima");
 
         }
 
@@ -378,13 +380,12 @@ namespace miguelito_bot_commands.commands
                                         $"**Link:** {link}\n" +
                                         $"**Descrição:** {snippet}\n";
 
-                    DiscordEmbedBuilder embed = new DiscordEmbedBuilder
+                    DiscordEmbedBuilder embed = new()
                     {
                         Title = "Resultado da pesquisa",
                         Color = DiscordColor.CornflowerBlue,
                         Description = description,
                         ImageUrl = image
-
                     };
                     await ctx.RespondAsync(embed);
                 }
@@ -482,7 +483,7 @@ namespace miguelito_bot_commands.commands
                     await ctx.RespondAsync("Por gentileza insira o nome do anime que deseja pesquisar");
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 await ctx.RespondAsync("Ocorreu um erro ao pesquisar o anime solicitado");
             }
@@ -490,7 +491,7 @@ namespace miguelito_bot_commands.commands
         }
 
         [Command("minecraftskin"), Aliases("mc", "skin")]
-        public async Task MinecraftSkin(CommandContext ctx, [RemainingText] string nick = "")
+        public async Task MinecraftSkin(CommandContext ctx, string nick = "")
         {
             await ctx.TriggerTypingAsync();
             try
@@ -512,7 +513,7 @@ namespace miguelito_bot_commands.commands
                         ImageUrl = $"https://crafatar.com/renders/body/{id}?size=4&default=MHF_Steve&overlay"
                     };
                     builder.AddEmbed(embed);
-                    builder.AddComponents(download,Skin);
+                    builder.AddComponents(download, Skin);
                     await ctx.RespondAsync(builder);
                 }
                 else
@@ -527,7 +528,7 @@ namespace miguelito_bot_commands.commands
         }
 
         [Command("minecrafthead"), Aliases("head")]
-        public async Task minecraftHead(CommandContext ctx, [RemainingText] string nick = "")
+        public async Task minecraftHead(CommandContext ctx, string nick = "")
         {
             await ctx.TriggerTypingAsync();
             try
@@ -557,14 +558,14 @@ namespace miguelito_bot_commands.commands
                     await ctx.RespondAsync("Por gentileza insira o nome do cara que você deseja a skin");
                 }
             }
-            catch 
+            catch
             {
                 await ctx.RespondAsync("Ocorreu algum erro ao tentar pesquisar o skin do Minecraft");
             }
         }
 
         [Command("minecraftcape"), Aliases("cape")]
-        public async Task minecraftCape(CommandContext ctx, [RemainingText] string nick = "")
+        public async Task minecraftCape(CommandContext ctx, string nick = "")
         {
             await ctx.TriggerTypingAsync();
             try
@@ -599,19 +600,20 @@ namespace miguelito_bot_commands.commands
                 await ctx.RespondAsync("Ocorreu algum erro ao tentar pesquisar o skin do Minecraft");
             }
         }
+
         [Command("github"), Aliases("git")]
-        public async Task Github(CommandContext ctx, [RemainingText] string nick = "")
+        public async Task Github(CommandContext ctx, string nick = "")
         {
             await ctx.TriggerTypingAsync();
             try
             {
-                if (nick != "")
+                if (!string.IsNullOrEmpty(nick))
                 {
                     var token = Program.config[14];
                     var github = new GitHubClient(new ProductHeaderValue("MyAmazingApp"));
                     var user = await github.User.Get(nick);
 
-                    DiscordEmbedBuilder embed = new DiscordEmbedBuilder
+                    DiscordEmbedBuilder embed = new()
                     {
                         Title = $"Github de {user.Name}",
                         Color = DiscordColor.CornflowerBlue
@@ -675,10 +677,28 @@ namespace miguelito_bot_commands.commands
                     await ctx.RespondAsync("Por gentileza insira o nome do cara que você deseja o perfil");
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                await ctx.RespondAsync("Ocorreu algum erro ao tentar pesquisar o Github" + ex.Message);
+                await ctx.RespondAsync("Ocorreu algum erro ao tentar pesquisar o Github solicitado");
             }
+        }
+
+        [Command("pexels"), Aliases("imagesfree", "imgfree")]
+        public async Task Pexels(CommandContext ctx, string search = "")
+        {
+            await ctx.TriggerTypingAsync();
+            if (string.IsNullOrEmpty(search))
+            {
+                return;
+            }
+            PhotoPage result = await pexels.SearchPhotosAsync(search);
+            DiscordEmbedBuilder embed = new()
+            {
+                Title = $"Imagens de {search}",
+                Color = DiscordColor.CornflowerBlue,
+                ImageUrl = result.photos[0].url
+            };
+            await ctx.RespondAsync(embed);
         }
     }
 }

@@ -2,7 +2,6 @@
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using DSharpPlus.VoiceNext;
-using Microsoft.Extensions.Logging;
 
 
 namespace miguelito_bot_music
@@ -18,7 +17,7 @@ namespace miguelito_bot_music
             DiscordUser bot = Program.cliente.CurrentUser;
             try
             {
-                if(e.User == bot &&
+                if (e.User == bot &&
                     e.Before.Channel != e.After.Channel)
                 {
                     VoiceNextExtension vnext = Program.cliente.GetVoiceNext();

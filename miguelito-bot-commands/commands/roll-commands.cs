@@ -2,11 +2,6 @@
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace miguelito_bot_commands.commands
 {
@@ -30,7 +25,7 @@ namespace miguelito_bot_commands.commands
                 int num = rnd.Next(1, numero + 1);
                 await ctx.RespondAsync($"O número sorteado foi: **{num}**");
             }
-            await Program.log("dado");
+            await Program.Log("dado");
         }
 
         [RequirePermissions(Permissions.ManageGuild)]
@@ -50,7 +45,7 @@ namespace miguelito_bot_commands.commands
                 }
 
             }
-            await Program.log("roll-member");
+            await Program.Log("roll-member");
         }
 
         [RequirePermissions(Permissions.ManageGuild)]
@@ -60,7 +55,7 @@ namespace miguelito_bot_commands.commands
             await ctx.TriggerTypingAsync();
             DiscordMessage message = await channel.GetMessageAsync(id_message);
             var reaction = message.GetReactionsAsync(emoji);
-            if(reaction.Result.Count > 0)
+            if (reaction.Result.Count > 0)
             {
                 List<DiscordUser> user = reaction.Result.ToList();
                 Random rnd = new();

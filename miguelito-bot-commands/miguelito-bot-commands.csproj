@@ -15,36 +15,31 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="text\bomdia.miguelito" />
     <None Remove="text\cantada.miguelito" />
     <None Remove="text\conselhos.miguelito" />
     <None Remove="text\curiosidades.miguelito" />
-    <None Remove="text\gatos.miguelito" />
-    <None Remove="text\piadas.miguelito" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="text\bomdia.miguelito" />
     <EmbeddedResource Include="text\cantada.miguelito" />
     <EmbeddedResource Include="text\conselhos.miguelito" />
     <EmbeddedResource Include="text\curiosidades.miguelito" />
-    <EmbeddedResource Include="text\gatos.miguelito" />
-    <EmbeddedResource Include="text\piadas.miguelito" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Cutt.ly" Version="1.0.0" />
-    <PackageReference Include="DSharpPlus" Version="4.3.0-nightly-01135" />
-    <PackageReference Include="DSharpPlus.CommandsNext" Version="4.3.0-nightly-01135" />
-    <PackageReference Include="DSharpPlus.Interactivity" Version="4.3.0-nightly-01135" />
+    <PackageReference Include="DSharpPlus" Version="4.3.0-nightly-01140" />
+    <PackageReference Include="DSharpPlus.CommandsNext" Version="4.3.0-nightly-01140" />
+    <PackageReference Include="DSharpPlus.Interactivity" Version="4.3.0-nightly-01140" />
     <PackageReference Include="Google.Apis.SearchConsole.v1" Version="1.57.0.2620" />
     <PackageReference Include="Google.Apis.Translate.v2" Version="1.57.0.875" />
     <PackageReference Include="Google.Cloud.Translation.V2" Version="2.1.0" />
-    <PackageReference Include="GoogleApi" Version="4.0.7" />
+    <PackageReference Include="GoogleApi" Version="4.1.0" />
     <PackageReference Include="HG-Finance" Version="1.1.1" />
     <PackageReference Include="MediaWikiApi" Version="1.0.2" />
     <PackageReference Include="MySql.Data" Version="8.0.29" />
     <PackageReference Include="Octokit" Version="0.51.0" />
+    <PackageReference Include="PexelsDotNetSDK" Version="1.0.8" />
     <PackageReference Include="TweetinviAPI" Version="5.0.4" />
     <PackageReference Include="VirusTotalNet" Version="2.0.1" />
   </ItemGroup>

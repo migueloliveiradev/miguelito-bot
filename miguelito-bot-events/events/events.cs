@@ -14,7 +14,7 @@ namespace miguelito_bot_events.events
             using MySqlConnection con = new(cs);
             await con.OpenAsync();
             string sql = $"SELECT CHAT_ENTRADA, MENSAGUEM_ENTRADA FROM GERAL WHERE ID_SERVIDOR='{e.Guild.Id}'";
-            MySqlCommand cmd = new (sql, con);
+            MySqlCommand cmd = new(sql, con);
             MySqlDataReader rdr = cmd.ExecuteReader();
             rdr.Read();
             if (rdr[0] != null)
@@ -30,7 +30,7 @@ namespace miguelito_bot_events.events
                     desc = desc.Replace("{member_count}", e.Guild.MemberCount.ToString());
                     desc = desc.Replace("\n", "\n");
                     desc = desc.Replace("{data_hora}", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
-                    
+
                     DiscordChannel channel = e.Guild.GetChannel(ulong.Parse(rdr[0].ToString()));
                     DiscordEmbedBuilder embed = new()
                     {
@@ -189,7 +189,7 @@ namespace miguelito_bot_events.events
                 }
             }
         }
-        
+
         public static async Task GuildCreateEvent(DiscordClient sender, GuildCreateEventArgs e)
         {
             string cs = Program.config[2];
@@ -297,7 +297,7 @@ namespace miguelito_bot_events.events
                         Title = "Mensagem deletada",
                         Description = $"Uma mensagem de {e.Message.Author.Mention} foi editada no canal {e.Channel.Mention}\n\n" +
                         $"Mensagem anterior: ```{e.MessageBefore.Content}```\n" +
-                        $"Mensagem atual: ```{e.Message.Content}```" ,
+                        $"Mensagem atual: ```{e.Message.Content}```",
                         Color = DiscordColor.Blue,
                     };
                     embed.WithAuthor(e.Message.Author.Username, null, e.Message.Author.AvatarUrl);

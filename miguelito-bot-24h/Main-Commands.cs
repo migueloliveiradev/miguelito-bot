@@ -9,8 +9,7 @@ namespace miguelito_bot_24h
         [Command("reminder"), Aliases("remind", "lembrar", "lembrete")]
         public async Task Reminder(CommandContext ctx, int value, string time, [RemainingText] string text)
         {
-            ctx.Member.CreateDmChannelAsync();
-            if (value > 0  && text != "")
+            if (value > 0 && text != "")
             {
                 string cs = Program.config[2];
                 MySqlConnection con = new(cs);
@@ -22,7 +21,7 @@ namespace miguelito_bot_24h
                 DateTime time_reminder = DateTime.Now;
                 if (time == "days" || time == "dias" || time == "day" || time == "dia")
                 {
-                    if(value < 30)
+                    if (value < 30)
                     {
                         time_reminder = time_reminder.AddDays(value);
                         cmd.CommandText = $"INSERT INTO REMINDER(ID_USER, DATA_HORA, MENSAGEM, ID_GUILD) VALUES('{ctx.User.Id}','{time_reminder:dd/MM/yyyy HH:mm}', '{text}', '{ctx.Guild.Id}')";
@@ -32,7 +31,7 @@ namespace miguelito_bot_24h
                     {
                         await ctx.RespondAsync("O limite de dias é de 30 dias");
                     }
-                    
+
                 }
                 else if (time == "hours" || time == "horas" || time == "hour" || time == "hora")
                 {

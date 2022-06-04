@@ -2,7 +2,6 @@
 using DSharpPlus.SlashCommands;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using miguelito_bot_slashcommands.slashcommands.Moderation;
 
 namespace miguelito_bot_slashcommands
 {
@@ -42,12 +41,12 @@ namespace miguelito_bot_slashcommands
             cliente = new(discordConfiguration);
             await cliente.StartAsync();
             Console.WriteLine("Registrando comandos...");
-           
+
             foreach (SlashCommandsExtension slashCommandShardExtension in (await cliente.UseSlashCommandsAsync(slashCommandsConfiguration)).Values)
             {
-                
-               // slashCommandShardExtension.RegisterCommands(typeof(aaaaaa), 961782898153881650);
-                
+
+                // slashCommandShardExtension.RegisterCommands(typeof(aaaaaa), 961782898153881650);
+
             }
             Console.WriteLine("comandos registrados.");
             await Task.Delay(-1);

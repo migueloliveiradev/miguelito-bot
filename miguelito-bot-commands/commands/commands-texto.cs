@@ -33,7 +33,7 @@ namespace miguelito_bot_commands.commands
                     await ctx.RespondAsync("Não consegui achar o conselho do numero pedido, as vezes nem tudo pode ser uma resposta para suas buscas.");
                 }
             }
-            await Program.log("conselho");
+            await Program.Log("conselho");
         }
 
         [Command("piada"), Aliases("piadas")]
@@ -58,7 +58,7 @@ namespace miguelito_bot_commands.commands
             {
                 await ctx.RespondAsync("Não consegui achar a piada do numero pedido, as vezes a graça da vida é cantar sobre bananas");
             }
-            await Program.log("piada");
+            await Program.Log("piada");
         }
 
         [Command("curiosidade"), Aliases("curiosidades")]
@@ -83,7 +83,7 @@ namespace miguelito_bot_commands.commands
             {
                 await ctx.RespondAsync("Não consegui achar o conselho do numero pedido, as vezes nem tudo pode ser uma resposta para suas buscas.");
             }
-            await Program.log("curiosidade");
+            await Program.Log("curiosidade");
         }
 
         [Command("cantada")]
@@ -96,7 +96,7 @@ namespace miguelito_bot_commands.commands
             Random random = new Random();
             int i = random.Next(0, cantada.Count);
             await ctx.RespondAsync(cantada[i] + "\n\nUooh Uooh Uooh meu lençol drobrado já tá todo bagunçado");
-            await Program.log("cantada");
+            await Program.Log("cantada");
         }
 
         public static IEnumerable<string> ReadLines(Func<Stream> streamProvider,

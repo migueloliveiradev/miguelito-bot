@@ -53,7 +53,7 @@ namespace miguelito_bot_commands.commands
             {
                 if (text != "")
                 {
-                    if(text.Length < 500)
+                    if (text.Length < 500)
                     {
                         string cs = Program.config[2];
                         using var con = new MySqlConnection(cs);

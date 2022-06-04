@@ -49,7 +49,7 @@ namespace miguelito_bot_music
             });
             cliente.ClientErrored += events_music.Client_ClientErrored;
             cliente.VoiceStateUpdated += events_music.Client_VoiceStateUpdate;
-            
+
             cliente.UseVoiceNext();
             cnt.RegisterCommands<music_commands>();
             events_music.VerificarBot();

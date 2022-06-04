@@ -2,9 +2,6 @@
 using DSharpPlus.CommandsNext;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
-using DSharpPlus.Interactivity;
-using DSharpPlus.Interactivity.Enums;
-using DSharpPlus.Interactivity.Extensions;
 using Microsoft.Extensions.Logging;
 using miguelito_bot_24h.events;
 
@@ -62,7 +59,7 @@ namespace miguelito_bot_24h
             cliente = new DiscordClient(cfg);
             string[] prefix = new string[1];
             prefix[0] = "-";
-            
+
             Console.WriteLine("Registering commands...");
             CommandsNextExtension cnt = cliente.UseCommandsNext(new CommandsNextConfiguration()
             {

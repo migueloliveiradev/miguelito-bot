@@ -7,6 +7,7 @@ using DSharpPlus.Interactivity.Enums;
 using DSharpPlus.Interactivity.Extensions;
 using Microsoft.Extensions.Logging;
 using miguelito_bot_commands.commands;
+using miguelito_bot_commands.Utils;
 
 namespace miguelito_bot_commands
 {
@@ -27,6 +28,7 @@ namespace miguelito_bot_commands
         //Line 11  Api Twitter ACCESS_TOKEN
         //Line 12  Api Twitter ACCESS_TOKEN_SECRET
         //Line 13  Api Custom Search key
+        //Line 14  APi Pexels
 
         public static DiscordClient cliente { get; private set; }
         public static async Task Main(string[] args) => new Program().rodarBot().GetAwaiter().GetResult();
@@ -37,7 +39,7 @@ namespace miguelito_bot_commands
             {
                 config = File.ReadAllLines($@"C:\Users\Miguel Oliveira\Documents\config.miguelito");
             }
-            else if(Environment.UserName == "Paulo")
+            else if (Environment.UserName == "Paulo")
             {
                 config = File.ReadAllLines($@"C:\Users\Paulo\Documents\config.miguelito");
             }
@@ -46,18 +48,18 @@ namespace miguelito_bot_commands
                 config = File.ReadAllLines($@"/home/ubuntu/github/config/config.miguelito");
             }
             Console.WriteLine("Setting...");
-            DiscordConfiguration cfg = new DiscordConfiguration
+            DiscordConfiguration cfg = new()
             {
                 Token = config[0],
                 TokenType = TokenType.Bot,
                 AutoReconnect = true,
                 ReconnectIndefinitely = true,
                 GatewayCompressionLevel = GatewayCompressionLevel.Stream,
-                MinimumLogLevel = LogLevel.Critical,
+                MinimumLogLevel = LogLevel.Error,
                 Intents = DiscordIntents.All,
             };
             //I'm satoshi nakamoto
-            Console.WriteLine("Loading...");            
+            Console.WriteLine("Loading...");
             cliente = new DiscordClient(cfg);
             string[] prefix = new string[1];
             prefix[0] = "-";
@@ -76,7 +78,8 @@ namespace miguelito_bot_commands
                 EnableMentionPrefix = true,
                 IgnoreExtraArguments = true,
             });
-            cliente.ClientErrored += this.Client_ClientErrored;
+            cliente.ClientErrored += Events.ClientErrored;
+            cliente.Ready += Events.OnReady;
             cnt.RegisterCommands<main_commands>();
             cnt.RegisterCommands<commands_administration>();
             cnt.RegisterCommands<commands_matematica>();
@@ -87,27 +90,20 @@ namespace miguelito_bot_commands
             cnt.RegisterCommands<commands_games>();
             cnt.RegisterCommands<random_commands>();
             cnt.RegisterCommands<roll_commands>();
+            cnt.RegisterCommands<Commands_Downloads>();
+            cnt.RegisterCommands<Commands_Animals>();
             Console.WriteLine("Connecting...");
             await cliente.ConnectAsync();
             Console.WriteLine("Running...");
             await Task.Delay(-1);
         }
-        private async Task Client_ClientErrored(DiscordClient sender, ClientErrorEventArgs e)
+        
+        public static async Task Log(string nome)
         {
-            DiscordMessageBuilder builder = new DiscordMessageBuilder();
-            sender.Logger.LogError("o erro foi : ", e.Exception.Message);
-            DiscordGuild guild = (DiscordGuild)await Program.cliente.GetGuildAsync(880904935787601960);
+            DiscordGuild guild = await Program.cliente.GetGuildAsync(880904935787601960);
             DiscordChannel channel = guild.GetChannel(Convert.ToUInt64(config[8]));
-            builder.WithContent($"Deu muito ruim \n {e.Exception.Message}");
-            await builder.SendAsync(channel);
-        }
-        public static async Task log(string nome)
-        {
-            DiscordMessageBuilder builder = new DiscordMessageBuilder();
-            DiscordGuild guild = (DiscordGuild)await Program.cliente.GetGuildAsync(880904935787601960);
-            DiscordChannel channel = guild.GetChannel(Convert.ToUInt64(config[9]));
-            builder.WithContent($"Comando {nome} usado.");
-            await builder.SendAsync(channel);
+            await channel.SendMessageAsync($"Comando {nome} usado.");
+            Console.WriteLine($"Comando {nome} usado. {DateTime.Now}");
         }
     }
 }

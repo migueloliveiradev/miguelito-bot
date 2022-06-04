@@ -1,12 +1,12 @@
 ﻿using DSharpPlus.Entities;
 
-namespace miguelito_bot_slashcommands
+namespace miguelito_bot_commands.Utils
 {
-    internal class color
+    public class Variables
     {
-        public static DiscordColor cores()
+        public static DiscordColor Cores()
         {
-            DiscordColor[] cores = {
+            DiscordColor[] colors = {
                 DiscordColor.Aquamarine,
                 DiscordColor.Azure,
                 DiscordColor.Black,
@@ -50,8 +50,25 @@ namespace miguelito_bot_slashcommands
                 DiscordColor.Wheat,
                 DiscordColor.White,
                 DiscordColor.Yellow};
-            Random rnd = new Random();
-            return cores[rnd.Next(0, cores.Length)];
+            Random rnd = new();
+            int i = rnd.Next(0, colors.Length);
+            return colors[i];
+        }
+
+        public static List<string> bom_dia;
+
+        public static async Task AddBomdia()
+        {
+            DiscordGuild miguelito = await Program.cliente.GetGuildAsync(822845253131829289);
+            DiscordChannel channel = miguelito.GetChannel(824755190225174628);
+            var msgs = channel.GetMessagesAsync();
+            /*foreach (DiscordMessage msg in msgs.Result)
+            {
+                foreach (DiscordAttachment attachment in msg.Attachments)
+                {
+                    bom_dia.Add(attachment.Url);
+                }
+            }*/
         }
     }
 }

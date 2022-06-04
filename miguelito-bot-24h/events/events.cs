@@ -1,10 +1,5 @@
 ﻿using DSharpPlus.Entities;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace miguelito_bot_24h.events
 {
@@ -23,7 +18,7 @@ namespace miguelito_bot_24h.events
                     string cs = Program.config[2];
                     using MySqlConnection con = new(cs);
                     await con.OpenAsync();
-                    
+
                     string sql = $"SELECT ID_GUILD, ID_USER, MENSAGEM, DATA_HORA FROM REMINDER WHERE DATA_HORA LIKE '29/05/2022 15:18%'";
                     MySqlCommand cmd = new(sql, con);
                     MySqlDataReader rdr = cmd.ExecuteReader();

@@ -16,16 +16,15 @@ namespace miguelito_bot_commands.commands
             else
             {
                 string[] valores = value.Split(' ');
-                int soma = 0;
+                double soma = 0;
                 foreach (string valor in valores)
                 {
-                    soma += int.Parse(valor);
+                    soma += Convert.ToDouble(valor);
                 }
                 await ctx.RespondAsync(soma.ToString());
             }
-            await Program.log("soma");
+            await Program.Log("soma");
         }
-       
 
         [Command("subtrair")]
         [Aliases("diminuir")]
@@ -38,18 +37,18 @@ namespace miguelito_bot_commands.commands
             else
             {
                 string[] valores = value.Split(' ');
-                int subtrair = int.Parse(valores[0]);
+                double subtrair = int.Parse(valores[0]);
                 for (int i = 1; i < valores.Length; i++)
                 {
                     subtrair -= int.Parse(valores[i]);
                 }
                 await ctx.RespondAsync(subtrair.ToString());
             }
-            await Program.log("subtrair");
+            await Program.Log("subtrair");
         }
 
         [Command("Bhaskara")]
-        public async Task Bhaskara(CommandContext ctx, int a, int b, int c)
+        public async Task Bhaskara(CommandContext ctx, double a, double b, double c)
         {
             if (a == 0)
             {
@@ -74,12 +73,12 @@ namespace miguelito_bot_commands.commands
                     await ctx.RespondAsync("A equação possui duas raízes reais: " + x1 + " e " + x2);
                 }
             }
-            await Program.log("Bhaskara");
+            await Program.Log("Bhaskara");
         }
         [Command("raiz")]
         public async Task raiz(CommandContext ctx, double a)
         {
-            await ctx.TriggerTypingAsync();            
+            await ctx.TriggerTypingAsync();
             if (a < 0)
             {
                 await ctx.RespondAsync("A raiz de um número negativo não existe meu nobre.");
@@ -89,7 +88,7 @@ namespace miguelito_bot_commands.commands
                 double raiz = Math.Sqrt(a);
                 await ctx.RespondAsync("A raiz de " + a + " é " + raiz);
             }
-            await Program.log("raiz");
+            await Program.Log("raiz");
         }
         [Command("multiplicar")]
         public async Task multiplicar(CommandContext ctx, [RemainingText] string value = "")
@@ -101,14 +100,14 @@ namespace miguelito_bot_commands.commands
             else
             {
                 string[] valores = value.Split(' ');
-                int multiplicar = int.Parse(valores[0]);
+                double multiplicar = Convert.ToDouble(valores[0]);
                 for (int i = 1; i < valores.Length; i++)
                 {
-                    multiplicar *= int.Parse(valores[i]);
+                    multiplicar *= Convert.ToDouble(valores[i]);
                 }
                 await ctx.RespondAsync(multiplicar.ToString());
             }
-            await Program.log("multiplicar");
+            await Program.Log("multiplicar");
         }
         [Command("dividir")]
         public async Task dividir(CommandContext ctx, [RemainingText] string value = "")
@@ -120,25 +119,25 @@ namespace miguelito_bot_commands.commands
             else
             {
                 string[] valores = value.Split(' ');
-                int dividir = int.Parse(valores[0]);
+                double dividir = Convert.ToDouble(valores[0]);
                 for (int i = 1; i < valores.Length; i++)
                 {
-                    dividir /= int.Parse(valores[i]);
+                    dividir /= Convert.ToDouble(valores[i]);
                 }
                 await ctx.RespondAsync(dividir.ToString());
             }
-            await Program.log("dividir");
+            await Program.Log("dividir");
         }
         [Command("pi")]
         public async Task pi(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();
             await ctx.RespondAsync($"O valor de pi é: {Math.PI}");
-            await Program.log("pi");
+            await Program.Log("pi");
         }
         [Command("Potência")]
         [Aliases("Potencia", "potenciação", "potenciaçao", "potenciacao")]
-        public async Task Potencia(CommandContext ctx, int base_, int expoente)
+        public async Task Potencia(CommandContext ctx, double base_, double expoente)
         {
             await ctx.TriggerTypingAsync();
             if (expoente == 0)
@@ -147,14 +146,14 @@ namespace miguelito_bot_commands.commands
             }
             else
             {
-                int potencia = 1;
+                double potencia = 1;
                 for (int i = 0; i < expoente; i++)
                 {
                     potencia *= base_;
                 }
                 await ctx.RespondAsync("A potência de " + base_ + " elevado a " + expoente + " é " + potencia);
             }
-            await Program.log("Potencia");
+            await Program.Log("Potencia");
         }
     }
 }

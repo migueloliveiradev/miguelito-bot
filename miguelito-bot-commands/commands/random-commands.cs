@@ -1,6 +1,7 @@
 ﻿using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
+using miguelito_bot_commands.Utils;
 
 namespace miguelito_bot_commands.commands
 {
@@ -16,7 +17,7 @@ namespace miguelito_bot_commands.commands
                 ImageUrl = "https://c.tenor.com/t4zUkk1R-UIAAAAd/pica-pau.gif"
             };
             await ctx.RespondAsync(ctx.User.Mention, embed);
-            await Program.log("bolo");
+            await Program.Log("bolo");
         }
 
         [Command("portugues"), Aliases("pt")]
@@ -29,7 +30,7 @@ namespace miguelito_bot_commands.commands
                 user = ctx.User;
                 embed = new DiscordEmbedBuilder
                 {
-                    Color = main_commands.cores(),
+                    Color = Variables.Cores(),
                     ImageUrl = "https://media.discordapp.net/attachments/949836472985460766/950064401732493372/fala_portugues.png",
                     Description = ctx.User.Mention,
                 };
@@ -38,13 +39,13 @@ namespace miguelito_bot_commands.commands
             {
                 embed = new DiscordEmbedBuilder
                 {
-                    Color = main_commands.cores(),
+                    Color = Variables.Cores(),
                     ImageUrl = "https://media.discordapp.net/attachments/949836472985460766/950064401732493372/fala_portugues.png?width=587&height=559",
                     Description = " ei " + user.Mention,
                 };
             }
             await ctx.RespondAsync(ctx.User.Mention, embed);
-            await Program.log("pt");
+            await Program.Log("pt");
         }
         [Command("viniccius13"), Aliases("13", "vini")]
         public async Task viniccius(CommandContext ctx)
@@ -56,7 +57,7 @@ namespace miguelito_bot_commands.commands
                 ImageUrl = "https://cdn.discordapp.com/attachments/949838790774636644/949838931581612062/vinicius13.gif"
             };
             await ctx.RespondAsync(embed);
-            await Program.log("viniccius13");
+            await Program.Log("viniccius13");
         }
 
         [Command("migueloliveira")]
@@ -70,7 +71,7 @@ namespace miguelito_bot_commands.commands
             };
             embed.WithAuthor("Miguel Oliveira", "https://migueloliveira.xyz", "https://pbs.twimg.com/profile_images/1486866093604016131/jzbj65Ku_400x400.jpg");
             await ctx.RespondAsync($"{ctx.User.Mention} Falou o nome do patrão?", embed);
-            await Program.log("miguel oliveira");
+            await Program.Log("miguel oliveira");
         }
 
         [Command("aiai")]
@@ -80,11 +81,11 @@ namespace miguelito_bot_commands.commands
             DiscordEmbedBuilder embed = new DiscordEmbedBuilder
             {
                 Title = "aiai",
-                Color = main_commands.cores(),
+                Color = Variables.Cores(),
                 ImageUrl = "https://cdn.discordapp.com/attachments/949838790774636644/949839400790028308/essa-gente-inventa.gif"
             };
             await ctx.RespondAsync(embed);
-            await Program.log("aiai");
+            await Program.Log("aiai");
         }
 
         [Command("diálogo"), Aliases("dialogo")]
@@ -94,12 +95,12 @@ namespace miguelito_bot_commands.commands
             DiscordEmbedBuilder embed = new DiscordEmbedBuilder
             {
                 Title = "dialogo",
-                Color = main_commands.cores(),
+                Color = Variables.Cores(),
                 ImageUrl = "https://cdn.discordapp.com/attachments/949838790774636644/949839927972102184/dialogo.gif",
                 Description = ctx.User.Mention + "vamo resolver isso no dialogo?"
             };
             await ctx.RespondAsync(embed);
-            await Program.log("dialogo");
+            await Program.Log("dialogo");
         }
         #region comandos diferenciados
 
@@ -113,7 +114,7 @@ namespace miguelito_bot_commands.commands
                 ImageUrl = "https://media.discordapp.net/attachments/949836472985460766/951596734331633734/vai_orar_imunda.jpg"
             };
             await ctx.RespondAsync(":new_moon_with_face:", embed);
-            await Program.log(":new_moon_with_face:");
+            await Program.Log(":new_moon_with_face:");
         }
         #endregion
 
@@ -122,7 +123,7 @@ namespace miguelito_bot_commands.commands
         {
             await ctx.TriggerTypingAsync();
             await ctx.RespondAsync("Boa noite");
-            await Program.log("boa noite");
+            await Program.Log("boa noite");
         }
     }
 }
