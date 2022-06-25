@@ -7,21 +7,23 @@
 
 # How to setup Miguelito
 
-If you wish to host Tomoe yourself, skip on down to prerequisites. If you just want Miguelito to join your guild <a href="https://discord.com/api/oauth2/authorize?client_id=949488330620432386&permissions=1241186200694&scope=bot%20applications.commands" target="_blank">here</a> 
+If you want to know a little about how Miguelito is made and works 
+
+Add it to your server <a href="https://discord.com/api/oauth2/authorize?client_id=949488330620432386&permissions=1241186200694&scope=bot%20applications.commands" target="_blank">here</a> 
 
 ## Prerequisites
 
 The Miguelito uses dotnet 6.0. You can get it from [Microsoft](https://dotnet.microsoft.com/download/dotnet/6.0). Tomoe should work on all OS' that .NET is supported on. Mono is not supported due to DSharpPlus intentionally choosing not to support it.
 
 
-# Miguelito, The simple bot with many functions
+# Miguelito, A simple bot with many functions
 
 
 | Command | Implemented |
 |:-|:-:|
 | **Moderation Commands** | - |
-| Antimeme | ✅ |
-| Autoreact | ✅ |
+| Antimeme | ❌ |
+| Autoreact | ❌ |
 | Ban | ✅ |
 | Config | ❌ |
 | Doctor | ❌ |
@@ -32,13 +34,13 @@ The Miguelito uses dotnet 6.0. You can get it from [Microsoft](https://dotnet.mi
 | Mute | ✅ |
 | Reaction Roles | ❌ |
 | Report | ❌ |
-| Strike | ✅ |
+| Strike | ❌ |
 | Tempantimeme | ❌ |
 | Tempban | ❌ |
 | Tempmute | ❌ |
 | Templock | ❌ |
 | Tempvoiceban | ❌ |
-| Unantimeme | ✅ |
+| Unantimeme | ❌ |
 | Unban | ✅ |
 | Unmute | ✅ |
 | Unvoiceban | ✅ |
