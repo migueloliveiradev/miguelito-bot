@@ -1,85 +1,79 @@
 ﻿using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
+using miguelito_bot_slashcommands.Utils;
 
 namespace miguelito_bot_slashcommands.slashcommands.Server
 {
     internal class Server : ApplicationCommandModule
-    {/*
-        [SlashCommandGroup("user", "commands to the user")]
+    {
+        [SlashCommandGroup("Server", "Server related commands")]
         public class GroupContainer : ApplicationCommandModule
         {
-            [SlashCommand("avatar", "receive your avatar or the desired user")]
-            public async Task avatar(InteractionContext ctx, [Option("user", "user you want icon")] DiscordUser user = null)
+            [SlashCommand("avatar", "Server ┇ Get the server avatar or server avatar you want")]
+            public async Task ServerAvatar(InteractionContext ctx, [Option("server", "server id")] string serverID = null)
             {
-                DiscordEmbedBuilder embed;
-                if (server == 0)
-                {
-                    embed = new DiscordEmbedBuilder
-                    {
-                        Description = $"{Formatter.MaskedUrl("Baixar", new Uri(ctx.Guild.IconUrl + "?size=2048"), "Baixar")} imagem",
-                        Color = cores(),
-                        ImageUrl = ctx.Guild.IconUrl + "?size=2048",
-                    };
-                    embed.WithAuthor(ctx.Guild.Name, null, ctx.Guild.IconUrl)
-                         .WithFooter($"Solicitado por {ctx.User.Username}#{ctx.User.Discriminator}", ctx.User.AvatarUrl);
-                    await ctx.RespondAsync(embed);
-                }
-                else
+                DiscordGuild guild = ctx.Guild;
+                if (serverID != null)
                 {
                     try
                     {
-                        DiscordGuild guild = await ctx.Client.GetGuildAsync(server);
-                        embed = new DiscordEmbedBuilder
-                        {
-                            Description = $"{Formatter.MaskedUrl("Baixar", new Uri(guild.IconUrl + "?size=2048"), "Baixar")} imagem",
-                            Color = cores(),
-                            ImageUrl = guild.IconUrl + "?size=2048",
-                        };
-                        embed.WithAuthor(guild.Name, null, guild.IconUrl)
-                             .WithFooter($"Solicitado por {ctx.User.Username}#{ctx.User.Discriminator}", ctx.User.AvatarUrl);
-                        await ctx.RespondAsync(embed);
+                        guild = await ctx.Client.GetGuildAsync(Convert.ToUInt64(serverID));
                     }
                     catch
                     {
-                        await ctx.RespondAsync("Meu chapa, infelizmente eu não tô nesse server pra pegar o icon dele :pensive:");
+                        await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().WithContent("Servidor não encontrado."));
+                        return;
                     }
                 }
+                DiscordEmbedBuilder embed = new()
+                {
+                    Color = Variables.Cores(),
+                    ImageUrl = guild.GetIconUrl(ImageFormat.Png, 2048),
+                };
+                embed.WithAuthor(guild.Name, null, guild.IconUrl);
+                embed.WithFooter($"Solicitado por {ctx.User.Username}#{ctx.User.Discriminator}", ctx.User.AvatarUrl);
                 await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AddEmbed(embed));
+                await Methods.CommandsUsed("Server avatar", ctx.Guild.Id, ctx.User.Id);
+                return;
             }
 
-            [SlashCommand("info", "receive your information or the desired user")]
-            public async Task info(InteractionContext ctx, [Option("user", "user you want information")] DiscordUser user = null)
+            [SlashCommand("info", "Server ┇ Get the server information or server information you want")]
+            public async Task ServerInfo(InteractionContext ctx, [Option("server", "server id")] string serverID = null)
             {
-                DiscordEmbedBuilder embed;
-                if (user == null)
+                DiscordGuild guild = ctx.Guild;
+                if (serverID != null)
                 {
-                    user = ctx.User;
-                    embed = new DiscordEmbedBuilder
+                    try
                     {
-                        Title = ":person_doing_cartwheel: " + user.Username,
-                        Color = color.cores(),
-                        ImageUrl = user.GetAvatarUrl(ImageFormat.Auto, 2048),
-                        Description = ":hash: Tag do Discord: **" + user.Username + "#" + user.Discriminator + "**\n\n" +
-                        ":detective: ID do Discord: **" + user.Id + "**\n\n" +
-                        ":hourglass_flowing_sand: Conta criada em: **" + user.CreationTimestamp.ToString().Replace("+00:00", "") + "**",
-                    };
+                        guild = await ctx.Client.GetGuildAsync(Convert.ToUInt64(serverID));
+                    }
+                    catch
+                    {
+                        await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
+                            new DiscordInteractionResponseBuilder().WithContent("Servidor não encontrado.").AsEphemeral(true));
+                        return;
+                    }
                 }
-                else
+                DiscordEmbedBuilder embed = new()
                 {
-                    embed = new DiscordEmbedBuilder
-                    {
-                        Title = ":person_doing_cartwheel: " + user.Username,
-                        Color = color.cores(),
-                        ImageUrl = user.GetAvatarUrl(ImageFormat.Auto, 2048),
-                        Description = ":hash: Tag do Discord: **" + user.Username + "#" + user.Discriminator + "**\n\n" +
-                         ":detective: ID do Discord: **" + user.Id + "**\n\n" +
-                         ":hourglass_flowing_sand: Conta criada em: **" + user.CreationTimestamp.ToString().Replace("+00:00", "") + "**"
-                    };
-                }
-                embed.WithThumbnail(user.AvatarUrl);
-                await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AddEmbed(embed));
+                    Color = Variables.Cores(),
+                    Description = $":detective: ID do Servidor: **{guild.Id}**\n\n" +
+                        $":crown: Dono: **{guild.Owner.Nickname}**({guild.Owner.Id})\n\n" +
+                        $":hourglass_flowing_sand: Criado em: **{guild.CreationTimestamp:dd/MM/yyyy}**\n\n" +
+                        $":speech_balloon: Canais: **{guild.Channels.Count}**\n\n" +
+                        $":man_cartwheeling: Quantidade aproximada de Membros: **{guild.ApproximateMemberCount}**\n\n" +
+                        $":man_cartwheeling: Quantidade aproximada de Membros online: **{guild.ApproximatePresenceCount}**\n\n" +
+                        $":notebook_with_decorative_cover: Cargos: **{guild.Roles.Count}**",
+                    ImageUrl = guild.GetIconUrl(ImageFormat.Png, 2048),
+                };
+                embed.WithThumbnail(guild.GetIconUrl(ImageFormat.Png, 2048));
+                embed.WithAuthor(guild.Name, null, guild.IconUrl);
+                await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
+                    new DiscordInteractionResponseBuilder().AddEmbed(embed));
+                await Methods.CommandsUsed("Server Info", ctx.Guild.Id, ctx.User.Id);
+                return;
             }
-        }*/
+        }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using DSharpPlus.Entities;
 
-namespace miguelito_bot_slashcommands
+namespace miguelito_bot_slashcommands.Utils
 {
-    internal class color
+    internal class Variables
     {
-        public static DiscordColor cores()
+        public static DiscordColor Cores()
         {
             DiscordColor[] cores = {
                 DiscordColor.Aquamarine,
@@ -50,7 +50,7 @@ namespace miguelito_bot_slashcommands
                 DiscordColor.Wheat,
                 DiscordColor.White,
                 DiscordColor.Yellow};
-            Random rnd = new Random();
+            Random rnd = new();
             return cores[rnd.Next(0, cores.Length)];
         }
     }

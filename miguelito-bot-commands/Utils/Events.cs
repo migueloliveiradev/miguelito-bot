@@ -8,13 +8,17 @@ namespace miguelito_bot_commands.Utils
     {
         public static async Task OnReady(DiscordClient sender, ReadyEventArgs e)
         {
-            await sender.UpdateStatusAsync(new DiscordActivity("Visual Studio", ActivityType.Playing), UserStatus.Online);
-            //await Variables.AddBomdia();
+            await sender.UpdateStatusAsync(new DiscordActivity("Pou", ActivityType.Playing), UserStatus.Online);
+            await Variables.AddVariables();
+            Console.WriteLine("Added variable values.");
+
+
         }
+
+
         public static async Task ClientErrored(DiscordClient sender, ClientErrorEventArgs e)
         {
-            DiscordGuild guild = await sender.GetGuildAsync(880904935787601960);
-            DiscordChannel channel = guild.GetChannel(Convert.ToUInt64(Program.config[7]));
+            DiscordChannel channel = await sender.GetChannelAsync(Convert.ToUInt64(Program.config[7]));
             await channel.SendMessageAsync($"erro {e.Exception.Message}");
             Console.WriteLine($"Erro: {e.Exception.Message}");
         }

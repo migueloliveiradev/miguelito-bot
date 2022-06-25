@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace miguelito_bot_commands.commands
 {
-    internal class main_commands : BaseCommandModule
+    internal class Main_commands : BaseCommandModule
     {
         [Command("avatar"), Aliases("av", "icon")]
         public async Task avatar(CommandContext ctx, DiscordUser user = null)
@@ -80,12 +80,12 @@ namespace miguelito_bot_commands.commands
         {
             await ctx.TriggerTypingAsync();
             Random random = new();
-            int i = random.Next(0, Variables.bom_dia.Count);
+            int i = random.Next(0, Variables.Bomdia.Count);
             DiscordEmbedBuilder embed = new()
             {
                 Title = "Bom dia meu rei :cowboy:",
                 Color = Variables.Cores(),
-                ImageUrl = Variables.bom_dia[i],
+                ImageUrl = Variables.Bomdia[i],
             };
             await ctx.RespondAsync($"{ctx.User.Mention} desejo um otimo dia para você :3", embed);
             await Program.Log("bomdia");
@@ -180,7 +180,7 @@ namespace miguelito_bot_commands.commands
         public async Task ping(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();
-            int ping_message = DateTimeOffset.UtcNow.Millisecond - ctx.Message.Timestamp.Millisecond; 
+            int ping_message = DateTimeOffset.UtcNow.Millisecond - ctx.Message.Timestamp.Millisecond;
             DiscordMessage ping = await ctx.RespondAsync("pinga? aceito :eyes:");
             string cs = Program.config[2];
             MySqlConnection con = new(cs);
@@ -230,7 +230,7 @@ namespace miguelito_bot_commands.commands
             }
 
         }
-        
+
         [Command("memberquantidade")]
         public async Task memberquantidade(CommandContext ctx)
         {

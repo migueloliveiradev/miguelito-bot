@@ -9,9 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DSharpPlus" Version="4.3.0-nightly-01140" />
-    <PackageReference Include="DSharpPlus.Interactivity" Version="4.3.0-nightly-01140" />
+    <PackageReference Include="DSharpPlus" Version="4.3.0-nightly-01146" />
+    <PackageReference Include="DSharpPlus.Interactivity" Version="4.3.0-nightly-01146" />
     <PackageReference Include="MySql.Data" Version="8.0.29" />
+    <PackageReference Include="TweetinviAPI" Version="5.0.4" />
   </ItemGroup>
 
   <ItemGroup>

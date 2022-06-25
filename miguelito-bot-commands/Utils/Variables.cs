@@ -1,4 +1,6 @@
 ﻿using DSharpPlus.Entities;
+using System.Reflection;
+using System.Text;
 
 namespace miguelito_bot_commands.Utils
 {
@@ -55,20 +57,54 @@ namespace miguelito_bot_commands.Utils
             return colors[i];
         }
 
-        public static List<string> bom_dia;
+        public static List<string> Bomdia = new();
 
-        public static async Task AddBomdia()
+        public static List<string> Conselhos = new();
+
+        public static List<string> Piadas = new();
+
+        public static List<string> Cantadas = new();
+
+        public static List<string> Curiosidades = new();
+
+        public static async Task AddVariables()
         {
-            DiscordGuild miguelito = await Program.cliente.GetGuildAsync(822845253131829289);
-            DiscordChannel channel = miguelito.GetChannel(824755190225174628);
-            var msgs = channel.GetMessagesAsync();
-            /*foreach (DiscordMessage msg in msgs.Result)
+            //Bom dia add
+            DiscordChannel Channel_Bomdia = await Program.cliente.GetChannelAsync(982120078420115496);
+            foreach (DiscordMessage msg in Channel_Bomdia.GetMessagesAsync(1000).Result)
             {
                 foreach (DiscordAttachment attachment in msg.Attachments)
                 {
-                    bom_dia.Add(attachment.Url);
+                    Bomdia.Add(attachment.Url);
                 }
-            }*/
+            }
+
+            //Conselhos add
+            Conselhos = ReadLines(() => Assembly.GetExecutingAssembly()
+                        .GetManifestResourceStream("miguelito_bot_commands.text.conselhos.miguelito"), Encoding.UTF8).ToList();
+
+            //Piadas add
+            Piadas = ReadLines(() => Assembly.GetExecutingAssembly()
+                     .GetManifestResourceStream("miguelito_bot_commands.text.piadas.miguelito"), Encoding.UTF8).ToList();
+
+            //Cantadas add
+            Cantadas = ReadLines(() => Assembly.GetExecutingAssembly()
+                       .GetManifestResourceStream("miguelito_bot_commands.text.cantada.miguelito"), Encoding.UTF8).ToList();
+
+            //Curiosidades add
+            Curiosidades = ReadLines(() => Assembly.GetExecutingAssembly()
+                           .GetManifestResourceStream("miguelito_bot_commands.text.curiosidades.miguelito"), Encoding.UTF8).ToList();
+        }
+
+        public static IEnumerable<string> ReadLines(Func<Stream> streamProvider, Encoding encoding)
+        {
+            Stream stream = streamProvider();
+            StreamReader reader = new(stream, encoding);
+            string line;
+            while ((line = reader.ReadLine()) != null)
+            {
+                yield return line;
+            }
         }
     }
 }

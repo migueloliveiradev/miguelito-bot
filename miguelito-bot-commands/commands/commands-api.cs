@@ -363,14 +363,15 @@ namespace miguelito_bot_commands.commands
 
                 if (search != "")
                 {
-                    string cx = "012206473211536691174:p3wdsjftbeo";
-                    string url = $" https://www.googleapis.com/customsearch/v1?key={Program.config[13]}&cx={cx}&q={search}";
+                    string cx = "ed5b1310ccee9e87b";
+                    string url = $" https://www.googleapis.com/customsearch/v1?key={Program.config[13]}&cx={cx}&q={search}&searchType='News'&alt=json";
                     var request = WebRequest.Create(url);
                     HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                     Stream data = response.GetResponseStream();
                     StreamReader reader = new StreamReader(data);
                     string rs = reader.ReadToEnd();
                     dynamic json = JsonConvert.DeserializeObject(rs);
+                    Console.WriteLine(json);
                     string title = json.items[0].title;
                     string link = json.items[0].link;
                     string snippet = json.items[0].snippet;

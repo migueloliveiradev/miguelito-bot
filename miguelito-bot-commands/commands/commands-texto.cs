@@ -1,32 +1,28 @@
 ﻿using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
-using System.Reflection;
-using System.Text;
+using miguelito_bot_commands.Utils;
 
 namespace miguelito_bot_commands.commands
 {
-    internal class commands_texto : BaseCommandModule
+    internal class Commands_texto : BaseCommandModule
     {
 
         [Command("conselho"), Aliases("conselhos")]
-        public async Task conselhos(CommandContext ctx, int numero = -1)
+        public async Task Conselhos(CommandContext ctx, int numero = -1)
         {
             await ctx.TriggerTypingAsync();
-            List<string> conselho = ReadLines(() => Assembly.GetExecutingAssembly()
-           .GetManifestResourceStream("miguelito_bot_commands.text.conselhos.miguelito"), Encoding.UTF8)
-               .ToList();
             if (numero == -1)
             {
-                Random random = new Random();
-                int i = random.Next(0, conselho.Count);
-                await ctx.RespondAsync($"{i + 1} - {conselho[i]}");
+                Random random = new();
+                int i = random.Next(0, Variables.Conselhos.Count);
+                await ctx.RespondAsync($"{i + 1} - {Variables.Conselhos[i]}");
             }
             else if (numero != -1)
             {
                 try
                 {
                     numero--;
-                    await ctx.RespondAsync(conselho[numero]);
+                    await ctx.RespondAsync(Variables.Conselhos[numero]);
                 }
                 catch
                 {
@@ -34,50 +30,46 @@ namespace miguelito_bot_commands.commands
                 }
             }
             await Program.Log("conselho");
+            return;
         }
 
         [Command("piada"), Aliases("piadas")]
-        public async Task piada(CommandContext ctx, int numero = -1)
+        public async Task Piada(CommandContext ctx, int numero = -1)
         {
             await ctx.TriggerTypingAsync();
-            var piada = ReadLines(() => Assembly.GetExecutingAssembly()
-            .GetManifestResourceStream("miguelito_bot_commands.text.piadas.miguelito"), Encoding.UTF8)
-                .ToList();
             if (numero == -1)
             {
-                Random random = new Random();
-                int i = random.Next(0, piada.Count);
-                await ctx.RespondAsync($"{i} - {piada[i]} :joy:");
+                Random random = new();
+                int i = random.Next(0, Variables.Piadas.Count);
+                await ctx.RespondAsync($"{i} - {Variables.Piadas[i]} :joy:");
             }
-            else if (numero <= piada.Count && numero > 0)
+            else if (numero <= Variables.Piadas.Count && numero > 0)
             {
                 numero--;
-                await ctx.RespondAsync(piada[numero]);
+                await ctx.RespondAsync(Variables.Piadas[numero]);
             }
             else
             {
                 await ctx.RespondAsync("Não consegui achar a piada do numero pedido, as vezes a graça da vida é cantar sobre bananas");
             }
             await Program.Log("piada");
+            return;
         }
 
         [Command("curiosidade"), Aliases("curiosidades")]
-        public async Task curiosidade(CommandContext ctx, int numero = -1)
+        public async Task Curiosidade(CommandContext ctx, int numero = -1)
         {
             await ctx.TriggerTypingAsync();
-            var curiosidade = ReadLines(() => Assembly.GetExecutingAssembly()
-            .GetManifestResourceStream("miguelito_bot_commands.text.curiosidades.miguelito"), Encoding.UTF8)
-                .ToList();
             if (numero == -1)
             {
-                Random random = new Random();
-                int i = random.Next(0, curiosidade.Count);
-                await ctx.RespondAsync($"{i} {curiosidade[i]} :joy:");
+                Random random = new();
+                int i = random.Next(0, Variables.Curiosidades.Count);
+                await ctx.RespondAsync($"{i} - {Variables.Curiosidades[i]} :joy:");
             }
-            else if (numero <= curiosidade.Count && numero > 0)
+            else if (numero <= Variables.Curiosidades.Count && numero > 0)
             {
                 numero--;
-                await ctx.RespondAsync(curiosidade[numero]);
+                await ctx.RespondAsync(Variables.Curiosidades[numero]);
             }
             else
             {
@@ -87,30 +79,14 @@ namespace miguelito_bot_commands.commands
         }
 
         [Command("cantada")]
-        public async Task cantada(CommandContext ctx)
+        public async Task Cantada(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();
-            var cantada = ReadLines(() => Assembly.GetExecutingAssembly()
-            .GetManifestResourceStream("miguelito_bot_commands.text.cantada.miguelito"), Encoding.UTF8)
-                .ToList();
-            Random random = new Random();
-            int i = random.Next(0, cantada.Count);
-            await ctx.RespondAsync(cantada[i] + "\n\nUooh Uooh Uooh meu lençol drobrado já tá todo bagunçado");
+            Random random = new();
+            int i = random.Next(0, Variables.Cantadas.Count);
+            await ctx.RespondAsync(Variables.Cantadas[i] + "\n\nUooh Uooh Uooh meu lençol drobrado já tá todo bagunçado");
             await Program.Log("cantada");
-        }
-
-        public static IEnumerable<string> ReadLines(Func<Stream> streamProvider,
-                                   Encoding encoding)
-        {
-            using (var stream = streamProvider())
-            using (var reader = new StreamReader(stream, encoding))
-            {
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    yield return line;
-                }
-            }
+            return;
         }
     }
 }

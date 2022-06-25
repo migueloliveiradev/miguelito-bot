@@ -2,16 +2,28 @@
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 using miguelito_bot_commands.Utils;
+using System.Net;
+
 
 namespace miguelito_bot_commands.commands
 {
     internal class random_commands : BaseCommandModule
     {
+        [Command("test")]
+        public async Task a(CommandContext ctx, string text, string des, string tag)
+        {
+            Console.WriteLine("aaaaa");
+            Stream Sticker = new WebClient().OpenRead(ctx.Message.Attachments[0].Url);
+            await ctx.Guild.CreateStickerAsync(text, des, tag, Sticker, StickerFormat.PNG);
+
+            await ctx.RespondAsync("foi");
+        }
+
         [Command("bolo"), Aliases("mulango")]
         public async Task bolo(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();
-            DiscordEmbedBuilder embed = new DiscordEmbedBuilder
+            DiscordEmbedBuilder embed = new()
             {
                 Color = DiscordColor.Red,
                 ImageUrl = "https://c.tenor.com/t4zUkk1R-UIAAAAd/pica-pau.gif"
@@ -125,5 +137,6 @@ namespace miguelito_bot_commands.commands
             await ctx.RespondAsync("Boa noite");
             await Program.Log("boa noite");
         }
+
     }
 }

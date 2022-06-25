@@ -1,7 +1,6 @@
 ﻿using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.Entities;
-using DSharpPlus.EventArgs;
 using DSharpPlus.Interactivity;
 using DSharpPlus.Interactivity.Enums;
 using DSharpPlus.Interactivity.Extensions;
@@ -29,6 +28,8 @@ namespace miguelito_bot_commands
         //Line 12  Api Twitter ACCESS_TOKEN_SECRET
         //Line 13  Api Custom Search key
         //Line 14  APi Pexels
+        //Line 15  APi Spotify
+        //Line 16  APi Spotify Secret
 
         public static DiscordClient cliente { get; private set; }
         public static async Task Main(string[] args) => new Program().rodarBot().GetAwaiter().GetResult();
@@ -80,13 +81,13 @@ namespace miguelito_bot_commands
             });
             cliente.ClientErrored += Events.ClientErrored;
             cliente.Ready += Events.OnReady;
-            cnt.RegisterCommands<main_commands>();
+            cnt.RegisterCommands<Main_commands>();
             cnt.RegisterCommands<commands_administration>();
             cnt.RegisterCommands<commands_matematica>();
             cnt.RegisterCommands<commands_configuration>();
             cnt.RegisterCommands<commands_twitter>();
             cnt.RegisterCommands<commands_api>();
-            cnt.RegisterCommands<commands_texto>();
+            cnt.RegisterCommands<Commands_texto>();
             cnt.RegisterCommands<commands_games>();
             cnt.RegisterCommands<random_commands>();
             cnt.RegisterCommands<roll_commands>();
@@ -96,8 +97,9 @@ namespace miguelito_bot_commands
             await cliente.ConnectAsync();
             Console.WriteLine("Running...");
             await Task.Delay(-1);
+
         }
-        
+
         public static async Task Log(string nome)
         {
             DiscordGuild guild = await Program.cliente.GetGuildAsync(880904935787601960);

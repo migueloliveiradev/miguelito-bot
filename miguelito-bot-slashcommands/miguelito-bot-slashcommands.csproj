@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -9,15 +9,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DSharpPlus" Version="4.3.0-nightly-01140" />
-    <PackageReference Include="DSharpPlus.Interactivity" Version="4.3.0-nightly-01140" />
-    <PackageReference Include="DSharpPlus.SlashCommands" Version="4.3.0-nightly-01140" />
+    <None Remove="slashcommands\Reactions\NewFile1.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="slashcommands\Math\" />
+    <PackageReference Include="DSharpPlus" Version="4.3.0-nightly-01146" />
+    <PackageReference Include="DSharpPlus.Interactivity" Version="4.3.0-nightly-01146" />
+    <PackageReference Include="DSharpPlus.SlashCommands" Version="4.3.0-nightly-01146" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.2.0" />
+    <PackageReference Include="MySql.Data" Version="8.0.29" />
+    <PackageReference Include="SpotifyAPI.Web" Version="6.2.2" />
+    <PackageReference Include="TweetinviAPI" Version="5.0.4" />
+    <PackageReference Include="YoutubeExplode" Version="6.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="slashcommands\Cool\" />
-    <Folder Include="slashcommands\Utility\" />
+    <Folder Include="slashcommands\Embed\" />
   </ItemGroup>
 
 </Project>

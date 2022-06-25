@@ -1,6 +1,7 @@
 ﻿using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
+using miguelito_bot_slashcommands.Utils;
 
 namespace miguelito_bot_slashcommands.slashcommands.User
 {
@@ -9,65 +10,46 @@ namespace miguelito_bot_slashcommands.slashcommands.User
         [SlashCommandGroup("user", "commands to the user")]
         public class GroupContainer : ApplicationCommandModule
         {
-            [SlashCommand("avatar", "receive your avatar or the desired user")]
-            public async Task avatar(InteractionContext ctx, [Option("user", "user you want icon")] DiscordUser user = null)
+            [SlashCommand("avatar", "User ┇ Receive your avatar or the desired user")]
+            public async Task Avatar(InteractionContext ctx, [Option("user", "User you want icon")] DiscordUser user = null)
             {
-                DiscordEmbedBuilder embed;
                 if (user == null)
                 {
                     user = ctx.User;
-                    embed = new DiscordEmbedBuilder
-                    {
-                        Color = DiscordColor.CornflowerBlue,
-                        ImageUrl = user.AvatarUrl,
-                    };
-                    embed.WithAuthor(user.Username, null, user.AvatarUrl).
-                        WithFooter($"Solicitado por {ctx.User.Username}#{ctx.User.Discriminator}", ctx.User.AvatarUrl);
                 }
-                else
+                DiscordEmbedBuilder embed = new()
                 {
-                    embed = new DiscordEmbedBuilder
-                    {
-                        Color = DiscordColor.CornflowerBlue,
-                        ImageUrl = user.AvatarUrl,
-                    };
-                    embed.WithAuthor(user.Username, null, user.AvatarUrl).
+                    Color = Variables.Cores(),
+                    ImageUrl = user.AvatarUrl,
+                };
+                embed.WithAuthor(user.Username, null, user.AvatarUrl).
                         WithFooter($"Solicitado por {ctx.User.Username}#{ctx.User.Discriminator}", ctx.User.AvatarUrl);
-                }
+
                 await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AddEmbed(embed));
+                await Methods.CommandsUsed("User avatar", ctx.Guild.Id, ctx.User.Id);
+                return;
             }
 
-            [SlashCommand("info", "receive your information or the desired user")]
+            [SlashCommand("info", "User ┇ Receive your information or the desired user")]
             public async Task info(InteractionContext ctx, [Option("user", "user you want information")] DiscordUser user = null)
             {
-                DiscordEmbedBuilder embed;
                 if (user == null)
                 {
                     user = ctx.User;
-                    embed = new DiscordEmbedBuilder
-                    {
-                        Title = ":person_doing_cartwheel: " + user.Username,
-                        Color = color.cores(),
-                        ImageUrl = user.GetAvatarUrl(ImageFormat.Auto, 2048),
-                        Description = ":hash: Tag do Discord: **" + user.Username + "#" + user.Discriminator + "**\n\n" +
-                        ":detective: ID do Discord: **" + user.Id + "**\n\n" +
-                        ":hourglass_flowing_sand: Conta criada em: **" + user.CreationTimestamp.ToString().Replace("+00:00", "") + "**",
-                    };
                 }
-                else
+                DiscordEmbedBuilder embed = new DiscordEmbedBuilder
                 {
-                    embed = new DiscordEmbedBuilder
-                    {
-                        Title = ":person_doing_cartwheel: " + user.Username,
-                        Color = color.cores(),
-                        ImageUrl = user.GetAvatarUrl(ImageFormat.Auto, 2048),
-                        Description = ":hash: Tag do Discord: **" + user.Username + "#" + user.Discriminator + "**\n\n" +
-                         ":detective: ID do Discord: **" + user.Id + "**\n\n" +
-                         ":hourglass_flowing_sand: Conta criada em: **" + user.CreationTimestamp.ToString().Replace("+00:00", "") + "**"
-                    };
-                }
+                    Title = ":person_doing_cartwheel: " + user.Username,
+                    Color = Variables.Cores(),
+                    ImageUrl = user.GetAvatarUrl(ImageFormat.Auto, 2048),
+                    Description = $":hash: Tag do Discord: **{user.Username}#{user.Discriminator}**\n\n" +
+                     $":detective: ID do Discord: **{user.Id}**\n\n" +
+                     $":hourglass_flowing_sand: Conta criada em: **{user.CreationTimestamp:dd/MM/yyyy HH:mm}**",
+                };
                 embed.WithThumbnail(user.AvatarUrl);
                 await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AddEmbed(embed));
+                await Methods.CommandsUsed("User info", ctx.Guild.Id, ctx.User.Id);
+                return;
             }
         }
     }
