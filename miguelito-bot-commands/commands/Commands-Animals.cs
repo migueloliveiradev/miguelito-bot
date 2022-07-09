@@ -1,4 +1,5 @@
-﻿using DSharpPlus.CommandsNext;
+﻿using DSharpPlus;
+using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 using miguelito_bot_commands.Utils;
@@ -13,18 +14,16 @@ namespace miguelito_bot_commands.commands
         public async Task gato(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();
-            string url = "https://api.thecatapi.com/v1/images/search";
-            string json = new WebClient().DownloadString(url);
-            dynamic data = JsonConvert.DeserializeObject(json);
-            string cats = data[0].url;
-            Console.WriteLine(cats);
             DiscordEmbedBuilder embed = new()
             {
-                Color = Variables.Cores(),
-                ImageUrl = cats,
+                Title = ":arrow_up: Updates",
+                Description = $"Opa {ctx.User.Username} sabia que agora o comando `-cats` agora é em slash comandos? " +
+                $"use `/cats` para testa-lo\n\n" +
+                $"Todos os comandos que não são em slash irão desaparecer **31 de Agosto de 2022**, estão comece a se acostumar com eles\n\n" +
+                $"Caso os comandos não estejam aparecendo {Formatter.MaskedUrl("autorize minhas permisões", new Uri("https://discord.com/api/oauth2/authorize?client_id=949488330620432386&permissions=8&scope=bot%20applications.commands"), "beba agua")}" +
+                $"Em caso de algum problema entre no meu {Formatter.MaskedUrl("servidor de suporte", new Uri("https://discord.gg/FZpH3SZahH"), "se o problema for culpa sua vai catar coquinho")}"
             };
-            await ctx.RespondAsync($"Opa {ctx.Member.Mention} espero q goste desse gato fofo q escolhi :3", embed);
-            await Program.Log("gato");
+            await ctx.RespondAsync(embed);
             return;
         }
 
@@ -32,17 +31,16 @@ namespace miguelito_bot_commands.commands
         public async Task dogs(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();
-            string url = "https://dog.ceo/api/breeds/image/random";
-            string json = new WebClient().DownloadString(url);
-            dynamic data = JsonConvert.DeserializeObject(json);
-            string dogs = data.message;
             DiscordEmbedBuilder embed = new()
             {
-                Color = Variables.Cores(),
-                ImageUrl = dogs,
+                Title = ":arrow_up: Updates",
+                Description = $"Opa {ctx.User.Username} sabia que agora o comando `-dog` agora é em slash comandos? " +
+                $"use `/dogs` para testa-lo\n\n" +
+                $"Todos os comandos que não são em slash irão desaparecer **31 de Agosto de 2022**, estão comece a se acostumar com eles\n\n" +
+                $"Caso os comandos não estejam aparecendo {Formatter.MaskedUrl("autorize minhas permisões", new Uri("https://discord.com/api/oauth2/authorize?client_id=949488330620432386&permissions=8&scope=bot%20applications.commands"), "beba agua")}" +
+                $"Em caso de algum problema entre no meu {Formatter.MaskedUrl("servidor de suporte", new Uri("https://discord.gg/FZpH3SZahH"), "se o problema for culpa sua vai catar coquinho")}"
             };
-            await ctx.RespondAsync($"Opa {ctx.Member.Mention} espero q goste desse cachorro fofo q escolhi :3", embed);
-            await Program.Log("gato");
+            await ctx.RespondAsync(embed);
             return;
         }
 
@@ -50,17 +48,16 @@ namespace miguelito_bot_commands.commands
         public async Task fox(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();
-            string url = "https://randomfox.ca/floof/";
-            string json = new WebClient().DownloadString(url);
-            dynamic data = JsonConvert.DeserializeObject(json);
-            string fox = data.image;
             DiscordEmbedBuilder embed = new()
             {
-                Color = Variables.Cores(),
-                ImageUrl = fox,
+                Title = ":arrow_up: Updates",
+                Description = $"Opa {ctx.User.Username} sabia que agora o comando `-fox` agora é em slash comandos? " +
+                $"use `/fox` para testa-lo\n\n" +
+                $"Todos os comandos que não são em slash irão desaparecer **31 de Agosto de 2022**, estão comece a se acostumar com eles\n\n" +
+                $"Caso os comandos não estejam aparecendo {Formatter.MaskedUrl("autorize minhas permisões", new Uri("https://discord.com/api/oauth2/authorize?client_id=949488330620432386&permissions=8&scope=bot%20applications.commands"), "beba agua")}" +
+                $"Em caso de algum problema entre no meu {Formatter.MaskedUrl("servidor de suporte", new Uri("https://discord.gg/FZpH3SZahH"), "se o problema for culpa sua vai catar coquinho")}"
             };
-            await ctx.RespondAsync($"Opa {ctx.Member.Mention} espero q goste dessa raposa fofa q escolhi :3", embed);
-            await Program.Log("gato");
+            await ctx.RespondAsync(embed);
             return;
         }
 
@@ -68,17 +65,16 @@ namespace miguelito_bot_commands.commands
         public async Task duck(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();
-            string url = "https://random-d.uk/api/random?format=json";
-            string json = new WebClient().DownloadString(url);
-            dynamic data = JsonConvert.DeserializeObject(json);
-            string img = data.url;
             DiscordEmbedBuilder embed = new()
             {
-                Color = Variables.Cores(),
-                ImageUrl = img,
+                Title = ":arrow_up: Updates",
+                Description = $"Opa {ctx.User.Username} sabia que agora o comando `-duck` agora é em slash comandos? " +
+                $"use `/duck` para testa-lo\n\n" +
+                $"Todos os comandos que não são em slash irão desaparecer **31 de Agosto de 2022**, estão comece a se acostumar com eles\n\n" +
+                $"Caso os comandos não estejam aparecendo {Formatter.MaskedUrl("autorize minhas permisões", new Uri("https://discord.com/api/oauth2/authorize?client_id=949488330620432386&permissions=8&scope=bot%20applications.commands"), "beba agua")}" +
+                $"Em caso de algum problema entre no meu {Formatter.MaskedUrl("servidor de suporte", new Uri("https://discord.gg/FZpH3SZahH"), "se o problema for culpa sua vai catar coquinho")}"
             };
-            await ctx.RespondAsync($"Opa {ctx.Member.Mention} espero q goste desse pato fofo q escolhi :3", embed);
-            await Program.Log("gato");
+            await ctx.RespondAsync(embed);
             return;
         }
     }

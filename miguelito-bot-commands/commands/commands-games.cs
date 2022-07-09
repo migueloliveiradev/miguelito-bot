@@ -273,7 +273,7 @@ namespace miguelito_bot_commands.commands
                         new DiscordButtonComponent(ButtonStyle.Success, "BT1", "Iniciar"),
                         new DiscordButtonComponent(ButtonStyle.Danger, "BT2", "Cancelar"),
                     });
-                Program.cliente.ComponentInteractionCreated += async (s, e) =>
+                Program.Cliente.ComponentInteractionCreated += async (s, e) =>
                 {
                     await e.Interaction.CreateResponseAsync(InteractionResponseType.DeferredMessageUpdate);
                     if (e.User == ctx.User || e.User == user)

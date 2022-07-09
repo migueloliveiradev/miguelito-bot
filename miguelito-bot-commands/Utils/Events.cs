@@ -11,8 +11,6 @@ namespace miguelito_bot_commands.Utils
             await sender.UpdateStatusAsync(new DiscordActivity("Pou", ActivityType.Playing), UserStatus.Online);
             await Variables.AddVariables();
             Console.WriteLine("Added variable values.");
-
-
         }
 
 

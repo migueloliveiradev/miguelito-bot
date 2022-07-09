@@ -1,9 +1,20 @@
-﻿using DSharpPlus.Entities;
+﻿using DSharpPlus;
+using DSharpPlus.Entities;
+using System.Reflection;
 
 namespace miguelito_bot_slashcommands.Utils
 {
     internal class Variables
     {
+        public static string? VersionDSharpPlus;
+
+        public static async Task version()
+        {
+            Assembly assembly = typeof(DiscordClient).GetTypeInfo().Assembly;
+            AssemblyInformationalVersionAttribute? customAttribute = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+            VersionDSharpPlus = assembly?.GetName()?.Version?.ToString();
+        }
+
         public static DiscordColor Cores()
         {
             DiscordColor[] cores = {

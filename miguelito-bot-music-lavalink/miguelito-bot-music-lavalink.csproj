@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DSharpPlus.CommandsNext" Version="4.3.0-nightly-01146" />
-    <PackageReference Include="DSharpPlus.Lavalink" Version="4.3.0-nightly-01146" />
+    <PackageReference Include="DSharpPlus.CommandsNext" Version="4.3.0-nightly-01151" />
+    <PackageReference Include="DSharpPlus.Lavalink" Version="4.3.0-nightly-01151" />
   </ItemGroup>
 
 </Project>

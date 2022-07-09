@@ -1,4 +1,5 @@
-﻿using DSharpPlus.Entities;
+﻿using DSharpPlus;
+using DSharpPlus.Entities;
 using System.Reflection;
 using System.Text;
 
@@ -70,7 +71,7 @@ namespace miguelito_bot_commands.Utils
         public static async Task AddVariables()
         {
             //Bom dia add
-            DiscordChannel Channel_Bomdia = await Program.cliente.GetChannelAsync(982120078420115496);
+            DiscordChannel Channel_Bomdia = await Program.Cliente.GetChannelAsync(982120078420115496);
             foreach (DiscordMessage msg in Channel_Bomdia.GetMessagesAsync(1000).Result)
             {
                 foreach (DiscordAttachment attachment in msg.Attachments)
@@ -95,6 +96,8 @@ namespace miguelito_bot_commands.Utils
             Curiosidades = ReadLines(() => Assembly.GetExecutingAssembly()
                            .GetManifestResourceStream("miguelito_bot_commands.text.curiosidades.miguelito"), Encoding.UTF8).ToList();
         }
+
+       
 
         public static IEnumerable<string> ReadLines(Func<Stream> streamProvider, Encoding encoding)
         {

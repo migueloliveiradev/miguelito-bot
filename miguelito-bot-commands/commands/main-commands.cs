@@ -5,40 +5,35 @@ using DSharpPlus.Entities;
 using miguelito_bot_commands.Utils;
 using MySql.Data.MySqlClient;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+
 
 namespace miguelito_bot_commands.commands
 {
     internal class Main_commands : BaseCommandModule
     {
         [Command("avatar"), Aliases("av", "icon")]
-        public async Task avatar(CommandContext ctx, DiscordUser user = null)
+        public async Task avatar(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();
-            if (user == null)
-            {
-                user = ctx.User;
-            }
-            DiscordMessageBuilder builder = new();
             DiscordEmbedBuilder embed = new()
             {
-                Color = Variables.Cores(),
-                ImageUrl = user.GetAvatarUrl(ImageFormat.Png, 2048),
+                Title = ":arrow_up: Updates",
+                Description = $"Opa {ctx.User.Username} sabia que agora o comando `-avatar` agora é em slash comandos? " +
+                $"use `/user avatar` para testa-lo\n\n" +
+                $"Todos os comandos que não são em slash irão desaparecer **31 de Agosto de 2022**, estão comece a se acostumar com eles\n\n" +
+                $"Caso os comandos não estejam aparecendo {Formatter.MaskedUrl("autorize minhas permisões", new Uri("https://discord.com/api/oauth2/authorize?client_id=949488330620432386&permissions=8&scope=bot"), "beba agua")}\n\n" +
+                $"Em caso de algum problema entre no meu {Formatter.MaskedUrl("servidor de suporte", new Uri("https://discord.gg/FZpH3SZahH"), "se o problema for culpa sua vai catar coquinho")}"
             };
-            embed.WithAuthor(user.Username, user.GetAvatarUrl(ImageFormat.Png, 2048), user.AvatarUrl)
-                 .WithFooter($"Solicitado por {ctx.User.Username}#{ctx.User.Discriminator}", ctx.User.AvatarUrl);
-            DiscordLinkButtonComponent link = new(user.GetAvatarUrl(ImageFormat.Png, 2048), "Link");
-            builder.AddEmbed(embed);
-            builder.AddComponents(link);
-            await ctx.Message.DeleteAsync();
-            await ctx.Client.SendMessageAsync(ctx.Channel, builder);
-            await Program.Log("avatar");
+            await ctx.RespondAsync(embed);
             return;
         }
 
         [Command("ajuda"), Aliases("aj", "help")]
         public async Task ajuda(CommandContext ctx)
         {
-            DiscordMember bot = await ctx.Guild.GetMemberAsync(Program.cliente.CurrentApplication.Id);
+            DiscordMember bot = await ctx.Guild.GetMemberAsync(Program.Cliente.CurrentApplication.Id);
             await ctx.TriggerTypingAsync();
             DiscordEmbedBuilder embed = new()
             {
@@ -93,87 +88,54 @@ namespace miguelito_bot_commands.commands
         }
 
         [Command("userinfo")]
-        public async Task userinfo(CommandContext ctx, DiscordUser user = null)
+        public async Task userinfo(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();
-            if (user == null)
-            {
-                user = ctx.User;
-            }
             DiscordEmbedBuilder embed = new()
             {
-                Color = Variables.Cores(),
-                ImageUrl = user.GetAvatarUrl(ImageFormat.Png, 2048),
-                Description = $":hash: Tag do Discord: **{user.Username}#{user.Discriminator}**\n\n" +
-                    $":detective: ID do Discord: **{user.Id}**\n\n" +
-                    $":hourglass_flowing_sand: Conta criada em: **{user.CreationTimestamp:dd/MM/yyyy}**",
+                Title = ":arrow_up: Updates",
+                Description = $"Opa {ctx.User.Username} sabia que agora o comando `-userinfo` agora é em slash comandos? " +
+                $"use `/user info` para testa-lo\n\n" +
+                $"Todos os comandos que não são em slash irão desaparecer **31 de Agosto de 2022**, estão comece a se acostumar com eles\n\n" +
+                $"Caso os comandos não estejam aparecendo {Formatter.MaskedUrl("autorize minhas permisões", new Uri("https://discord.com/api/oauth2/authorize?client_id=949488330620432386&permissions=8&scope=bot"), "beba agua")}\n\n" +
+                $"Em caso de algum problema entre no meu {Formatter.MaskedUrl("servidor de suporte", new Uri("https://discord.gg/FZpH3SZahH"), "se o problema for culpa sua vai catar coquinho")}"
             };
-            embed.WithThumbnail(user.AvatarUrl);
-            embed.WithAuthor(user.Username, null, user.AvatarUrl);
-            await ctx.Message.DeleteAsync();
-            await ctx.Channel.SendMessageAsync(ctx.Member.Mention, embed);
-            await Program.Log("userinfo");
+            await ctx.RespondAsync(embed);
             return;
         }
 
         [Command("serverinfo")]
-        public async Task serverinfo(CommandContext ctx, ulong server = 0)
+        public async Task serverinfo(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();
-            DiscordGuild guild = ctx.Guild;
-            if (server != 0)
-            {
-                try
-                {
-                    guild = await ctx.Client.GetGuildAsync(server);
-                }
-                catch
-                {
-                    await ctx.RespondAsync("Meu chapa, infelizmente eu não tô nesse server pra ver as informações dele ou ele não existe :pensive:");
-                    return;
-                }
-            }
             DiscordEmbedBuilder embed = new()
             {
-                Color = Variables.Cores(),
-                Description = $":detective: ID do Servidor: **{guild.Id}**\n\n" +
-                    $":crown: Dono: **{guild.Owner.Nickname}**({guild.Owner.Id})\n\n" +
-                    $":hourglass_flowing_sand: Criado em : **{guild.CreationTimestamp:dd/MM/yyyy}**\n\n" +
-                    $":speech_balloon: Canais: **{guild.Channels.Count}**\n\n" +
-                    $":man_cartwheeling: Membros: **{guild.MemberCount}**\n\n" +
-                    $":notebook_with_decorative_cover: Cargos: **{guild.Roles.Count}**"
+                Title = ":arrow_up: Updates",
+                Description = $"Opa {ctx.User.Username} sabia que agora o comando `-serverinfo` agora é em slash comandos? " +
+                $"use `/server info` para testa-lo\n\n" +
+                $"Todos os comandos que não são em slash irão desaparecer **31 de Agosto de 2022**, estão comece a se acostumar com eles\n\n" +
+                $"Caso os comandos não estejam aparecendo {Formatter.MaskedUrl("autorize minhas permisões", new Uri("https://discord.com/api/oauth2/authorize?client_id=949488330620432386&permissions=8&scope=bot"), "beba agua")}\n\n" +
+                $"Em caso de algum problema entre no meu {Formatter.MaskedUrl("servidor de suporte", new Uri("https://discord.gg/FZpH3SZahH"), "se o problema for culpa sua vai catar coquinho")}"
             };
-            embed.WithThumbnail(guild.IconUrl);
-            embed.WithAuthor(guild.Name, null, guild.IconUrl);
             await ctx.RespondAsync(embed);
-            await Program.Log("serverinfo");
+            return;
         }
 
         [Command("servericon")]
-        public async Task servericon(CommandContext ctx, ulong server = 0)
+        public async Task servericon(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();
-            DiscordGuild guild = ctx.Guild;
-            if (server != 0)
-            {
-                try
-                {
-                    guild = await ctx.Client.GetGuildAsync(server);
-                }
-                catch
-                {
-                    await ctx.RespondAsync("Meu chapa, infelizmente eu não tô nesse server pra ver o icon dele ou ele não existe :pensive:");
-                    return;
-                }
-            }
             DiscordEmbedBuilder embed = new()
             {
-                Color = Variables.Cores(),
-                ImageUrl = guild.GetIconUrl(ImageFormat.Png, 2048),
+                Title = ":arrow_up: Updates",
+                Description = $"Opa {ctx.User.Username} sabia que agora o comando `-servericon` agora é em slash comandos? " +
+                $"use `/server icon` para testa-lo\n\n" +
+                $"Todos os comandos que não são em slash irão desaparecer **31 de Agosto de 2022**, estão comece a se acostumar com eles\n\n" +
+                $"Caso os comandos não estejam aparecendo {Formatter.MaskedUrl("autorize minhas permisões", new Uri("https://discord.com/api/oauth2/authorize?client_id=949488330620432386&permissions=8&scope=bot"), "beba agua")}\n\n" +
+                $"Em caso de algum problema entre no meu {Formatter.MaskedUrl("servidor de suporte", new Uri("https://discord.gg/FZpH3SZahH"), "se o problema for culpa sua vai catar coquinho")}"
             };
-            embed.WithAuthor(guild.Name, null, guild.IconUrl);
             await ctx.RespondAsync(embed);
-            await Program.Log("servericon");
+            return;
         }
 
         [Command("ping")]
@@ -221,7 +183,7 @@ namespace miguelito_bot_commands.commands
             if (ctx.User.Id == 944942359169363989 || ctx.User.Id == 336211359106727936)
             {
                 var servidor = "O Miguelito Bot esta nos seguintes servidores: \n";
-                foreach (var server in Program.cliente.Guilds)
+                foreach (var server in Program.Cliente.Guilds)
                 {
                     servidor = $"{servidor} \n\n{server.Value.Name} ({server.Value.Id}) {server.Value.MemberCount} membros";
                 }
@@ -237,7 +199,7 @@ namespace miguelito_bot_commands.commands
             if (ctx.User.Id == 944942359169363989 || ctx.User.Id == 336211359106727936)
             {
                 int membros = 0;
-                foreach (var server in Program.cliente.Guilds)
+                foreach (var server in Program.Cliente.Guilds)
                 {
                     membros += server.Value.MemberCount;
                 }
@@ -246,22 +208,21 @@ namespace miguelito_bot_commands.commands
             }
         }
 
-        [RequirePermissions(Permissions.ManageMessages)]
         [Command("say"), Aliases("dizer", "falar")]
-        public async Task say(CommandContext ctx, DiscordChannel channel, [RemainingText] string text = "")
+        public async Task say(CommandContext ctx)
         {
-            try
+            await ctx.TriggerTypingAsync();
+            DiscordEmbedBuilder embed = new()
             {
-                await ctx.Message.DeleteAsync();
-                await channel.TriggerTypingAsync();
-                await channel.SendMessageAsync(text);
-            }
-            catch
-            {
-                await ctx.TriggerTypingAsync();
-                await ctx.Client.SendMessageAsync(ctx.Channel, $"{ctx.Member.Mention}, infelizmente por algum motivo eu não posso dizer isso :pensive:");
-            }
-            await Program.Log("say");
+                Title = ":arrow_up: Updates",
+                Description = $"Opa {ctx.User.Username} sabia que agora o comando `-say` agora é em slash comandos? " +
+                $"use `/say` para testa-lo\n\n" +
+                $"Todos os comandos que não são em slash irão desaparecer **31 de Agosto de 2022**, estão comece a se acostumar com eles\n\n" +
+                $"Caso os comandos não estejam aparecendo {Formatter.MaskedUrl("autorize minhas permisões", new Uri("https://discord.com/api/oauth2/authorize?client_id=949488330620432386&permissions=8&scope=bot"), "beba agua")}\n\n" +
+                $"Em caso de algum problema entre no meu {Formatter.MaskedUrl("servidor de suporte", new Uri("https://discord.gg/FZpH3SZahH"), "se o problema for culpa sua vai catar coquinho")}"
+            };
+            await ctx.RespondAsync(embed);
+            return;
         }
 
         [Command("botinfo")]
@@ -276,7 +237,7 @@ namespace miguelito_bot_commands.commands
             DateTime date_1 = Process.GetCurrentProcess().StartTime;
             DateTime date_2 = DateTime.Now.Date;
             int membros = 0;
-            foreach (var server in Program.cliente.Guilds)
+            foreach (var server in Program.Cliente.Guilds)
             {
                 membros += server.Value.MemberCount;
             }
@@ -295,14 +256,14 @@ namespace miguelito_bot_commands.commands
                 Color = DiscordColor.CornflowerBlue,
                 Description =
                 $"> Online há: `{(date_2 - date_1).Days} dias`\n" +
-                $"> Em aproximadamente `{Program.cliente.Guilds.Count()}` servidores.\n" +
+                $"> Em aproximadamente `{Program.Cliente.Guilds.Count()}` servidores.\n" +
                 $"> Divertindo aproximadamente `{membros}` usuários.\n" +
                 $"> Desenvolvido por {Formatter.MaskedUrl("Miguel Oliveira", new Uri("https://migueloliveira.xyz"), "pode chamar ele de gostoso")} " +
                 $"e {Formatter.MaskedUrl("Paulo HS", new Uri("https://paulohpps.xyz"), "pergunta se o time dele tem mundial")}\n\n" +
                 $"**SOFTWARE**\n" +
                 $"> Versão do Dotnet: `{Environment.Version}`\n" +
                 $"> Uso de memória: `{memoria}mb`\n" +
-                $"> Ping WebSocket: `{Program.cliente.Ping}ms`\n" +
+                $"> Ping WebSocket: `{Program.Cliente.Ping}ms`\n" +
                 $"> Ping API: `{ctx.Client.Ping}ms`\n" +
                 $"> Ping Database: `{pingdatabase}ms`"
             };

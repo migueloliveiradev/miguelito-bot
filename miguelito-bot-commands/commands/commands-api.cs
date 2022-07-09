@@ -1,4 +1,5 @@
 ﻿using Cutt_ly;
+using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
@@ -32,7 +33,6 @@ namespace miguelito_bot_commands.commands
         {
             Key = Program.config[6],
         };
-        PexelsClient pexels = new(Program.config[14]);
         #endregion
 
         [Command("dolar"), Aliases("dólar")]
@@ -356,51 +356,20 @@ namespace miguelito_bot_commands.commands
         }
 
         [Command("search"), Aliases("busca", "pesquisa", "google", "pesquisar", "buscar")]
-        public async Task Search(CommandContext ctx, [RemainingText] string search = "")
+        public async Task Search(CommandContext ctx)
         {
-            try
+            await ctx.TriggerTypingAsync();
+            DiscordEmbedBuilder embed = new()
             {
-
-                if (search != "")
-                {
-                    string cx = "ed5b1310ccee9e87b";
-                    string url = $" https://www.googleapis.com/customsearch/v1?key={Program.config[13]}&cx={cx}&q={search}&searchType='News'&alt=json";
-                    var request = WebRequest.Create(url);
-                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                    Stream data = response.GetResponseStream();
-                    StreamReader reader = new StreamReader(data);
-                    string rs = reader.ReadToEnd();
-                    dynamic json = JsonConvert.DeserializeObject(rs);
-                    Console.WriteLine(json);
-                    string title = json.items[0].title;
-                    string link = json.items[0].link;
-                    string snippet = json.items[0].snippet;
-                    string image = json.items[0].pagemap.cse_image[0].src;
-
-                    string description = $"**Título:** {title}\n" +
-                                        $"**Link:** {link}\n" +
-                                        $"**Descrição:** {snippet}\n";
-
-                    DiscordEmbedBuilder embed = new()
-                    {
-                        Title = "Resultado da pesquisa",
-                        Color = DiscordColor.CornflowerBlue,
-                        Description = description,
-                        ImageUrl = image
-                    };
-                    await ctx.RespondAsync(embed);
-                }
-                else
-                {
-                    await ctx.RespondAsync("Por gentileza insira o que você deseja pesquisar");
-                }
-            }
-            catch
-            {
-                await ctx.RespondAsync("Ocorreu algum erro ao tentar pesquisar");
-            }
-
-
+                Title = ":arrow_up: Updates",
+                Description = $"Opa {ctx.User.Username} sabia que agora o comando `-search` agora é em slash comandos? \n\n" +
+                $"Agora com muitas variações como `/search google`,`/search youtube`, etc. fique a vontade para testa-lo\n\n" +
+                $"Todos os comandos que não são em slash irão desaparecer **31 de Agosto de 2022**, estão comece a se acostumar com eles\n\n" +
+                $"Caso os comandos não estejam aparecendo {Formatter.MaskedUrl("autorize minhas permisões", new Uri("https://discord.com/api/oauth2/authorize?client_id=949488330620432386&permissions=8&scope=bot"), "beba agua")}\n\n" +
+                $"Em caso de algum problema entre no meu {Formatter.MaskedUrl("servidor de suporte", new Uri("https://discord.gg/FZpH3SZahH"), "se o problema for culpa sua vai catar coquinho")}"
+            };
+            await ctx.RespondAsync(embed);
+            return;
         }
 
         [Command("pokemon"), Aliases("whatPokemon", "poke", "pokemoninfo")]
@@ -684,7 +653,7 @@ namespace miguelito_bot_commands.commands
             }
         }
 
-        [Command("pexels"), Aliases("imagesfree", "imgfree")]
+        /*[Command("pexels"), Aliases("imagesfree", "imgfree")]
         public async Task Pexels(CommandContext ctx, string search = "")
         {
             await ctx.TriggerTypingAsync();
@@ -700,6 +669,6 @@ namespace miguelito_bot_commands.commands
                 ImageUrl = result.photos[0].url
             };
             await ctx.RespondAsync(embed);
-        }
+        }*/
     }
 }

@@ -1,5 +1,7 @@
-﻿using DSharpPlus.CommandsNext;
+﻿using DSharpPlus;
+using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
+using DSharpPlus.Entities;
 
 namespace miguelito_bot_commands.commands
 {
@@ -7,74 +9,57 @@ namespace miguelito_bot_commands.commands
     {
         [Command("soma")]
         [Aliases("somar")]
-        public async Task soma(CommandContext ctx, [RemainingText] string value = "")
+        public async Task soma(CommandContext ctx)
         {
-            if (value == "")
+            await ctx.TriggerTypingAsync();
+            DiscordEmbedBuilder embed = new()
             {
-                await ctx.RespondAsync("Você deve informar pelo menos dois valores para realizar a soma.");
-            }
-            else
-            {
-                string[] valores = value.Split(' ');
-                double soma = 0;
-                foreach (string valor in valores)
-                {
-                    soma += Convert.ToDouble(valor);
-                }
-                await ctx.RespondAsync(soma.ToString());
-            }
-            await Program.Log("soma");
+                Title = ":arrow_up: Updates",
+                Description = $"Opa {ctx.User.Username} sabia que agora o comando `-somar` agora é em slash comandos? " +
+                $"use `/calculate` para testa-lo\n\n" +
+                $"Todos os comandos que não são em slash irão desaparecer **31 de Agosto de 2022**, estão comece a se acostumar com eles\n\n" +
+                $"Caso os comandos não estejam aparecendo {Formatter.MaskedUrl("autorize minhas permisões", new Uri("https://discord.com/api/oauth2/authorize?client_id=949488330620432386&permissions=8&scope=bot%20applications.commands"), "beba agua")}" +
+                $"Em caso de algum problema entre no meu {Formatter.MaskedUrl("servidor de suporte", new Uri("https://discord.gg/FZpH3SZahH"), "se o problema for culpa sua vai catar coquinho")}"
+            };
+            await ctx.RespondAsync(embed);
+            return;
         }
 
         [Command("subtrair")]
         [Aliases("diminuir")]
-        public async Task subtrair(CommandContext ctx, [RemainingText] string value = "")
+        public async Task subtrair(CommandContext ctx)
         {
-            if (value == "")
+            await ctx.TriggerTypingAsync();
+            DiscordEmbedBuilder embed = new()
             {
-                await ctx.RespondAsync("Você deve informar pelo menos dois valores para realizar a subtração.");
-            }
-            else
-            {
-                string[] valores = value.Split(' ');
-                double subtrair = int.Parse(valores[0]);
-                for (int i = 1; i < valores.Length; i++)
-                {
-                    subtrair -= int.Parse(valores[i]);
-                }
-                await ctx.RespondAsync(subtrair.ToString());
-            }
-            await Program.Log("subtrair");
+                Title = ":arrow_up: Updates",
+                Description = $"Opa {ctx.User.Username} sabia que agora o comando `-subtrair` agora é em slash comandos? " +
+                $"use `/calculate` para testa-lo\n\n" +
+                $"Todos os comandos que não são em slash irão desaparecer **31 de Agosto de 2022**, estão comece a se acostumar com eles\n\n" +
+                $"Caso os comandos não estejam aparecendo {Formatter.MaskedUrl("autorize minhas permisões", new Uri("https://discord.com/api/oauth2/authorize?client_id=949488330620432386&permissions=8&scope=bot%20applications.commands"), "beba agua")}" +
+                $"Em caso de algum problema entre no meu {Formatter.MaskedUrl("servidor de suporte", new Uri("https://discord.gg/FZpH3SZahH"), "se o problema for culpa sua vai catar coquinho")}"
+            };
+            await ctx.RespondAsync(embed);
+            return;
         }
 
         [Command("Bhaskara")]
-        public async Task Bhaskara(CommandContext ctx, double a, double b, double c)
+        public async Task Bhaskara(CommandContext ctx)
         {
-            if (a == 0)
+            await ctx.TriggerTypingAsync();
+            DiscordEmbedBuilder embed = new()
             {
-                await ctx.RespondAsync("A equação não é do tipo ax²+bx+c=0");
-            }
-            else
-            {
-                double delta = Math.Pow(b, 2) - 4 * a * c;
-                if (delta < 0)
-                {
-                    await ctx.RespondAsync("A equação não possui raízes reais");
-                }
-                else if (delta == 0)
-                {
-                    double x = -b / (2 * a);
-                    await ctx.RespondAsync("A equação possui apenas uma raiz real: " + x);
-                }
-                else
-                {
-                    double x1 = (-b + Math.Sqrt(delta)) / (2 * a);
-                    double x2 = (-b - Math.Sqrt(delta)) / (2 * a);
-                    await ctx.RespondAsync("A equação possui duas raízes reais: " + x1 + " e " + x2);
-                }
-            }
-            await Program.Log("Bhaskara");
+                Title = ":arrow_up: Updates",
+                Description = $"Opa {ctx.User.Username} sabia que agora o comando `-Bhaskara` agora é em slash comandos? " +
+                $"use `/bhaskara` para testa-lo\n\n" +
+                $"Todos os comandos que não são em slash irão desaparecer **31 de Agosto de 2022**, estão comece a se acostumar com eles\n\n" +
+                $"Caso os comandos não estejam aparecendo {Formatter.MaskedUrl("autorize minhas permisões", new Uri("https://discord.com/api/oauth2/authorize?client_id=949488330620432386&permissions=8&scope=bot%20applications.commands"), "beba agua")}" +
+                $"Em caso de algum problema entre no meu {Formatter.MaskedUrl("servidor de suporte", new Uri("https://discord.gg/FZpH3SZahH"), "se o problema for culpa sua vai catar coquinho")}"
+            };
+            await ctx.RespondAsync(embed);
+            return;
         }
+
         [Command("raiz")]
         public async Task raiz(CommandContext ctx, double a)
         {
@@ -90,43 +75,39 @@ namespace miguelito_bot_commands.commands
             }
             await Program.Log("raiz");
         }
+
         [Command("multiplicar")]
-        public async Task multiplicar(CommandContext ctx, [RemainingText] string value = "")
+        public async Task multiplicar(CommandContext ctx)
         {
-            if (value == "")
+            await ctx.TriggerTypingAsync();
+            DiscordEmbedBuilder embed = new()
             {
-                await ctx.RespondAsync("Você deve informar pelo menos dois valores para realizar a multiplicação meu nobre.");
-            }
-            else
-            {
-                string[] valores = value.Split(' ');
-                double multiplicar = Convert.ToDouble(valores[0]);
-                for (int i = 1; i < valores.Length; i++)
-                {
-                    multiplicar *= Convert.ToDouble(valores[i]);
-                }
-                await ctx.RespondAsync(multiplicar.ToString());
-            }
-            await Program.Log("multiplicar");
+                Title = ":arrow_up: Updates",
+                Description = $"Opa {ctx.User.Username} sabia que agora o comando `-multiplicar` agora é em slash comandos? " +
+                $"use `/calculate` para testa-lo\n\n" +
+                $"Todos os comandos que não são em slash irão desaparecer **31 de Agosto de 2022**, estão comece a se acostumar com eles\n\n" +
+                $"Caso os comandos não estejam aparecendo {Formatter.MaskedUrl("autorize minhas permisões", new Uri("https://discord.com/api/oauth2/authorize?client_id=949488330620432386&permissions=8&scope=bot%20applications.commands"), "beba agua")}" +
+                $"Em caso de algum problema entre no meu {Formatter.MaskedUrl("servidor de suporte", new Uri("https://discord.gg/FZpH3SZahH"), "se o problema for culpa sua vai catar coquinho")}"
+            };
+            await ctx.RespondAsync(embed);
+            return;
         }
+
         [Command("dividir")]
         public async Task dividir(CommandContext ctx, [RemainingText] string value = "")
         {
-            if (value == "")
+            await ctx.TriggerTypingAsync();
+            DiscordEmbedBuilder embed = new()
             {
-                await ctx.RespondAsync("Você deve informar pelo menos dois valores para realizar a divisão meu nobre.");
-            }
-            else
-            {
-                string[] valores = value.Split(' ');
-                double dividir = Convert.ToDouble(valores[0]);
-                for (int i = 1; i < valores.Length; i++)
-                {
-                    dividir /= Convert.ToDouble(valores[i]);
-                }
-                await ctx.RespondAsync(dividir.ToString());
-            }
-            await Program.Log("dividir");
+                Title = ":arrow_up: Updates",
+                Description = $"Opa {ctx.User.Username} sabia que agora o comando `-dividir` agora é em slash comandos? " +
+                $"use `/calculate` para testa-lo\n\n" +
+                $"Todos os comandos que não são em slash irão desaparecer **31 de Agosto de 2022**, estão comece a se acostumar com eles\n\n" +
+                $"Caso os comandos não estejam aparecendo {Formatter.MaskedUrl("autorize minhas permisões", new Uri("https://discord.com/api/oauth2/authorize?client_id=949488330620432386&permissions=8&scope=bot%20applications.commands"), "beba agua")}" +
+                $"Em caso de algum problema entre no meu {Formatter.MaskedUrl("servidor de suporte", new Uri("https://discord.gg/FZpH3SZahH"), "se o problema for culpa sua vai catar coquinho")}"
+            };
+            await ctx.RespondAsync(embed);
+            return;
         }
         [Command("pi")]
         public async Task pi(CommandContext ctx)
@@ -135,25 +116,23 @@ namespace miguelito_bot_commands.commands
             await ctx.RespondAsync($"O valor de pi é: {Math.PI}");
             await Program.Log("pi");
         }
+
         [Command("Potência")]
         [Aliases("Potencia", "potenciação", "potenciaçao", "potenciacao")]
-        public async Task Potencia(CommandContext ctx, double base_, double expoente)
+        public async Task Potencia(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();
-            if (expoente == 0)
+            DiscordEmbedBuilder embed = new()
             {
-                await ctx.RespondAsync("A potência de um número elevado a zero é 1");
-            }
-            else
-            {
-                double potencia = 1;
-                for (int i = 0; i < expoente; i++)
-                {
-                    potencia *= base_;
-                }
-                await ctx.RespondAsync("A potência de " + base_ + " elevado a " + expoente + " é " + potencia);
-            }
-            await Program.Log("Potencia");
+                Title = ":arrow_up: Updates",
+                Description = $"Opa {ctx.User.Username} sabia que agora o comando `-potenciacao` agora é em slash comandos? " +
+                $"use `/potentiation` para testa-lo\n\n" +
+                $"Todos os comandos que não são em slash irão desaparecer **31 de Agosto de 2022**, estão comece a se acostumar com eles\n\n" +
+                $"Caso os comandos não estejam aparecendo {Formatter.MaskedUrl("autorize minhas permisões", new Uri("https://discord.com/api/oauth2/authorize?client_id=949488330620432386&permissions=8&scope=bot%20applications.commands"), "beba agua")}" +
+                $"Em caso de algum problema entre no meu {Formatter.MaskedUrl("servidor de suporte", new Uri("https://discord.gg/FZpH3SZahH"), "se o problema for culpa sua vai catar coquinho")}"
+            };
+            await ctx.RespondAsync(embed);
+            return;
         }
     }
 }

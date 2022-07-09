@@ -2,6 +2,8 @@
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 using miguelito_bot_commands.Utils;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Net;
 
 
@@ -9,16 +11,31 @@ namespace miguelito_bot_commands.commands
 {
     internal class random_commands : BaseCommandModule
     {
-        [Command("test")]
-        public async Task a(CommandContext ctx, string text, string des, string tag)
+        /*[Command("perfil")]
+        public async Task perfil(CommandContext ctx)
         {
-            Console.WriteLine("aaaaa");
-            Stream Sticker = new WebClient().OpenRead(ctx.Message.Attachments[0].Url);
-            await ctx.Guild.CreateStickerAsync(text, des, tag, Sticker, StickerFormat.PNG);
-
-            await ctx.RespondAsync("foi");
-        }
-
+            await ctx.TriggerTypingAsync();
+            HttpClient http = new();
+            Stream img2 = await http.GetStreamAsync(ctx.User.AvatarUrl);
+            Image webImage = Image.FromStream(img2);
+            Bitmap img = new(1000, 1000);
+            Graphics g = Graphics.FromImage(img);
+            Graphics g2 = Graphics.FromImage(webImage);
+            g2.DrawRectangle(new Pen(Brushes.Black), new Rectangle(10, 10, 100, 100));
+            g2.Save();
+            g.FillRectangle(Brushes.Black, 0, 0, 1000, 1000);
+            g.DrawString(ctx.User.Username, new Font("Arial", 30), Brushes.White, new PointF(500, 50));
+            g.DrawImage(webImage, new Point(50, 50));
+            g.Save();
+            img.Save($"C://{ctx.User.Id}", ImageFormat.Png);
+            FileStream perfil = File.OpenRead($"C://{ctx.User.Id}");
+            DiscordMessageBuilder message = new()
+            {
+                Content = "aaaaa"
+            };
+            message.WithFile("perfil.png", perfil);
+            await ctx.RespondAsync(message);
+        }*/
         [Command("bolo"), Aliases("mulango")]
         public async Task bolo(CommandContext ctx)
         {
@@ -59,6 +76,7 @@ namespace miguelito_bot_commands.commands
             await ctx.RespondAsync(ctx.User.Mention, embed);
             await Program.Log("pt");
         }
+
         [Command("viniccius13"), Aliases("13", "vini")]
         public async Task viniccius(CommandContext ctx)
         {

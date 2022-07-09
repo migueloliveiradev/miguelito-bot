@@ -31,10 +31,10 @@ namespace miguelito_bot_commands
         //Line 15  APi Spotify
         //Line 16  APi Spotify Secret
 
-        public static DiscordClient cliente { get; private set; }
-        public static async Task Main(string[] args) => new Program().rodarBot().GetAwaiter().GetResult();
+        public static DiscordClient? Cliente { get; private set; }
+        public static async Task Main(string[] args) => new Program().RodarBot().GetAwaiter().GetResult();
 
-        public async Task rodarBot()
+        public async Task RodarBot()
         {
             if (Environment.UserName == "Miguel Oliveira")
             {
@@ -61,16 +61,16 @@ namespace miguelito_bot_commands
             };
             //I'm satoshi nakamoto
             Console.WriteLine("Loading...");
-            cliente = new DiscordClient(cfg);
+            Cliente = new DiscordClient(cfg);
             string[] prefix = new string[1];
             prefix[0] = "-";
-            cliente.UseInteractivity(new InteractivityConfiguration()
+            Cliente.UseInteractivity(new InteractivityConfiguration()
             {
                 PollBehaviour = PollBehaviour.KeepEmojis,
                 Timeout = TimeSpan.FromSeconds(20)
             });
             Console.WriteLine("Registering commands...");
-            CommandsNextExtension cnt = cliente.UseCommandsNext(new CommandsNextConfiguration()
+            CommandsNextExtension cnt = Cliente.UseCommandsNext(new CommandsNextConfiguration()
             {
                 StringPrefixes = prefix,
                 EnableDms = true,
@@ -79,8 +79,8 @@ namespace miguelito_bot_commands
                 EnableMentionPrefix = true,
                 IgnoreExtraArguments = true,
             });
-            cliente.ClientErrored += Events.ClientErrored;
-            cliente.Ready += Events.OnReady;
+            Cliente.ClientErrored += Events.ClientErrored;
+            Cliente.Ready += Events.OnReady;
             cnt.RegisterCommands<Main_commands>();
             cnt.RegisterCommands<commands_administration>();
             cnt.RegisterCommands<commands_matematica>();
@@ -94,7 +94,7 @@ namespace miguelito_bot_commands
             cnt.RegisterCommands<Commands_Downloads>();
             cnt.RegisterCommands<Commands_Animals>();
             Console.WriteLine("Connecting...");
-            await cliente.ConnectAsync();
+            await Cliente.ConnectAsync();
             Console.WriteLine("Running...");
             await Task.Delay(-1);
 
@@ -102,7 +102,7 @@ namespace miguelito_bot_commands
 
         public static async Task Log(string nome)
         {
-            DiscordGuild guild = await Program.cliente.GetGuildAsync(880904935787601960);
+            DiscordGuild guild = await Program.Cliente.GetGuildAsync(880904935787601960);
             DiscordChannel channel = guild.GetChannel(Convert.ToUInt64(config[8]));
             await channel.SendMessageAsync($"Comando {nome} usado.");
             Console.WriteLine($"Comando {nome} usado. {DateTime.Now}");
