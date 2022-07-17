@@ -2,9 +2,6 @@
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
-using miguelito_bot_commands.Utils;
-using Newtonsoft.Json;
-using System.Net;
 
 namespace miguelito_bot_commands.commands
 {

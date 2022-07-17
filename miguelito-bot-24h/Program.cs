@@ -5,7 +5,6 @@ using DSharpPlus.EventArgs;
 using Microsoft.Extensions.Logging;
 using miguelito_bot_24h.events;
 
-
 namespace miguelito_bot_24h
 {
     public class Program
@@ -16,7 +15,7 @@ namespace miguelito_bot_24h
         //Line 2   Conection Database
         //Line 3   Token Api Virus Total
         //Line 4   Token Api Google translate
-        //Line 5   Token Api Cutt.ly 
+        //Line 5   Token Api Cutt.ly
         //Line 6   Token Api HG-finance
         //Line 7   ID Channel Discord Erro
         //Line 8   ID Channel Log
@@ -27,6 +26,7 @@ namespace miguelito_bot_24h
         //Line 13  Api Custom Search key
 
         public static DiscordClient cliente { get; private set; }
+
         public static async Task Main(string[] args) => new Program().rodarBot().GetAwaiter().GetResult();
 
         public async Task rodarBot()
@@ -78,6 +78,7 @@ namespace miguelito_bot_24h
             Console.WriteLine("Running...");
             await Task.Delay(-1);
         }
+
         private async Task Client_ClientErrored(DiscordClient sender, ClientErrorEventArgs e)
         {
             DiscordGuild guild = await sender.GetGuildAsync(880904935787601960);

@@ -7,6 +7,7 @@ namespace miguelito_bot_music_lavalink.Commands
     internal class Commands_Music : BaseCommandModule
     {
         public static Dictionary<ulong, Queue<LavalinkTrack>> track = new();
+
         [Command("play"), Aliases("p")]
         public async Task Play(CommandContext ctx, [RemainingText] string search)
         {
@@ -54,6 +55,7 @@ namespace miguelito_bot_music_lavalink.Commands
                 await ctx.RespondAsync("tu quer me fazer de trouxa, bota a porra da musica q tu quer");
             }
         }
+
         [Command("skip"), Aliases("s")]
         public async Task skip(CommandContext ctx, [RemainingText] string search)
         {

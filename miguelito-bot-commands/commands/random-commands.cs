@@ -2,10 +2,6 @@
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 using miguelito_bot_commands.Utils;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Net;
-
 
 namespace miguelito_bot_commands.commands
 {
@@ -36,6 +32,7 @@ namespace miguelito_bot_commands.commands
             message.WithFile("perfil.png", perfil);
             await ctx.RespondAsync(message);
         }*/
+
         [Command("bolo"), Aliases("mulango")]
         public async Task bolo(CommandContext ctx)
         {
@@ -132,6 +129,7 @@ namespace miguelito_bot_commands.commands
             await ctx.RespondAsync(embed);
             await Program.Log("dialogo");
         }
+
         #region comandos diferenciados
 
         [Command("sexo"), Aliases("hentai", "porno", "buceta", "punheta")]
@@ -146,7 +144,8 @@ namespace miguelito_bot_commands.commands
             await ctx.RespondAsync(":new_moon_with_face:", embed);
             await Program.Log(":new_moon_with_face:");
         }
-        #endregion
+
+        #endregion comandos diferenciados
 
         [Command("boanoite"), Aliases("boa-noite")]
         public async Task boanoite(CommandContext ctx)
@@ -155,6 +154,5 @@ namespace miguelito_bot_commands.commands
             await ctx.RespondAsync("Boa noite");
             await Program.Log("boa noite");
         }
-
     }
 }

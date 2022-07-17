@@ -16,10 +16,10 @@ namespace miguelito_bot_slashcommands.slashcommands.Search
         public class GroupContainer : ApplicationCommandModule
         {
             //Cliente Youtube
-            YoutubeClient Youtube = new();
+            private YoutubeClient Youtube = new();
 
-            //Client Twitter 
-            TwitterClient Twitter = new(Program.config[9], Program.config[10], Program.config[11], Program.config[12]);
+            //Client Twitter
+            private TwitterClient Twitter = new(Program.config[9], Program.config[10], Program.config[11], Program.config[12]);
 
             [SlashCommand("google", "Search ┇ search for a result on google")]
             public async Task SearchGoogle(InteractionContext ctx,
@@ -190,8 +190,8 @@ namespace miguelito_bot_slashcommands.slashcommands.Search
                 {
                     await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent("Ocorreu um erro ao tentar buscar."));
                 }
-
             }
+
             [SlashCommand("twitter", "Search ┇ search for a result on twitter")]
             public async Task SearchTwitter(InteractionContext ctx,
                 [Option("query", "Type what you want to search")] string search,

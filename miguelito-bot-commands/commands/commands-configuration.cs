@@ -40,7 +40,6 @@ namespace miguelito_bot_commands.commands
                 Console.WriteLine(ex.Message);
                 await ctx.TriggerTypingAsync();
                 await ctx.RespondAsync($"{ctx.User.Mention} Meu chapa, algo deu errado, poderia entrar em contato com o suporte :pensive: \n\n https://miguelito.miguelsoft.com.br/suporte/");
-
             }
         }
 
@@ -73,15 +72,12 @@ namespace miguelito_bot_commands.commands
                 }
                 else
                 {
-
                     await ctx.RespondAsync($"{ctx.User.Mention} Me perdoa mas eu ainda não tenho inteligência o suficiente para advinhar qual mensagem você quer configurar :pensive:");
                 }
             }
             catch
             {
-
                 await ctx.RespondAsync($"{ctx.User.Mention} Meu chapa, algo deu errado, poderia entrar em contato com o suporte :pensive: \n\n https://miguelito.miguelsoft.com.br/suporte/");
-
             }
         }
 

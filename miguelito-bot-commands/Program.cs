@@ -18,7 +18,7 @@ namespace miguelito_bot_commands
         //Line 2   Conection Database
         //Line 3   Token Api Virus Total
         //Line 4   Token Api Google translate
-        //Line 5   Token Api Cutt.ly 
+        //Line 5   Token Api Cutt.ly
         //Line 6   Token Api HG-finance
         //Line 7   ID Channel Discord Erro
         //Line 8   ID Channel Log
@@ -32,6 +32,7 @@ namespace miguelito_bot_commands
         //Line 16  APi Spotify Secret
 
         public static DiscordClient? Cliente { get; private set; }
+
         public static async Task Main(string[] args) => new Program().RodarBot().GetAwaiter().GetResult();
 
         public async Task RodarBot()
@@ -97,7 +98,6 @@ namespace miguelito_bot_commands
             await Cliente.ConnectAsync();
             Console.WriteLine("Running...");
             await Task.Delay(-1);
-
         }
 
         public static async Task Log(string nome)

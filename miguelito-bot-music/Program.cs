@@ -3,7 +3,6 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.VoiceNext;
 using Microsoft.Extensions.Logging;
 
-
 namespace miguelito_bot_music
 {
     public class Program
@@ -11,6 +10,7 @@ namespace miguelito_bot_music
         public static string[] config { get; private set; }
 
         public static DiscordClient cliente { get; private set; }
+
         public static async Task Main(string[] args) => new Program().rodarBot().GetAwaiter().GetResult();
 
         public async Task rodarBot()

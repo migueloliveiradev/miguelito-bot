@@ -8,7 +8,7 @@ namespace miguelito_bot_commands.commands
 {
     internal class commands_twitter : BaseCommandModule
     {
-        TwitterClient client = new(Program.config[9], Program.config[10], Program.config[11], Program.config[12]);
+        private TwitterClient client = new(Program.config[9], Program.config[10], Program.config[11], Program.config[12]);
 
         [Command("TwitterInfo")]
         public async Task twitterInfo(CommandContext ctx, string user)

@@ -1,0 +1,68 @@
+﻿@page
+@model miguelito_bot_site.Views.Home.IndexModel
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/site.css" />
+<style>
+    *{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    border: 0;
+    }
+    body{
+        background: #383838;
+
+    }
+    .banner{
+        background-image: url("/img/banner.png");
+        width: 100%;
+        height: 600px;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        margin-top: -16px;
+    }
+    .card{
+        width: 500px;
+        height: 250px;
+        padding: 10px 10px;
+        margin: 20px 20px;
+        box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.555);
+        margin: 0 auto;
+        background-color: #505050;
+        color: white;
+        
+    }
+    .add-bot{
+        height: 30px;
+        width: 100px;
+        margin: 0 auto;
+        margin-left: 40%;
+    }
+    </style>
+<div class="banner" >
+   
+</div>
+<div>
+    
+    <div >
+
+        <div class="card text-center">
+            <h1>Em @miguelito_bot_site.Program.Discord.Guilds.Count servidores.</h1>   
+            <h1>Usado por @{int member = 0;
+                    foreach (var item in miguelito_bot_site.Program.Discord.Guilds)
+                    {
+                        member += item.Value.MemberCount;
+                    } ViewBag.Member = member;
+                } @ViewBag.Member Membros.</h1>
+            <h1>Cerca de @miguelito_bot_site.Utils.Database.CommandsCount() Comandos usados.</h1>
+        </div>
+        
+        <div class="add-bot">
+             <a href="https://discord.com/api/oauth2/authorize?client_id=949488330620432386&permissions=1241186200694&scope=bot%20applications.commands"><img src="https://miguelito.miguelsoft.com.br/wp-content/uploads/2022/03/botao.png" /></a>
+        </div>
+        
+    </div>
+    
+
+</div>

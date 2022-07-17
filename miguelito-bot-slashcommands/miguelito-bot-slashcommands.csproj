@@ -13,13 +13,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DSharpPlus" Version="4.3.0-nightly-01151" />
-    <PackageReference Include="DSharpPlus.Interactivity" Version="4.3.0-nightly-01151" />
-    <PackageReference Include="DSharpPlus.SlashCommands" Version="4.3.0-nightly-01151" />
+    <PackageReference Include="DSharpPlus" Version="4.3.0-nightly-01152" />
+    <PackageReference Include="DSharpPlus.Interactivity" Version="4.3.0-nightly-01152" />
+    <PackageReference Include="DSharpPlus.SlashCommands" Version="4.3.0-nightly-01152" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.3.0-2.final" />
     <PackageReference Include="MySql.Data" Version="8.0.29" />
     <PackageReference Include="SpotifyAPI.Web" Version="6.2.2" />
-    <PackageReference Include="System.Drawing.Common" Version="7.0.0-preview.5.22301.12" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0-preview.6.22324.4" />
     <PackageReference Include="TweetinviAPI" Version="5.0.4" />
     <PackageReference Include="YoutubeExplode" Version="6.2.0" />
   </ItemGroup>

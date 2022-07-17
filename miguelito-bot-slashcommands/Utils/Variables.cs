@@ -4,15 +4,15 @@ using System.Reflection;
 
 namespace miguelito_bot_slashcommands.Utils
 {
-    internal class Variables
+    internal static class Variables
     {
         public static string? VersionDSharpPlus;
 
-        public static async Task version()
+        public static async Task VersionAdd()
         {
             Assembly assembly = typeof(DiscordClient).GetTypeInfo().Assembly;
-            AssemblyInformationalVersionAttribute? customAttribute = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
             VersionDSharpPlus = assembly?.GetName()?.Version?.ToString();
+            return;
         }
 
         public static DiscordColor Cores()

@@ -12,8 +12,8 @@ namespace miguelito_bot_music
 {
     internal class music_commands : BaseCommandModule
     {
-        YoutubeClient youtube = new YoutubeClient();
-        TimeSpan max = TimeSpan.FromMinutes(60);
+        private YoutubeClient youtube = new YoutubeClient();
+        private TimeSpan max = TimeSpan.FromMinutes(60);
         public static Dictionary<ulong, Queue<string>> track = new Dictionary<ulong, Queue<string>>();
         public static Dictionary<ulong, bool> loop = new Dictionary<ulong, bool>();
         public static Dictionary<ulong, TimeSpan> time = new Dictionary<ulong, TimeSpan>();
@@ -34,13 +34,16 @@ namespace miguelito_bot_music
             if (musica != "")
             {
                 #region vars
+
                 DiscordMember bot = await ctx.Guild.GetMemberAsync(Program.cliente.CurrentUser.Id);
                 VoiceNextConnection connection;
                 VoiceTransmitSink transmit;
                 VoiceNextExtension vnext;
-                #endregion
+
+                #endregion vars
 
                 #region AdicionarAFila
+
                 if (!track.ContainsKey(ctx.Guild.Id))
                 {
                     track.Add(ctx.Guild.Id, new Queue<string>());
@@ -53,7 +56,8 @@ namespace miguelito_bot_music
                 {
                     await PesquisarPaylist(musica, ctx);
                 }
-                #endregion
+
+                #endregion AdicionarAFila
 
                 vnext = ctx.Client.GetVoiceNext();
                 connection = vnext.GetConnection(ctx.Guild);
@@ -273,6 +277,7 @@ namespace miguelito_bot_music
                 await ctx.RespondAsync("Uai meu rei, tu quer limpar a fila de musicas? :thinking:");
             }
         }
+
         private Stream ConvertAudioToPcm(string filePath)
         {
             var ffmpeg = Process.Start(new ProcessStartInfo
@@ -284,10 +289,12 @@ namespace miguelito_bot_music
             });
             return ffmpeg.StandardOutput.BaseStream;
         }
-        static string GetDirectory()
+
+        private static string GetDirectory()
         {
             return Directory.GetCurrentDirectory();
         }
+
         public async Task Adicionar(CommandContext ctx, string musica)
         {
             string resultado;

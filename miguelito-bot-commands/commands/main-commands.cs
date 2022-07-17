@@ -5,9 +5,6 @@ using DSharpPlus.Entities;
 using miguelito_bot_commands.Utils;
 using MySql.Data.MySqlClient;
 using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-
 
 namespace miguelito_bot_commands.commands
 {
@@ -190,7 +187,6 @@ namespace miguelito_bot_commands.commands
                 await ctx.Message.DeleteAsync();
                 await ctx.Client.SendMessageAsync(ctx.Channel, servidor);
             }
-
         }
 
         [Command("memberquantidade")]

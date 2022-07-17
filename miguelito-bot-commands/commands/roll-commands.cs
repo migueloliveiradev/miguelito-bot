@@ -43,7 +43,6 @@ namespace miguelito_bot_commands.commands
                     await ctx.RespondAsync($"O membro sorteado foi: **{member[num].DisplayName}**");
                     break;
                 }
-
             }
             await Program.Log("roll-member");
         }

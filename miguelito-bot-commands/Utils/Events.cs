@@ -13,7 +13,6 @@ namespace miguelito_bot_commands.Utils
             Console.WriteLine("Added variable values.");
         }
 
-
         public static async Task ClientErrored(DiscordClient sender, ClientErrorEventArgs e)
         {
             DiscordChannel channel = await sender.GetChannelAsync(Convert.ToUInt64(Program.config[7]));
@@ -21,5 +20,4 @@ namespace miguelito_bot_commands.Utils
             Console.WriteLine($"Erro: {e.Exception.Message}");
         }
     }
-
 }

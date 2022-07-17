@@ -12,8 +12,6 @@ using MediaWikiApi.Wiki.Response.OpenSearch;
 using MediaWikiApi.Wiki.Response.Query.Extracts;
 using Newtonsoft.Json;
 using Octokit;
-using PexelsDotNetSDK.Api;
-using PexelsDotNetSDK.Models;
 using System.Globalization;
 using System.Net;
 using VirusTotalNet;
@@ -26,14 +24,17 @@ namespace miguelito_bot_commands.commands
     internal class commands_api : BaseCommandModule
     {
         #region clients
-        VirusTotal virusTotal = new(Program.config[3]);
-        WebClient client;
-        Cutt cutt = new();
-        HG_Client clientHG = new()
+
+        private VirusTotal virusTotal = new(Program.config[3]);
+        private WebClient client;
+        private Cutt cutt = new();
+
+        private HG_Client clientHG = new()
         {
             Key = Program.config[6],
         };
-        #endregion
+
+        #endregion clients
 
         [Command("dolar"), Aliases("dólar")]
         public async Task Dolar(CommandContext ctx)
@@ -149,7 +150,6 @@ namespace miguelito_bot_commands.commands
                     {
                         foreach (KeyValuePair<string, ScanEngine> scan in fileReport.Scans)
                         {
-
                             if (scan.Value.Detected)
                             {
                                 detectado++;
@@ -205,7 +205,6 @@ namespace miguelito_bot_commands.commands
                         };
                         await ctx.RespondAsync(embed);
                     }
-
                 }
                 else if (url.Contains("http://") || url.Contains("https://"))
                 {
@@ -352,7 +351,6 @@ namespace miguelito_bot_commands.commands
             };
             await ctx.RespondAsync(embed);
             await Program.Log("clima");
-
         }
 
         [Command("search"), Aliases("busca", "pesquisa", "google", "pesquisar", "buscar")]
@@ -457,7 +455,6 @@ namespace miguelito_bot_commands.commands
             {
                 await ctx.RespondAsync("Ocorreu um erro ao pesquisar o anime solicitado");
             }
-
         }
 
         [Command("minecraftskin"), Aliases("mc", "skin")]
@@ -638,7 +635,6 @@ namespace miguelito_bot_commands.commands
                         embed.AddField($"**Atualizado em:**", user.UpdatedAt.ToString().Remove(10), true);
                     }
                     embed.WithThumbnail(user.AvatarUrl);
-
 
                     await ctx.RespondAsync(embed);
                 }

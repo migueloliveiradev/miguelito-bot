@@ -1,5 +1,4 @@
-﻿using DSharpPlus;
-using DSharpPlus.Entities;
+﻿using DSharpPlus.Entities;
 using System.Reflection;
 using System.Text;
 
@@ -96,8 +95,6 @@ namespace miguelito_bot_commands.Utils
             Curiosidades = ReadLines(() => Assembly.GetExecutingAssembly()
                            .GetManifestResourceStream("miguelito_bot_commands.text.curiosidades.miguelito"), Encoding.UTF8).ToList();
         }
-
-       
 
         public static IEnumerable<string> ReadLines(Func<Stream> streamProvider, Encoding encoding)
         {

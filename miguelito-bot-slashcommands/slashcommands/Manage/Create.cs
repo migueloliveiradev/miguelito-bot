@@ -50,7 +50,6 @@ namespace miguelito_bot_slashcommands.slashcommands.Manage
                         await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
                             new DiscordInteractionResponseBuilder().WithContent("Ocorreu um erro ao tentar criar esse canal.").AsEphemeral(true));
                     }
-
                 }
 
                 [SlashCommand("Voice", "Manage server ┇ Create a voice channel")]
@@ -74,7 +73,6 @@ namespace miguelito_bot_slashcommands.slashcommands.Manage
                         await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
                            new DiscordInteractionResponseBuilder().WithContent("Ocorreu um erro ao tentar criar esse canal.").AsEphemeral(true));
                     }
-
                 }
             }
 
@@ -93,7 +91,6 @@ namespace miguelito_bot_slashcommands.slashcommands.Manage
                     await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
                         new DiscordInteractionResponseBuilder().WithContent("Ocorreu um erro ao tentar criar essa Categoria.").AsEphemeral(true));
                 }
-
             }
 
             [SlashCommand("Sticker", "Create a Sticker")]
@@ -128,8 +125,8 @@ namespace miguelito_bot_slashcommands.slashcommands.Manage
                     await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
                         new DiscordInteractionResponseBuilder().WithContent("Ocorreu um erro ao tentar criar esse canal.").AsEphemeral(true));
                 }
-
             }
+
             [SlashCommand("Emoji", "Create a Emoji")]
             public async Task CreateEmoji(InteractionContext ctx,
                 [Option("name", "Name of emoji create")] string name,
@@ -147,7 +144,6 @@ namespace miguelito_bot_slashcommands.slashcommands.Manage
                     await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
                         new DiscordInteractionResponseBuilder().WithContent("Ocorreu um erro ao tentar criar esse emoji.").AsEphemeral(true));
                 }
-
             }
         }
     }

@@ -8,7 +8,6 @@ namespace miguelito_bot_commands.commands
 {
     internal class Commands_Downloads : BaseCommandModule
     {
-
         [Command("download"), Aliases("videodownload", "dl")]
         public async Task Download(CommandContext ctx, string url = "")
         {
@@ -44,7 +43,6 @@ namespace miguelito_bot_commands.commands
                 builder.WithContent("");
                 builder.AddEmbed(embed);
                 await menssage.ModifyAsync(builder);
-
             }
             else
             {
@@ -52,6 +50,5 @@ namespace miguelito_bot_commands.commands
                 return;
             }
         }
-
     }
 }

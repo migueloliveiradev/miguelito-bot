@@ -14,6 +14,7 @@ namespace miguelito_bot_events.events
             TwitterClient client = new(Program.config[9], Program.config[10], Program.config[11], Program.config[12]);
             await Twitter.Tweet(client);
         }
+
         public static async Task GuildMemberAddEvent(DiscordClient sender, GuildMemberAddEventArgs e)
         {
             string cs = Program.config[2];
@@ -115,6 +116,8 @@ namespace miguelito_bot_events.events
             embed.WithAuthor(bot.Username, "https://miguelito.miguelsoft.com.br", bot.AvatarUrl)
                 .WithThumbnail(bot.AvatarUrl);
             await sender.SendMessageAsync(e.Guild.GetDefaultChannel(), embed);
+            DiscordChannel channel = await sender.GetChannelAsync(997683926912991232);
+            await channel.SendMessageAsync($"{e.Guild.Name} ({e.Guild.Id})");
         }
 
         public static async Task GuildDeleteEvent(DiscordClient sender, GuildDeleteEventArgs e)

@@ -13,7 +13,6 @@ namespace miguelito_bot_music_lavalink
 
         public static DiscordClient cliente { get; private set; }
 
-
         public static async Task Main(string[] args) => new Program().RodarBot().GetAwaiter().GetResult();
 
         public async Task RodarBot()

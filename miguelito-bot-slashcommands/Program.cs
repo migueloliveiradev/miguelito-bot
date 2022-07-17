@@ -13,7 +13,7 @@ namespace miguelito_bot_slashcommands
         //Line 2   Conection Database
         //Line 3   Token Api Virus Total
         //Line 4   Token Api Google translate
-        //Line 5   Token Api Cutt.ly 
+        //Line 5   Token Api Cutt.ly
         //Line 6   Token Api HG-finance
         //Line 7   ID Channel Discord Erro
         //Line 8   ID Channel Log
@@ -25,7 +25,6 @@ namespace miguelito_bot_slashcommands
         //Line 14  APi Pexels
         //Line 15  APi Spotify
         //Line 16  APi Spotify Secret
-
 
         public static DiscordShardedClient cliente { get; private set; }
 
@@ -54,13 +53,11 @@ namespace miguelito_bot_slashcommands
                 Intents = DiscordIntents.All,
                 Token = config[0],
                 LoggerFactory = ServiceProvider.GetService<ILoggerFactory>()
-
             };
 
             SlashCommandsConfiguration slashCommandsConfiguration = new()
             {
                 Services = ServiceProvider
-
             };
 
             cliente = new(discordConfiguration);

@@ -79,6 +79,5 @@ namespace miguelito_bot_commands.commands
                 await ctx.RespondAsync("Infelizmente ainda sou um pequeno bot que suporta apagar o maximo de 500 mensagens");
             }
         }
-
     }
 }

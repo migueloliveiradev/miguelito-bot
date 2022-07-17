@@ -31,7 +31,6 @@ namespace miguelito_bot_24h
                     {
                         await ctx.RespondAsync("O limite de dias é de 30 dias");
                     }
-
                 }
                 else if (time == "hours" || time == "horas" || time == "hour" || time == "hora")
                 {

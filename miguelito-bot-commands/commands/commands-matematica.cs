@@ -109,6 +109,7 @@ namespace miguelito_bot_commands.commands
             await ctx.RespondAsync(embed);
             return;
         }
+
         [Command("pi")]
         public async Task pi(CommandContext ctx)
         {

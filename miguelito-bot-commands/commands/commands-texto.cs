@@ -6,7 +6,6 @@ namespace miguelito_bot_commands.commands
 {
     internal class Commands_texto : BaseCommandModule
     {
-
         [Command("conselho"), Aliases("conselhos")]
         public async Task Conselhos(CommandContext ctx, int numero = -1)
         {

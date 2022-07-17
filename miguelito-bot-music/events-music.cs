@@ -3,7 +3,6 @@ using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using DSharpPlus.VoiceNext;
 
-
 namespace miguelito_bot_music
 {
     internal class events_music
@@ -12,6 +11,7 @@ namespace miguelito_bot_music
         {
             Console.WriteLine(e.Exception.Message);
         }
+
         public static async Task Client_VoiceStateUpdate(DiscordClient sender, VoiceStateUpdateEventArgs e)
         {
             DiscordUser bot = Program.cliente.CurrentUser;
@@ -28,7 +28,6 @@ namespace miguelito_bot_music
                     music_commands.loop[e.Guild.Id] = false;
                     File.Delete(music_commands.directory[e.Guild.Id]);
                 }
-
                 else if (e.Before.Channel.Users.Contains(bot) && !e.After.Channel.Users.Contains(bot))
                 {
                     try
