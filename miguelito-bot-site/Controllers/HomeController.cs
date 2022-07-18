@@ -39,6 +39,7 @@ namespace miguelito_bot_site.Controllers
                 Response.Cookies.Append("username", infos[1], Options);
                 Response.Cookies.Append("avatar", infos[2], Options);
                 Response.Cookies.Append("email", infos[3], Options);
+                Response.Redirect("/");
             }
             return View();
         }
@@ -55,11 +56,7 @@ namespace miguelito_bot_site.Controllers
             return View();
         }
 
-        [Route("/dashboard")]
-        public IActionResult Dashboard()
-        {
-            return View();
-        }
+      
 
         [Route("/privacy")]
         public IActionResult Privacy()
@@ -70,6 +67,16 @@ namespace miguelito_bot_site.Controllers
         public Action Login()
         {
             Response.Redirect("https://discord.com/api/oauth2/authorize?client_id=949488330620432386&redirect_uri=https%3A%2F%2Flocalhost%3A7243%2FHome&response_type=code&scope=guilds%20guilds.join%20email%20identify");
+            return null;
+        }
+        public Action logout()
+        {
+            Response.Cookies.Delete("code");
+            Response.Cookies.Delete("id");
+            Response.Cookies.Delete("username");
+            Response.Cookies.Delete("avatar");
+            Response.Cookies.Delete("email");
+            Response.Redirect("/");
             return null;
         }
 

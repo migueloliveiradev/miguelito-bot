@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="~/miguelito_bot_site.styles.css" asp-append-version="true" />
 </head>
 <style> 
+    body{
+        background: #383838;
+        color: #fff;
+    }
     .icon{
         margin-left: auto;
     }
@@ -36,7 +40,7 @@
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Dashboard">Dashboard</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Dash" asp-action="Dashboard">Dashboard</a>
                         </li>
                         @{
                             if (string.IsNullOrEmpty(Context.Request.Cookies["code"]))
@@ -47,6 +51,9 @@
                             }
                             else
                             {
+                                <li class="nav-item">
+                                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                                </li>
                                  <a class=" text-white name"><img class="rounded-circle icon" width="40" src="@Context.Request.Cookies["avatar"]"/> Olá @Context.Request.Cookies["username"]</a>
                             }
                         }
@@ -55,7 +62,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div>
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -63,7 +70,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - miguelito_bot_site - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - Miguelito - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
