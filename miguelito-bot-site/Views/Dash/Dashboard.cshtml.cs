@@ -6,6 +6,9 @@ namespace miguelito_bot_site.Views.Home
     {
         public void OnGet()
         {
+            Console.WriteLine("DashboardModel");
         }
+
+
     }
 }

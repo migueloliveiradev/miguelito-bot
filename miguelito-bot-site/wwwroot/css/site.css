@@ -16,3 +16,4 @@ html {
 body {
     margin-bottom: 60px;
 }
+  public static Dictionary<ulong, List<DiscordGuild>> guildsDic = new();

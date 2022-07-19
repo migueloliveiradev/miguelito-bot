@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DSharpPlus.Entities;
+using Microsoft.AspNetCore.Mvc;
 using miguelito_bot_site.Models;
 using System.Diagnostics;
 
@@ -7,7 +8,7 @@ namespace miguelito_bot_site.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
+      
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -34,7 +35,7 @@ namespace miguelito_bot_site.Controllers
                 };
                 Response.Cookies.Append("code", code, Options);
                 string[] infos = Utils.Auth2.Infos(code);
-                var g = Utils.Auth2.Guilds(code);
+                
                 Response.Cookies.Append("id", infos[0], Options);
                 Response.Cookies.Append("username", infos[1], Options);
                 Response.Cookies.Append("avatar", infos[2], Options);

@@ -1,4 +1,33 @@
-﻿@page
-@model miguelito_bot_site.Views.Home.DashboardModel
-@{
-}
+﻿@model guild
+<style>
+    img {
+    width: 70px;
+    border-radius: 50%;
+    margin: 5px;
+    }
+    .bar{
+        margin-top: -17px;
+        padding: 10px;
+    }
+</style>
+    
+ <div class="col-md-1 bg-dark bar" id="sidebar">
+   
+    @{
+        foreach(var guild in @Model.guilds)
+        {
+            <img src="@guild.IconUrl"/>
+        }
+
+   }
+
+
+        </div>
+<div class="container">
+    <div class="row" id="row-main">
+       
+        <div class="col-md-9" id="content">
+            ...
+        </div>
+    </div>
+</div>

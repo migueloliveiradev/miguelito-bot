@@ -7,6 +7,7 @@ namespace miguelito_bot_site.Utils
 {
     public class Auth2
     {
+        static string access_toke = "";
         private static string access_token(string code)
         {
             string client_id = Program.Tokens[0];
@@ -26,6 +27,7 @@ namespace miguelito_bot_site.Utils
             StreamReader reader = new(postStream);
             string responseFromServer = reader.ReadToEnd();
             dynamic? data = JsonConvert.DeserializeObject(responseFromServer);
+            access_toke = data.access_token;
             return data.access_token;
         }
 
@@ -51,24 +53,15 @@ namespace miguelito_bot_site.Utils
             return infos;
         }
 
-        public static async Task<List<DiscordGuild>> Guilds(string code)
+        public static async Task<List<DiscordGuild>> Guilds(string id)
         {
-            string token = access_token(code);
-            HttpWebRequest webRequest1 = (HttpWebRequest)WebRequest.Create("https://discordapp.com/api/users/@me/guilds");
-            webRequest1.Method = "Get";
-            webRequest1.ContentLength = 0;
-            webRequest1.Headers.Add("Authorization", "Bearer " + token);
-            webRequest1.ContentType = "application/x-www-form-urlencoded";
-            using HttpWebResponse response1 = webRequest1.GetResponse() as HttpWebResponse;
-            StreamReader reader1 = new(response1.GetResponseStream());
-            string apiResponse1 = reader1.ReadToEnd();
-            dynamic data2 = JsonConvert.DeserializeObject(apiResponse1);
+            
             List<DiscordGuild> guilds = new();
-            foreach (var a in data2)
+            foreach (var guild in Program.Discord.Guilds.Values)
             {
                 try
                 {
-                    DiscordGuild guild = await Program.Discord.GetGuildAsync(Convert.ToUInt64(a.id));
+                    await guild.GetMemberAsync(Convert.ToUInt64(id));
                     guilds.Add(guild);
                 }
                 catch { }
