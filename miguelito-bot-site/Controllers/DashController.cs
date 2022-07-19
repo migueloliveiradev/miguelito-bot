@@ -13,15 +13,19 @@ namespace miguelito_bot_site.Controllers
         }
 
         [Route("/dashboard")]
-        public IActionResult Dashboard()
+        public ActionResult Dashboard()
         {
             List<DiscordGuild> guild = Utils.Auth2.Guilds(Request.Cookies["id"]).Result;
-            guild _guild = new guild()
+            guild _guild = new()
             {
                 guilds = guild
             };
-
-            return View(_guild);
+             return View(_guild);
+           
+        }
+        public Action Login(){
+            Response.Redirect("https://discord.com/api/oauth2/authorize?client_id=949488330620432386&redirect_uri=https%3A%2F%2Flocalhost%3A7243%2FHome&response_type=code&scope=guilds%20guilds.join%20email%20identify");
+            return null;
         }
     }
 }

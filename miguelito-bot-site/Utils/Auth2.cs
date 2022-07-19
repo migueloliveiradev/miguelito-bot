@@ -55,16 +55,13 @@ namespace miguelito_bot_site.Utils
 
         public static async Task<List<DiscordGuild>> Guilds(string id)
         {
-            
             List<DiscordGuild> guilds = new();
             foreach (var guild in Program.Discord.Guilds.Values)
             {
-                try
+                if (guild.Members.ContainsKey(Convert.ToUInt64(id)))
                 {
-                    await guild.GetMemberAsync(Convert.ToUInt64(id));
                     guilds.Add(guild);
                 }
-                catch { }
             }
             return guilds;
         }

@@ -36,7 +36,7 @@ namespace miguelito_bot_site
                 AutoReconnect = true,
                 ReconnectIndefinitely = true,
                 GatewayCompressionLevel = GatewayCompressionLevel.Stream,
-                MinimumLogLevel = LogLevel.Debug,
+                MinimumLogLevel = LogLevel.Error,
                 Intents = DiscordIntents.All,
             };
             Discord = new(cfg);

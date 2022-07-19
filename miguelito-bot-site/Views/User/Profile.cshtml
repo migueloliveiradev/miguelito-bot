@@ -1,0 +1,26 @@
+﻿@model User
+
+<style>
+ *{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    border: 0;
+    }
+img{
+    width: 80px;
+    border-radius: 50%;
+    
+}
+.col-md-1{
+    margin: 20px;
+}
+</style>
+
+<div class="col-md-1 " id="sidebar">
+    <img src = "@Model.avatar"/>
+    <h5>@Model.username</h5>
+    <h5>@Model.email</h5>
+    <h5>Nivel: 8=====D</h5>
+</div>

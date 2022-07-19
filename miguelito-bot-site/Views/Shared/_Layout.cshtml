@@ -58,22 +58,27 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Dash" asp-action="Dashboard">Dashboard</a>
-                        </li>
+                       
                         @{
                             if (string.IsNullOrEmpty(Context.Request.Cookies["code"]))
                             {
+                                 <li class="nav-item">
+                                        <a class="nav-link text-white" asp-area="" asp-controller="Dash" asp-action="Login">Dashboard</a>
+                                    </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
                                     </li>
+                                    
                             }
                             else
                             {
+                                 <li class="nav-item">
+                                        <a class="nav-link text-white" asp-area="" asp-controller="Dash" asp-action="Dashboard">Dashboard</a>
+                                    </li>
                                 <li class="nav-item">
                                         <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
                                 </li>
-                                 <a class=" text-white name"><img class="rounded-circle icon" width="40" src="@Context.Request.Cookies["avatar"]"/> Olá @Context.Request.Cookies["username"]</a>
+                                 <a class=" text-white name" asp-area="" asp-controller="User" asp-action="Profile"><img class="rounded-circle icon" width="40" src="@Context.Request.Cookies["avatar"]"/> Não Olá @Context.Request.Cookies["username"]</a>
                             }
                         }
                     </ul>

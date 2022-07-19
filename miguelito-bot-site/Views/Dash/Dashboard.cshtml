@@ -1,5 +1,12 @@
 ﻿@model guild
 <style>
+ *{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    border: 0;
+    }
     img {
     width: 70px;
     border-radius: 50%;
@@ -16,7 +23,11 @@
     @{
         foreach(var guild in @Model.guilds)
         {
-            <img src="@guild.IconUrl"/>
+            string img = guild.IconUrl;
+            if(string.IsNullOrEmpty(img)){
+                img = "/img/Miguelito.png"; 
+            }
+           <a href="Eu sou Corno"><img src="@img" alt""/></a> 
         }
 
    }

@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DSharpPlus" Version="4.3.0-nightly-01152" />
+    <PackageReference Include="DSharpPlus" Version="4.3.0-nightly-01153" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.3.0-2.final" />
     <PackageReference Include="MySql.Data" Version="8.0.29" />
   </ItemGroup>
