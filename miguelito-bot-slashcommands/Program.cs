@@ -71,10 +71,10 @@ namespace miguelito_bot_slashcommands
             slash.RegisterCommands<slashcommands.Technology.Phone>(880904935787601960);
             //slash.RegisterCommands<slashcommands.Manage.Create>(880904935787601960);
             slash.RegisterCommands<slashcommands.Embed.Embed>(880904935787601960);
-            slash.RegisterCommands<slashcommands.Math_.Basics>(880904935787601960);
-            slash.RegisterCommands<slashcommands.Math_.Bhaskara>(880904935787601960);
-            slash.RegisterCommands<slashcommands.Math_.Potentiation>(880904935787601960);
-            slash.RegisterCommands<slashcommands.Math_.Root>(880904935787601960);
+            //slash.RegisterCommands<slashcommands.Math_.Basics>(880904935787601960);
+            //slash.RegisterCommands<slashcommands.Math_.Bhaskara>(880904935787601960);
+            //slash.RegisterCommands<slashcommands.Math_.Potentiation>(880904935787601960);
+            //slash.RegisterCommands<slashcommands.Math_.Root>(880904935787601960);
             slash.RegisterCommands<slashcommands.Moderation.Ban>(880904935787601960);
             slash.RegisterCommands<slashcommands.Moderation.Unban>(880904935787601960);
             slash.RegisterCommands<slashcommands.Moderation.Kick>(880904935787601960);
