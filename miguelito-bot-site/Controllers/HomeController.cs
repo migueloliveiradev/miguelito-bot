@@ -1,6 +1,7 @@
 ﻿using DSharpPlus.Entities;
 using Microsoft.AspNetCore.Mvc;
 using miguelito_bot_site.Models;
+using miguelito_bot_site.Utils;
 using System.Diagnostics;
 
 namespace miguelito_bot_site.Controllers
@@ -19,7 +20,7 @@ namespace miguelito_bot_site.Controllers
             string code = HttpContext.Request.Query["code"];
             if (string.IsNullOrEmpty(code))
             {
-                if (string.IsNullOrEmpty(Request.Cookies["code"]))
+                if (string.IsNullOrEmpty(Request.Cookies["token"]))
                 {
                     return View();
                 }
@@ -33,13 +34,8 @@ namespace miguelito_bot_site.Controllers
                     Secure = true,
                     HttpOnly = true,
                 };
-                Response.Cookies.Append("code", code, Options);
-                string[] infos = Utils.Auth2.Infos(code);
-                
-                Response.Cookies.Append("id", infos[0], Options);
-                Response.Cookies.Append("username", infos[1], Options);
-                Response.Cookies.Append("avatar", infos[2], Options);
-                Response.Cookies.Append("email", infos[3], Options);
+                string token = Auth2.Token(code).Result;
+                Response.Cookies.Append("token", token, Options);
                 Response.Redirect("/");
             }
             return View();
@@ -50,14 +46,22 @@ namespace miguelito_bot_site.Controllers
         {
             return View();
         }
+        [Route("/support")]
+        public IActionResult Support()
+        {
+            return View();
+        }
+        [Route("/donate")]
+        public IActionResult Donate()
+        {
+            return View();
+        }
 
         [Route("/404")]
         public IActionResult Status404()
         {
             return View();
         }
-
-      
 
         [Route("/privacy")]
         public IActionResult Privacy()
@@ -72,11 +76,7 @@ namespace miguelito_bot_site.Controllers
         }
         public Action logout()
         {
-            Response.Cookies.Delete("code");
-            Response.Cookies.Delete("id");
-            Response.Cookies.Delete("username");
-            Response.Cookies.Delete("avatar");
-            Response.Cookies.Delete("email");
+            Response.Cookies.Delete("token");
             Response.Redirect("/");
             return null;
         }

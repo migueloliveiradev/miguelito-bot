@@ -15,7 +15,7 @@ namespace miguelito_bot_site.Controllers
         [Route("/dashboard")]
         public ActionResult Dashboard()
         {
-            List<DiscordGuild> guild = Utils.Auth2.Guilds(Request.Cookies["id"]).Result;
+            List<DiscordGuild> guild = Utils.Auth2.Guilds(Request.Cookies["token"]).Result;
             guild _guild = new()
             {
                 guilds = guild

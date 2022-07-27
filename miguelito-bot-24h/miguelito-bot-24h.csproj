@@ -9,10 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DSharpPlus" Version="4.3.0-nightly-01157" />
-    <PackageReference Include="DSharpPlus.CommandsNext" Version="4.3.0-nightly-01157" />
-    <PackageReference Include="DSharpPlus.Interactivity" Version="4.3.0-nightly-01157" />
-    <PackageReference Include="MySql.Data" Version="8.0.29" />
+    <PackageReference Include="DSharpPlus" Version="4.3.0-nightly-01159" />
+    <PackageReference Include="DSharpPlus.CommandsNext" Version="4.3.0-nightly-01159" />
+    <PackageReference Include="DSharpPlus.Interactivity" Version="4.3.0-nightly-01159" />
+    <PackageReference Include="MySql.Data" Version="8.0.30" />
   </ItemGroup>
 
 </Project>

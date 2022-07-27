@@ -1,0 +1,62 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+    border: 0;
+}
+
+.banner {
+    display: flex;
+    justify-content: center;
+
+    height: 80vh;
+    width: 99vw;
+    
+    margin-bottom: 20px;
+
+    background-image: url("/img/banner.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.card {
+    width: 550px;
+    height: 250px;
+
+    padding: 10px 10px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.555);
+    
+    background-color: #505050;
+
+    color: white;
+}
+
+.add-bot {
+    display: flex;
+    justify-content: center;
+
+    height: 30px;
+    width: auto;
+
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+@media screen and (max-width: 600px) {
+    .banner {
+        width: auto;
+        height: 19vh;
+
+        background-position: center;
+        background-size: contain;
+    }
+
+    .card {
+        width: auto;
+    }
+}

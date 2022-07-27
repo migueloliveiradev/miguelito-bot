@@ -1,0 +1,32 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<link rel="stylesheet" href="~/css/support.css" />
+
+<h1 class="suportTitle">Opa, esta com algum problema? preencha o formulario abaixo e entraremos em contato o mais breve possivel</h1>
+
+<form class="suportForm">
+    <label for="name">Nome:</label>
+    <input class="inputText" id="name" type="text" name="name" placeholder="Miguel Oliveira" required>
+    <br>
+    
+    <label for="email">Email:</label>
+    <input class="inputText" id="email" type="email" name="email" placeholder="contato@miguelito.com" required>
+    <br>
+
+    <label for="ID">ID do Discord:</label>
+    <input class="inputText" id="ID" type="text" name="id" placeholder="944942359169363989" required>
+    <br>
+
+    <label for="problem">Seu problema:</label>
+    <textarea class="inputText inputTextarea" id="problem" name="problem" placeholder="O bot me xingou!!! 🤬" required></textarea>
+    <br>
+
+    <label for="file">Insira uma imagem do problema:</label>
+    <input class="inputFile" id="file" type="file" accept="image/*" name="file">
+    <br>
+
+    <button class="suportButton">Enviar</button>
+</form>

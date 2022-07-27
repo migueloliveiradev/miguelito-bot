@@ -1,70 +1,16 @@
-﻿@page
+﻿@using miguelito_bot_site
 @model miguelito_bot_site.Views.Home.IndexModel
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<link rel="stylesheet" href="/css/site.css" />
-<style>
-    *{
-    margin: 0;
-    padding: 0;
-    outline: 0;
-    box-sizing: border-box;
-    border: 0;
-    }
-    .banner{
-        display: flex;
-        justify-content: center;
-        background-image: url("/img/banner.png");
-        height: 80vh;
-        width: 99vw;
-        margin-top: -20px;
-        margin-bottom: 20px;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-    }
-    .card{
-        width: 550px;
-        height: 250px;
-        padding: 10px 10px;
-        margin: 20px 20px;
-        box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.555);
-        margin: 0 auto;
-        background-color: #505050;
-        color: white;
-        margin-bottom: 20px;
-        
-    }
-    .add-bot{
-         display: flex;
-        justify-content: center;
-        height: 30px;
-        width: auto;
-        margin: 0 auto;
-        margin-bottom: 30px;
-    }
+<link rel="stylesheet" href="/css/index.css" />
 
-    @@media screen and (max-width: 600px) {
-        .banner{
-            width: auto;
-            height: 19vh;
-            background-position: center;
-            background-size: contain;
-        }
-        .card{
-             width: auto;
-        }
-    }
-        
-    }
-    </style>
-        <div align="center" class="banner" ></div>
-
+<div align="center" class="banner" ></div>
 <div>
     
     <div >
 
         <div class="card ">
-            <h1>●Em @miguelito_bot_site.Program.Discord.Guilds.Count servidores.</h1>   
+            <h1>●Em @Program.Discord.Guilds.Count servidores.</h1>   
             <h1>●Usado por @{int member = 0;
                     foreach (var item in miguelito_bot_site.Program.Discord.Guilds)
                     {

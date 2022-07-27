@@ -1,36 +1,44 @@
 ﻿@model guild
+@using DSharpPlus.Entities;
 <style>
- *{
-    margin: 0;
-    padding: 0;
-    outline: 0;
-    box-sizing: border-box;
-    border: 0;
+    * {
+        margin: 0;
+        padding: 0;
+        outline: 0;
+        box-sizing: border-box;
+        border: 0;
     }
-    img {
-    width: 70px;
-    border-radius: 50%;
-    margin: 5px;
+
+    .server {
+        margin: 5px;
+        width: 70px;
+        border-radius: 50%;
     }
-    .bar{
-        margin-top: -17px;
-        padding: 10px;
+
+    .barinha {
+        height: 1px;
+        width: 100%;
+        background-color: rgb(54, 54, 54);
     }
+
 </style>
-    
- <div class="col-md-1 bg-dark bar" id="sidebar">
+
+ <div class="col-md-1 bg-dark bar" id="sidebar" style="text-aling: center;">
    
+     
     @{
-        foreach(var guild in @Model.guilds)
+        DiscordUser User = await miguelito_bot_site.Utils.Auth2.User(Context.Request.Cookies["token"]);
+        <a href="aaaaaaaaaaaaaaaaaaaaaaaaaa"><img class="server" src="@User.AvatarUrl" alt="Home"></a>
+        <div style="barinha"></div>
+        foreach(DiscordGuild guild in @Model.guilds)
         {
             string img = guild.IconUrl;
             if(string.IsNullOrEmpty(img)){
                 img = "/img/Miguelito.png"; 
             }
-           <a href="Eu sou Corno"><img src="@img" alt""/></a> 
+           <a href="aaaaaaaaaaaaaaaaaaaaaaaaaa"><img class="server" src="@img" alt""/></a> 
         }
-
-   }
+    }
 
 
         </div>

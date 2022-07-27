@@ -1,4 +1,6 @@
 using DSharpPlus;
+using DSharpPlus.Entities;
+using DSharpPlus.EventArgs;
 
 namespace miguelito_bot_site
 {
@@ -32,14 +34,18 @@ namespace miguelito_bot_site
             DiscordConfiguration cfg = new()
             {
                 Token = Tokens[2],
-                TokenType = TokenType.Bot,
-                AutoReconnect = true,
                 ReconnectIndefinitely = true,
-                GatewayCompressionLevel = GatewayCompressionLevel.Stream,
                 MinimumLogLevel = LogLevel.Error,
                 Intents = DiscordIntents.All,
             };
             Discord = new(cfg);
+            Discord.ClientErrored += ClientErrored;
+            static async Task ClientErrored(DiscordClient sender, ClientErrorEventArgs e)
+            {
+                DiscordChannel channel = await sender.GetChannelAsync(1000826689045147758);
+                await channel.SendMessageAsync(e.Exception.Message);
+                Console.WriteLine(e.Exception.Message);
+            }
             await Discord.ConnectAsync();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -49,7 +55,6 @@ namespace miguelito_bot_site
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.Run();
-            
             await Task.Delay(-1);
         }
     }

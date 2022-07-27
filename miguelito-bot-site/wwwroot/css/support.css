@@ -1,0 +1,92 @@
+﻿.suportTitle {
+    text-align: center;
+
+    padding: 20px 0;
+}
+
+.suportForm {
+    width: 80%;
+
+    margin: 0 10%;
+}
+
+.suportForm .inputText {
+    width: 100%;
+    height: 35px;
+
+    padding: 0 15px;
+
+    background: #282828;
+
+    outline: none;
+    border: solid 1px #282828;
+
+    transition: all .5s ease-in-out;
+
+    color: white;
+
+    margin-bottom: 15px;
+    margin-top: 5px;
+
+    border-radius: 5px;
+}
+
+.suportForm .inputText:hover,
+.suportForm .inputText:focus {
+    border-color: rgb(167, 167, 167);
+}
+
+.suportForm .inputTextarea {
+    height: 100px;
+    padding-top: 5px;
+}
+
+.suportForm .inputFile {
+    background-color: #282828;
+    border-radius: 5px;
+
+    padding-right: 10px;
+    margin-left: 20px;
+}
+
+.suportForm .suportButton {
+    width: 15%;
+    height: 35px;
+
+    background-color: #282828;
+    border: solid 2px #282828;
+
+    border-radius: 50px;
+
+    color: #fff;
+    font-size: 16px;
+
+    transition: all .5s ease-in-out;
+
+    margin-top: 15px;
+}
+
+.suportForm .suportButton:hover {
+    border-color: #fff;
+    background-color: #4561ed;
+}
+
+@media screen and (max-width: 700px) {
+    .suportForm {
+        width: 90%;
+
+        margin: 0 5%;
+    }
+
+    .suportForm .suportButton {
+        width: 100%;
+    }
+
+    .suportForm .inputFile {
+        display: block;
+        width: 100%;
+
+        margin-left: 0px;
+        margin-top: 7px;
+    }
+}
