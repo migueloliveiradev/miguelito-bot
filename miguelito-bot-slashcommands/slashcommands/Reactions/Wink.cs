@@ -23,7 +23,6 @@ namespace miguelito_bot_slashcommands.slashcommands.Reactions
             };
             DiscordButtonComponent GiveBack = new DiscordButtonComponent(ButtonStyle.Success, "GiveBack", "Retribuir");
             await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AddComponents(GiveBack).AddEmbed(embed));
-            await Methods.CommandsUsed("Reactions Wink", ctx.Guild.Id, ctx.User.Id);
             ctx.Client.ComponentInteractionCreated += async (s, e) =>
             {
                 if (e.User == user && ctx.GetOriginalResponseAsync().Result.Id == e.Message.Id)

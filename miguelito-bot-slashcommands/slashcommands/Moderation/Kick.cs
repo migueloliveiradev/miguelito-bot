@@ -51,7 +51,6 @@ namespace miguelito_bot_slashcommands.slashcommands.Moderation
             await ctx.Guild.GetMemberAsync(user.Id).Result.RemoveAsync();
             await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
                 new DiscordInteractionResponseBuilder().WithContent($"Kick {user.Username}"));
-            await Methods.CommandsUsed("Kick", ctx.Guild.Id, ctx.User.Id);
             return;
         }
     }

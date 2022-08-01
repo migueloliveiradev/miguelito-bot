@@ -8,28 +8,17 @@
         box-sizing: border-box;
         border: 0;
     }
-
-    .server {
-        margin: 5px;
-        width: 70px;
-        border-radius: 50%;
-    }
-
-    .barinha {
-        height: 1px;
-        width: 100%;
-        background-color: rgb(54, 54, 54);
-    }
-
 </style>
 
- <div class="col-md-1 bg-dark bar" id="sidebar" style="text-aling: center;">
+<link rel="stylesheet" href="~/css/dashboard/sidebar.css">
+
+<div class="col-md-1 bg-dark bar sidebar" id="sidebar">
    
      
     @{
         DiscordUser User = await miguelito_bot_site.Utils.Auth2.User(Context.Request.Cookies["token"]);
-        <a href="aaaaaaaaaaaaaaaaaaaaaaaaaa"><img class="server" src="@User.AvatarUrl" alt="Home"></a>
-        <div style="barinha"></div>
+        <a href="/dashboard"><img class="server" src="@User.AvatarUrl" alt="Home"></a>
+        <div class="barinha"></div>
         foreach(DiscordGuild guild in @Model.guilds)
         {
             string img = guild.IconUrl;
@@ -42,7 +31,7 @@
 
 
         </div>
-<div class="container">
+    <div class="container">
     <div class="row" id="row-main">
        
         <div class="col-md-9" id="content">

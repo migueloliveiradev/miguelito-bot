@@ -63,17 +63,7 @@ namespace miguelito_bot_slashcommands.slashcommands.Moderation
             catch { }
             await ctx.Guild.BanMemberAsync(user.Id, Convert.ToInt32(deleteDays), $"Banido por {ctx.User.Username}: {reason}");
             await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().WithContent($"Banned {user.Username}"));
-            await Methods.CommandsUsed("Kick", ctx.Guild.Id, ctx.User.Id);
-            string cs = Program.config[2];
-            using MySqlConnection con = new(cs);
-            await con.OpenAsync();
-            using MySqlCommand cmd = new();
-            cmd.Connection = con;
-            cmd.CommandText = $"INSERT INTO " +
-                $"HISTORIC_BANS(ID_GUILD, ID_USER, BANNED_BY_ID, COUNT_DAYS_DELETE, REASON_BAN, TYPE) " +
-                $"VALUES('{ctx.Guild.Id}', '{user.Id}', '{ctx.User.Id}', '{deleteDays}', '{reason}', 'BAN')";
-            cmd.ExecuteNonQuery();
-            con.Close();
+            
             return;
         }
     }

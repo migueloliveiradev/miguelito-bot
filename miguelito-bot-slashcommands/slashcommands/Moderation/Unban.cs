@@ -22,7 +22,6 @@ namespace miguelito_bot_slashcommands.slashcommands.Moderation
                 return;
             }
             await ctx.Guild.UnbanMemberAsync(user);
-            await Methods.CommandsUsed("Unban", ctx.Guild.Id, ctx.User.Id);
             return;
         }
     }

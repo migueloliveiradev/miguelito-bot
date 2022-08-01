@@ -19,7 +19,6 @@ namespace miguelito_bot_slashcommands.slashcommands.Math_
                 Operation = Operation.Replace(",", ".");
                 double result = await CSharpScript.EvaluateAsync<double>($"var i = {Operation}; return i;");
                 await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent($"O resultado foi: {result}"));
-                await Methods.CommandsUsed("Calculate", ctx.Guild.Id, ctx.User.Id);
                 return;
             }
             catch

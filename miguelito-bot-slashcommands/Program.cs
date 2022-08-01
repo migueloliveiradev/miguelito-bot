@@ -26,9 +26,7 @@ namespace miguelito_bot_slashcommands
         //Line 15  APi Spotify
         //Line 16  APi Spotify Secret
 
-        public static DiscordShardedClient cliente { get; private set; }
-
-        public static ServiceProvider ServiceProvider { get; private set; }
+        public static DiscordClient cliente { get; private set; }
 
         public static void Main() => MainAsync().GetAwaiter().GetResult();
 
@@ -36,37 +34,33 @@ namespace miguelito_bot_slashcommands
         {
             if (Environment.UserName == "Miguel Oliveira")
             {
-                config = File.ReadAllLines($@"C:\Users\Miguel Oliveira\Documents\config.miguelito");
+                config = File.ReadAllLines(@"C:\Users\Miguel Oliveira\Documents\config.miguelito");
             }
             else if (Environment.UserName == "Paulo")
             {
-                config = File.ReadAllLines($@"C:\Users\Paulo\Documents\config.miguelito");
+                config = File.ReadAllLines(@"C:\Users\Paulo\Documents\config.miguelito");
             }
             else
             {
-                config = File.ReadAllLines($@"/home/ubuntu/github/config/config.miguelito");
+                config = File.ReadAllLines("/home/ubuntu/github/config/config.miguelito");
             }
-            ServiceCollection services = new();
-            ServiceProvider = services.BuildServiceProvider();
+
             DiscordConfiguration discordConfiguration = new()
             {
                 Intents = DiscordIntents.All,
                 Token = config[0],
-                LoggerFactory = ServiceProvider.GetService<ILoggerFactory>()
-            };
-
-            SlashCommandsConfiguration slashCommandsConfiguration = new()
-            {
-                Services = ServiceProvider
             };
 
             cliente = new(discordConfiguration);
-            await cliente.StartAsync();
-            cliente.Ready += Utilities.Events.OnReady;
-            var slash = await cliente.UseSlashCommandsAsync();
+            
+            cliente.Ready += Utils.Events.OnReady;
+            await cliente.ConnectAsync();
+            SlashCommandsExtension slash = cliente.UseSlashCommands();
+            slash.SlashCommandErrored += Utils.Events.SlashCommandError;
+            slash.SlashCommandExecuted += Utils.Events.SlashCommandExecuted;
             Console.WriteLine("Registrando comandos...");
-
-            slash.RegisterCommands<slashcommands.Messages.Say>(880904935787601960);
+            slash.RegisterCommands<slashcommands.Search.Pokemon>(880904935787601960);
+           /* slash.RegisterCommands<slashcommands.Messages.Say>(880904935787601960);
             slash.RegisterCommands<slashcommands.Search.Search>(880904935787601960);
             slash.RegisterCommands<slashcommands.Technology.Phone>(880904935787601960);
             //slash.RegisterCommands<slashcommands.Manage.Create>(880904935787601960);
@@ -90,7 +84,7 @@ namespace miguelito_bot_slashcommands
             slash.RegisterCommands<slashcommands.Reactions.Poke>(880904935787601960);
             slash.RegisterCommands<slashcommands.Reactions.Wink>(880904935787601960);
             slash.RegisterCommands<slashcommands.User.User>(880904935787601960);
-            slash.RegisterCommands<slashcommands.Server.Server>(880904935787601960);
+            slash.RegisterCommands<slashcommands.Server.Server>(880904935787601960);*/
             Console.WriteLine("Comandos registrados.");
             await Task.Delay(-1);
         }

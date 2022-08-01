@@ -44,7 +44,6 @@ namespace miguelito_bot_slashcommands.slashcommands.Technology
                     embed.AddField("CPU", $" {cpu}");
                     embed.WithFooter($"{brand}");
                     await ctx.EditResponseAsync(new DiscordWebhookBuilder().AddEmbed(embed));
-                    await Methods.CommandsUsed("Phone Information", ctx.Guild.Id, ctx.User.Id);
                     return;
                 }
                 catch

@@ -83,7 +83,6 @@ namespace miguelito_bot_slashcommands.slashcommands.Search
 
                     await ctx.EditResponseAsync(new DiscordWebhookBuilder().AddEmbed(embed));
                 }
-                await Methods.CommandsUsed("Search Google", ctx.Guild.Id, ctx.User.Id);
                 return;
             }
 
@@ -130,7 +129,6 @@ namespace miguelito_bot_slashcommands.slashcommands.Search
                             break;
                         }
                     }
-                    await Methods.CommandsUsed("Search Youtube", ctx.Guild.Id, ctx.User.Id);
                     return;
                 }
                 catch
@@ -183,7 +181,6 @@ namespace miguelito_bot_slashcommands.slashcommands.Search
                     {
                         await ctx.EditResponseAsync(new DiscordWebhookBuilder().WithContent(resultado?.Artists?.Items?[0].ExternalUrls.First().Value));
                     }
-                    await Methods.CommandsUsed("Search Spotify", ctx.Guild.Id, ctx.User.Id);
                     return;
                 }
                 catch
@@ -218,7 +215,6 @@ namespace miguelito_bot_slashcommands.slashcommands.Search
                         return;
                     }
                 }
-                await Methods.CommandsUsed("Search Youtube", ctx.Guild.Id, ctx.User.Id);
                 return;
             }
         }

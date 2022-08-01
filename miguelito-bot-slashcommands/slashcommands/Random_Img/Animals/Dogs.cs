@@ -21,7 +21,6 @@ namespace miguelito_bot_slashcommands.slashcommands.Ramdom_Img.Animals
                 ImageUrl = dogs,
             };
             await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AddEmbed(embed));
-            await Methods.CommandsUsed("Dogs", ctx.Guild.Id, ctx.User.Id);
             return;
         }
     }

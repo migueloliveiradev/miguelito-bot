@@ -26,7 +26,6 @@ namespace miguelito_bot_slashcommands.slashcommands.User
                         WithFooter($"Solicitado por {ctx.User.Username}#{ctx.User.Discriminator}", ctx.User.AvatarUrl);
 
                 await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AddEmbed(embed));
-                await Methods.CommandsUsed("User avatar", ctx.Guild.Id, ctx.User.Id);
                 return;
             }
 
@@ -48,7 +47,6 @@ namespace miguelito_bot_slashcommands.slashcommands.User
                 };
                 embed.WithThumbnail(user.AvatarUrl);
                 await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AddEmbed(embed));
-                await Methods.CommandsUsed("User info", ctx.Guild.Id, ctx.User.Id);
                 return;
             }
         }

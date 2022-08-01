@@ -27,7 +27,6 @@ namespace miguelito_bot_slashcommands.slashcommands.Math_
                 await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
                     new DiscordInteractionResponseBuilder().WithContent($"A potência de {base_} elevado a {expoente} é {potencia}"));
             }
-            await Methods.CommandsUsed("Potentiation", ctx.Guild.Id, ctx.User.Id);
             return;
         }
     }

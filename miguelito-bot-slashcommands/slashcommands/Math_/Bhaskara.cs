@@ -41,7 +41,6 @@ namespace miguelito_bot_slashcommands.slashcommands.Math_
                     new DiscordInteractionResponseBuilder().WithContent($"A equação possui duas raízes reais: {x1} e {x2}"));
                 }
             }
-            await Methods.CommandsUsed("Bhaskara", ctx.Guild.Id, ctx.User.Id);
             return;
         }
     }

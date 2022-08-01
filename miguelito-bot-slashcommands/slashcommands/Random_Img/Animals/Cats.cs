@@ -23,7 +23,6 @@ namespace miguelito_bot_slashcommands.slashcommands.Ramdom_Img.Animals
             };
             embed.WithFooter($"ID: {id}");
             await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AddEmbed(embed));
-            await Methods.CommandsUsed("Cats", ctx.Guild.Id, ctx.User.Id);
             return;
         }
     }

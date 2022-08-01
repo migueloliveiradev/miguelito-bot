@@ -13,9 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DSharpPlus" Version="4.3.0-nightly-01159" />
-    <PackageReference Include="DSharpPlus.Interactivity" Version="4.3.0-nightly-01159" />
-    <PackageReference Include="DSharpPlus.SlashCommands" Version="4.3.0-nightly-01159" />
+    <PackageReference Include="DSharpPlus" Version="4.3.0-nightly-01160" />
+    <PackageReference Include="DSharpPlus.Interactivity" Version="4.3.0-nightly-01160" />
+    <PackageReference Include="DSharpPlus.SlashCommands" Version="4.3.0-nightly-01160" />
+    <PackageReference Include="Google.Apis.Translate.v2" Version="1.57.0.875" />
+    <PackageReference Include="Google.Cloud.Translation.V2" Version="3.1.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.3.0-3.final" />
     <PackageReference Include="MySql.Data" Version="8.0.30" />
     <PackageReference Include="SpotifyAPI.Web" Version="6.2.2" />
@@ -25,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="slashcommands\Cool\" />
     <Folder Include="slashcommands\Embed\" />
   </ItemGroup>
 

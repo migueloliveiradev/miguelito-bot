@@ -10,8 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DSharpPlus" Version="4.3.0-nightly-01159" />
-    <PackageReference Include="DSharpPlus.Rest" Version="4.3.0-nightly-01159" />
+    <PackageReference Include="DSharpPlus" Version="4.3.0-nightly-01160" />
+    <PackageReference Include="DSharpPlus.Rest" Version="4.3.0-nightly-01160" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.16.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.0-preview.6.22330.7" />
     <PackageReference Include="MySql.Data" Version="8.0.30" />

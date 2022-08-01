@@ -34,7 +34,6 @@ namespace miguelito_bot_slashcommands.slashcommands.Server
                 embed.WithAuthor(guild.Name, null, guild.IconUrl);
                 embed.WithFooter($"Solicitado por {ctx.User.Username}#{ctx.User.Discriminator}", ctx.User.AvatarUrl);
                 await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AddEmbed(embed));
-                await Methods.CommandsUsed("Server avatar", ctx.Guild.Id, ctx.User.Id);
                 return;
             }
 
@@ -71,7 +70,6 @@ namespace miguelito_bot_slashcommands.slashcommands.Server
                 embed.WithAuthor(guild.Name, null, guild.IconUrl);
                 await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
                     new DiscordInteractionResponseBuilder().AddEmbed(embed));
-                await Methods.CommandsUsed("Server Info", ctx.Guild.Id, ctx.User.Id);
                 return;
             }
         }

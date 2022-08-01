@@ -58,7 +58,6 @@ namespace miguelito_bot_slashcommands.slashcommands.Embed
                 DiscordWebhook web = await channel.CreateWebhookAsync("Embed Create");
                 await web.ExecuteAsync(webhook);
                 await web.DeleteAsync();
-                await Methods.CommandsUsed("Embed Create", ctx.Guild.Id, ctx.User.Id);
                 return;
             }
         }
