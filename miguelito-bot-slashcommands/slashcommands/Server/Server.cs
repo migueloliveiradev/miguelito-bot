@@ -49,27 +49,27 @@ namespace miguelito_bot_slashcommands.slashcommands.Server
                     }
                     catch
                     {
-                        await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
-                            new DiscordInteractionResponseBuilder().WithContent("Servidor não encontrado.").AsEphemeral(true));
+                        await ctx.CreateResponseAsync(new DiscordInteractionResponseBuilder().WithContent("Servidor não encontrado.").AsEphemeral(true));
                         return;
                     }
                 }
                 DiscordEmbedBuilder embed = new()
                 {
                     Color = Variables.Cores(),
-                    Description = $":detective: ID do Servidor: **{guild.Id}**\n\n" +
-                        $":crown: Dono: **{guild.Owner.Nickname}**({guild.Owner.Id})\n\n" +
-                        $":hourglass_flowing_sand: Criado em: **{guild.CreationTimestamp:dd/MM/yyyy}**\n\n" +
-                        $":speech_balloon: Canais: **{guild.Channels.Count}**\n\n" +
-                        $":man_cartwheeling: Quantidade aproximada de Membros: **{guild.ApproximateMemberCount}**\n\n" +
-                        $":man_cartwheeling: Quantidade aproximada de Membros online: **{guild.ApproximatePresenceCount}**\n\n" +
-                        $":notebook_with_decorative_cover: Cargos: **{guild.Roles.Count}**",
-                    ImageUrl = guild.GetIconUrl(ImageFormat.Png, 2048),
                 };
+                embed.AddField("**Informações do Servidor**", $"**{guild.Name}**\nID:**{guild.Id}\n" +
+                    $"Criado em: **{guild.CreationTimestamp:dd/MM/yyyy}**", true);
+                embed.AddField("**Informações do Dono**", $"**{guild.Owner.Nickname}**({guild.Owner.Id})\n**", true);
+                embed.AddField("**Informações dos membros**", $"{guild.Members.Values.Count()} membros.\n" +
+                   $"{guild.Members.Values.Count(p => p.Presence.Status == UserStatus.Online)} membros online.\n" +
+                   $"{guild.Members.Values.Count(p => p.IsBot)} bots.", true);
+                embed.AddField("**Informações dos cargos**", $"{guild.Roles.Count} cargos.", true);
+                embed.AddField("**Informações dos canais**", $":speech_balloon: {guild.Channels.Values.Count(p => p.Type == ChannelType.Text)} canais de texto.\n" +
+                    $":microphone2: {guild.Channels.Values.Count(p => p.Type == ChannelType.Voice)} canais de voz.\n" +
+                    $":keyboard: {guild.Channels.Values.Count(p => p.Type == ChannelType.Category)} categorias.", true);
                 embed.WithThumbnail(guild.GetIconUrl(ImageFormat.Png, 2048));
                 embed.WithAuthor(guild.Name, null, guild.IconUrl);
-                await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
-                    new DiscordInteractionResponseBuilder().AddEmbed(embed));
+                await ctx.CreateResponseAsync(new DiscordInteractionResponseBuilder().AddEmbed(embed));
                 return;
             }
         }

@@ -67,23 +67,6 @@ namespace miguelito_bot_commands.commands
             return;
         }
 
-        [Command("bomdia"), Aliases("bom-dia")]
-        public async Task bomdia(CommandContext ctx)
-        {
-            await ctx.TriggerTypingAsync();
-            Random random = new();
-            int i = random.Next(0, Variables.Bomdia.Count);
-            DiscordEmbedBuilder embed = new()
-            {
-                Title = "Bom dia meu rei :cowboy:",
-                Color = Variables.Cores(),
-                ImageUrl = Variables.Bomdia[i],
-            };
-            await ctx.RespondAsync($"{ctx.User.Mention} desejo um otimo dia para você :3", embed);
-            await Program.Log("bomdia");
-            return;
-        }
-
         [Command("userinfo")]
         public async Task userinfo(CommandContext ctx)
         {

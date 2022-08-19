@@ -2,8 +2,8 @@
 
 namespace miguelito_bot_site.Models
 {
-    public class guild
+    public class Guild
     {
-        public List<DiscordGuild> guilds { get; set; }
+        public IEnumerable<DiscordGuild> Guilds { get; set; }
     }
 }

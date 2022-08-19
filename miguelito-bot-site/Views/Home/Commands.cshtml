@@ -1,5 +1,353 @@
 ﻿<link rel="stylesheet" href="~/css/commands.css">
 
 <div>
+    <div class="selectDivButtons">
+        <button class="selectedButton" onclick="exibirComandos('todos')">Todos</button>
+        <button onclick="exibirComandos('usuario')">Usuário</button>
+        <button onclick="exibirComandos('server')">Servidor</button>
+        <button onclick="exibirComandos('moderacao')">Moderação</button>
+        <button onclick="exibirComandos('musica')">Música</button>
+        <button onclick="exibirComandos('matematica')">Matematica</button>
+        <button onclick="exibirComandos('legais')">Legais</button>
+        <button onclick="exibirComandos('uteis')">Úteis</button>
+    </div>
 
+    <div id="comandos">
+
+        <div class="commandsDiv" id="usuario">
+            <div class="commandDiv">
+                <span class="commandSpan">Avatar</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-avatar [usuario]</h2>
+                    <p>O usuario pode ser escolhido por marcação ou por ID</p>
+                    <p>Retorna avatar do usuário mencionado, caso não haja nenhum retornara seu avatar</p>
+                    <p>Aliases:</p>
+                    <h2>-av</h2>
+                    <h2>-icon</h2>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Informações do usuário</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-userinfo [usuario]</h2>
+                    <p>O usuario pode ser escolhido por marcação ou por ID</p>
+                    <p>Retorna informações sobre o perfil do usuário mencionado, caso não haja nenhum retornara as informações de seu perfil</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="commandsDiv" id="server">
+            <div class="commandDiv">
+                <span class="commandSpan">Indormações do sever</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-serverinfo [ID do servidor]</h2>
+                    <p>Retorna informações sobre o servidor mencionado ou do servidor atual caso não mencione outro.</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Icone do server</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-servericon [ID do servidor]</h2>
+                    <p>Retorna imagem do servidor mencionado ou do servidor atual caso não mencione outro.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="commandsDiv" id="moderacao">
+
+            <div class="commandDiv">
+                <span class="commandSpan">Ban</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-ban [usuario]</h2>
+                    <p>O usuario pode ser usado tanto por marcação quanto por ID</p>
+                    <p>Necessário permissão BanMembers para usar o comando</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Unban</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-unban [ID do usuario]</h2>
+                    <p>Necessário permissão BanMembers para usar o comando</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Kick</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-kick [usuario]</h2>
+                    <p>O usuario pode ser usado tanto por marcação quanto por ID</p>
+                    <p>Necessário permissão KickMembers para usar o comando</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Clear</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-clear [quantidade]</h2>
+                    <p>Comando para apagar ultimas mensagens no chat usado, caso não definido a quantidade o padrão será 100 mensagens.</p>
+                    <p>Necessário permissão ManageMessages para usar o comando.</p>
+                    <p>Maximo de 500 mensagens.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="commandsDiv" id="musica">
+
+            <div class="commandDiv">
+                <span class="commandSpan">Play</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-play [musica desejada]</h2>
+                    <h2>-play [link da musica desejada]</h2>
+                    <p>Aliases</p>
+                    <h2>-p</h2>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Stop</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-stop</h2>
+                    <p>Pare a reprodução e limpe a fila de musicas</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Loop</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-loop</h2>
+                    <p>Coloque a musica atual em loop</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Pause</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-pause</h2>
+                    <p>Pause a musica atual</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Resume</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-resume</h2>
+                    <p>Retome a musica atual</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Shuffle</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-shuffle</h2>
+                    <p>Embaralhe as musicas atuais</p>
+                    <p>Aliases</p>
+                    <h2>-embaralhar</h2>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="commandsDiv" id="matematica">
+
+            <div class="commandDiv">
+                <span class="commandSpan">Somar</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-Somar [numero] [numero] [numero] </h2>
+                    <p>maximo de 20 numeros</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Subtrair</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-Subtrair [numero] [numero] [numero] </h2>
+                    <p>maximo de 20 numeros</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Multiplicar</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-Multiplicar [numero] [numero] [numero] </h2>
+                    <p>maximo de 20 numeros</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Divir</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-dividir [numero] [numero] [numero] </h2>
+                    <p>maximo de 20 numeros</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Bhaskara</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-Bhaskara [valor de A] [valor de B] [valor de C]</h2>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Raíz quadrada</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-Raiz [numero]</h2>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Pi</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-pi</h2>
+                    <p>Receba o valor de PI</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Potência</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-Potência [denominador] [numerador]</h2>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="commandsDiv" id="legais">
+
+            <div class="commandDiv">
+                <span class="commandSpan">Dado</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-dado [numero desejado]</h2>
+                    <p>Escolhe de forma aleatória um numero até o escolhido, caso não defina o numero o padão é 6</p>
+                    <p>Aliases:</p>
+                    <h2>-sortear</h2>
+                    <h2>-roll</h2>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Hora</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-hora </h2>
+                    <p>Retorna a hora atual</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Data</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-data</h2>
+                    <p>Retorna a data atual</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Bom dia</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-bomdia</h2>
+                    <p>Manda uma bela mensagem de bom dia para você</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Conselho</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-conselho</h2>
+                    <p>Retorna um belo conselho que pode ser bem legal </p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Piada</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-piada</h2>
+                    <p>Pode retornar uma piada boa ou muito ruim </p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Curiosidade</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-curiosidade</h2>
+                    <p>Te conta uma curiosidade totalmente aleatória</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Cantada</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-cantada</h2>
+                    <p>Te conta uma cantada muito boa pra você conquistar a morena</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="commandsDiv" id="uteis">
+
+            <div class="commandDiv">
+                <span class="commandSpan">Tradutor</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-tradutor [prefixo do idioma] [texto]</h2>
+                    <p>Traduz o texto desejado.</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Wiki</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-wiki [assunto]</h2>
+                    <p>Retorna pesquisas na Wikipédia sobre o assunto desejado.</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Virus</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-virus [link]</h2>
+                    <p>Analiza virus em links ou arquivos anexados a mensagem</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Encurtar</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-encurtar [link]</h2>
+                    <p>Retorna o link encurtado</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Dólar</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-dolar</h2>
+                    <p>Receba o atual valor do dólar</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Euro</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-euro</h2>
+                    <p>Receba o atual valor do euro</p>
+                </div>
+            </div>
+
+            <div class="commandDiv">
+                <span class="commandSpan">Real</span>
+                <div class="expansive" style="display: none;">
+                    <h2>-real</h2>
+                    <p>Receba o atual valor do real</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
 </div>
+
+<script src="~/js/commands.js"></script>

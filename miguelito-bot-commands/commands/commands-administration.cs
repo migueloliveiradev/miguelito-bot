@@ -7,7 +7,7 @@ namespace miguelito_bot_commands.commands
 {
     internal class commands_administration : BaseCommandModule
     {
-        [Command("ban")]
+        [Command("ban")] 
         public async Task ban(CommandContext ctx)
         {
             await ctx.TriggerTypingAsync();

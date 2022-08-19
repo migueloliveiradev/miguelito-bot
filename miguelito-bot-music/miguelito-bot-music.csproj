@@ -9,12 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DSharpPlus" Version="4.3.0-nightly-01160" />
-    <PackageReference Include="DSharpPlus.CommandsNext" Version="4.3.0-nightly-01160" />
-    <PackageReference Include="DSharpPlus.Interactivity" Version="4.3.0-nightly-01160" />
-    <PackageReference Include="DSharpPlus.VoiceNext" Version="4.3.0-nightly-01160" />
-    <PackageReference Include="YoutubeExplode" Version="6.2.0" />
-    <PackageReference Include="YoutubeExplode.Converter" Version="6.2.0" />
+    <PackageReference Include="DSharpPlus" Version="4.3.0-nightly-01169" />
+    <PackageReference Include="DSharpPlus.CommandsNext" Version="4.3.0-nightly-01169" />
+    <PackageReference Include="DSharpPlus.Interactivity" Version="4.3.0-nightly-01169" />
+    <PackageReference Include="DSharpPlus.VoiceNext" Version="4.3.0-nightly-01169" />
+    <PackageReference Include="YoutubeExplode" Version="6.2.1" />
+    <PackageReference Include="YoutubeExplode.Converter" Version="6.2.1" />
   </ItemGroup>
 
   <ItemGroup>

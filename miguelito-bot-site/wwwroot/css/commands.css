@@ -1,0 +1,45 @@
+.selectDivButtons {
+    margin: 0 10%;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.selectDivButtons button {
+    width: 10%;
+    height: 40px;
+
+    font-weight: 500;
+    color: white;
+
+    border: none;
+
+    background-color: transparent;
+
+    transition: all 0.2s ease-in-out;
+
+    position: relative;
+}
+
+.selectDivButtons button::before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    transition: all 0.2s ease-in-out;
+}
+
+.selectDivButtons button::before:hover {
+    width: 100%;
+}
+
+.selectDivButtons button.selectedButton {
+    background-color: #4561ed;
+
+    border-radius: 10px;
+}

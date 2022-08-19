@@ -10,7 +10,7 @@ namespace miguelito_bot_site
 
         public static DiscordClient Discord { get; private set; }
 
-        public static async Task Main(string[] args) => new Program().Run().GetAwaiter().GetResult();
+        public static async Task Main() => new Program().Run().GetAwaiter().GetResult();
 
         public async Task Run()
         {
@@ -51,10 +51,8 @@ namespace miguelito_bot_site
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-            app.Run();
+            app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            await app.RunAsync();
             await Task.Delay(-1);
         }
     }

@@ -16,37 +16,34 @@ namespace miguelito_bot_slashcommands.slashcommands.Bot
             await con.OpenAsync();
             int pingdatabase = con.ConnectionTimeout;
             await con.CloseAsync();
-            int membros = 0;
-            foreach (DiscordGuild server in ctx.Client.Guilds.Values)
-            {
-                membros += server.MemberCount;
-            }
             Process[] Processes = Process.GetProcesses();
-            long memory = 0;
-            foreach (Process process in Processes)
-            {
-                if (process.ProcessName.Contains("miguelito-bot"))
-                {
-                    memory += process.WorkingSet64 / (1024 * 1024);
-                }
-            }
             DiscordEmbedBuilder embed = new()
             {
                 Color = DiscordColor.CornflowerBlue,
                 Description =
                 $"> Online há: {Formatter.Timestamp(Process.GetCurrentProcess().StartTime, TimestampFormat.ShortTime)}\n" +
-                $"> Em aproximadamente `{ctx.Client.Guilds.Count}` servidores.\n" +
-                $"> Usado por aproximadamente `{membros}` usuários.\n" +
                 $"> Desenvolvido por {Formatter.MaskedUrl("Miguel Oliveira", new Uri("https://migueloliveira.xyz"), "pode chamar ele de gostoso")} " +
-                $"e {Formatter.MaskedUrl("Paulo HS", new Uri("https://paulohpps.xyz"), "pergunta se o time dele tem mundial")}\n\n" +
-                $"**SOFTWARE**\n" +
+                $"e {Formatter.MaskedUrl("Paulo HS", new Uri("https://paulohpps.xyz"), "pergunta se o time dele tem mundial")}\n\n"
+            };
+            
+            embed.AddField("**Discord**", 
+                $">  Em aproximadamente `{ctx.Client.Guilds.Count}` servidores.\n" +
+                $">  Usado por aproximadamente `{ctx.Client.Guilds.Sum(p => p.Value.MemberCount)}` usuários.\n");
+            embed.AddField("**Sistema**",
                 $"> Versão do Dotnet: `{Environment.Version}`\n" +
+                $"> Versão do Ubuntu: `{Environment.OSVersion}`\n" +
                 $"> Versão do DSharpPlus: `{Utils.Variables.VersionDSharpPlus}`\n" +
-                $"> Uso de memória total: `{memory}mb`\n" +
+                $"> Espaço disponivel em Disco: `{DriveInfo.GetDrives().Sum(p => p.AvailableFreeSpace / 1024 / 1024 / 1024)}gb`\n" +
+                $"> Espaço total do Disco: `{DriveInfo.GetDrives().Sum(p => p.TotalSize / 1024 / 1024 / 1024)}gb`\n" +
+                $"> Uso de memória total: `{Processes.Where(p => p.ProcessName.Contains("miguelito-bot")).Sum(p => p.WorkingSet64)}mb`\n", true);
+            embed.AddField("**ping**",
                 $"> Ping WebSocket: `{ctx.Client.Ping}ms`\n" +
                 $"> Ping API: `{ctx.Client.Ping}ms`\n" +
-                $"> Ping Database: `{pingdatabase}ms`\n"
-            };
+                $"> Ping Database: `{pingdatabase}ms`\n");
+            embed.AddField("**Software**",
+                $"> Uso de memória total: `mb`\n" +
+                $"> Uso de memória livre: `mb`\n" +
+                $"> Uso de memória usada: `mb`\n");
             embed.WithAuthor("Miguelito", "https://miguelito.miguelsoft.com.br", ctx.Client.CurrentUser.AvatarUrl);
             await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
                    new DiscordInteractionResponseBuilder().AddEmbed(embed));

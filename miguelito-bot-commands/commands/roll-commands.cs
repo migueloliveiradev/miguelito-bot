@@ -7,6 +7,11 @@ namespace miguelito_bot_commands.commands
 {
     internal class roll_commands : BaseCommandModule
     {
+        [Command("aaaaaaaaa")]
+        public async Task sortear(CommandContext ctx)
+        {
+            Console.WriteLine(ctx.Client.Guilds.Sum(p => p.Value.MemberCount));
+        }
         [Command("dado"), Aliases("roll", "sortear")]
         public async Task sortear(CommandContext ctx, int numero = 0)
         {

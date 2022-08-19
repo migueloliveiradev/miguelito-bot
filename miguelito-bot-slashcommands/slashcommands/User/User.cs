@@ -30,7 +30,7 @@ namespace miguelito_bot_slashcommands.slashcommands.User
             }
 
             [SlashCommand("info", "User ┇ Receive your information or the desired user")]
-            public async Task info(InteractionContext ctx, [Option("user", "user you want information")] DiscordUser user = null)
+            public async Task Info(InteractionContext ctx, [Option("user", "user you want information")] DiscordUser user = null)
             {
                 if (user == null)
                 {
@@ -41,10 +41,16 @@ namespace miguelito_bot_slashcommands.slashcommands.User
                     Title = ":person_doing_cartwheel: " + user.Username,
                     Color = Variables.Cores(),
                     ImageUrl = user.GetAvatarUrl(ImageFormat.Auto, 2048),
-                    Description = $":hash: Tag do Discord: **{user.Username}#{user.Discriminator}**\n\n" +
-                     $":detective: ID do Discord: **{user.Id}**\n\n" +
-                     $":hourglass_flowing_sand: Conta criada em: **{user.CreationTimestamp:dd/MM/yyyy HH:mm}**",
                 };
+                embed.AddField("**Informações do Usuario**", $"Tag {user.Username}#{user.Discriminator}\n" +
+                    $"ID {user.Id}\n" +
+                    $"Criado {user.CreationTimestamp:dd/MM/yyyy}", true);
+                embed.AddField("**Status**", $"{Methods.TranslateStatus(user.Presence.Status.GetName())}\n", true);
+                if (ctx.Guild.Members.ContainsKey(user.Id))
+                {
+                    embed.AddField("**Informações de membro**", $"Entrou {Formatter.Timestamp(ctx.Guild.Members[user.Id].JoinedAt, TimestampFormat.ShortTime)}\n");
+                }
+                embed.WithFooter($"Solicitado por {ctx.User.Username}#{ctx.User.Discriminator}", ctx.User.AvatarUrl);
                 embed.WithThumbnail(user.AvatarUrl);
                 await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AddEmbed(embed));
                 return;

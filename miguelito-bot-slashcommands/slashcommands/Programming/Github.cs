@@ -15,7 +15,7 @@ namespace miguelito_bot_slashcommands.slashcommands.Programming
         {
             [SlashCommand("profile", "Programming ┇ View information from a user's github profile.")]
             public async Task ServerAvatar(InteractionContext ctx,
-                [Option("nick", "user nick")][Minimum(7)][Maximum(2147483647)] string nick)
+                [Option("nick", "user nick")] string nick)
             {
 
                 

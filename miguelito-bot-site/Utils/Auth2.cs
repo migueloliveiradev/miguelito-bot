@@ -45,7 +45,7 @@ namespace miguelito_bot_site.Utils
             return CurrentUser;
         }
 
-        public static async Task<List<DiscordGuild>> Guilds(string token)
+        public static async Task<IEnumerable<DiscordGuild>> Guilds(string token)
         {
             DiscordConfiguration cfg = new()
             {
@@ -54,16 +54,9 @@ namespace miguelito_bot_site.Utils
             };
             DiscordRestClient Client = new(cfg);
             await Client.InitializeAsync();
-            List<DiscordGuild> Guilds = new();
+           
             var GuildsUser = await Client.GetCurrentUserGuildsAsync();
-            var GuildsBot = Program.Discord.Guilds;
-            foreach (DiscordGuild guild in GuildsUser)
-            {
-                if (Program.Discord.Guilds.ContainsKey(guild.Id))
-                {
-                    Guilds.Add(guild);
-                }
-            }
+            var Guilds = GuildsUser.Where(p => p.Members[Client.CurrentUser.Id].Permissions == Permissions.ManageGuild && p.Members.ContainsKey(949488330620432386));
             Client.Dispose();
             return Guilds;
         }

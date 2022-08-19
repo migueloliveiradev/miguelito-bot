@@ -57,8 +57,6 @@ namespace miguelito_bot_commands.Utils
             return colors[i];
         }
 
-        public static List<string> Bomdia = new();
-
         public static List<string> Conselhos = new();
 
         public static List<string> Piadas = new();
@@ -69,15 +67,6 @@ namespace miguelito_bot_commands.Utils
 
         public static async Task AddVariables()
         {
-            //Bom dia add
-            DiscordChannel Channel_Bomdia = await Program.Cliente.GetChannelAsync(982120078420115496);
-            foreach (DiscordMessage msg in Channel_Bomdia.GetMessagesAsync(1000).Result)
-            {
-                foreach (DiscordAttachment attachment in msg.Attachments)
-                {
-                    Bomdia.Add(attachment.Url);
-                }
-            }
 
             //Conselhos add
             Conselhos = ReadLines(() => Assembly.GetExecutingAssembly()

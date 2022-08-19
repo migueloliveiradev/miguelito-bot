@@ -71,7 +71,7 @@ namespace miguelito_bot_site.Controllers
 
         public Action Login()
         {
-            Response.Redirect("https://discord.com/api/oauth2/authorize?client_id=949488330620432386&redirect_uri=https%3A%2F%2Flocalhost%3A7243%2FHome&response_type=code&scope=guilds%20guilds.join%20email%20identify");
+            Response.Redirect("https://discord.com/api/oauth2/authorize?client_id=949488330620432386&redirect_uri=https%3A%2F%2Flocalhost%3A7243%2FHome&response_type=code&scope=guilds%20guilds.join%20guilds.members.read%20email%20identify");
             return null;
         }
         public Action logout()

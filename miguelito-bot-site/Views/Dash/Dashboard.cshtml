@@ -1,4 +1,4 @@
-﻿@model guild
+﻿@model Guild
 @using DSharpPlus.Entities;
 <style>
     * {
@@ -19,7 +19,7 @@
         DiscordUser User = await miguelito_bot_site.Utils.Auth2.User(Context.Request.Cookies["token"]);
         <a href="/dashboard"><img class="server" src="@User.AvatarUrl" alt="Home"></a>
         <div class="barinha"></div>
-        foreach(DiscordGuild guild in @Model.guilds)
+        foreach(DiscordGuild guild in @Model.Guilds)
         {
             string img = guild.IconUrl;
             if(string.IsNullOrEmpty(img)){

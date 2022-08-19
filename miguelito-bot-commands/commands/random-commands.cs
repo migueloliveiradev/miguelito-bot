@@ -7,6 +7,26 @@ namespace miguelito_bot_commands.commands
 {
     internal class random_commands : BaseCommandModule
     {
+
+        [Command("aaaaaa")]
+        public async Task aaaaaa(CommandContext ctx)
+        {
+            try
+            {
+                foreach(var a in ctx.Guild.Members.Values)
+                {
+                    Console.WriteLine(a.Presence.Status);
+                }
+                //Console.WriteLine(ctx.Guild.Members.Where(p => p.Value.Presence.Status == UserStatus.Online).Count());
+
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
+        }
         /*[Command("perfil")]
         public async Task perfil(CommandContext ctx)
         {
