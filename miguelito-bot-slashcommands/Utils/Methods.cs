@@ -2,7 +2,6 @@
 using Google.Apis.Services;
 using Google.Apis.Translate.v2;
 using Google.Cloud.Translation.V2;
-using MySql.Data.MySqlClient;
 
 namespace miguelito_bot_slashcommands.Utils
 {
@@ -28,7 +27,7 @@ namespace miguelito_bot_slashcommands.Utils
         {
             if (string.IsNullOrEmpty(status.Activity?.Name))
             {
-                if(status.Activity.Name == "Custom Status")
+                if (status.Activity.Name == "Custom Status")
                 {
                     return $"Status {status.Activity.CustomStatus.Name}";
                 }

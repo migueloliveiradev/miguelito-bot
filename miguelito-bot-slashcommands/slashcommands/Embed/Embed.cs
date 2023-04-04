@@ -1,7 +1,6 @@
 ﻿using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
-using miguelito_bot_slashcommands.Utils;
 
 namespace miguelito_bot_slashcommands.slashcommands.Embed
 {

@@ -1,7 +1,5 @@
 ﻿using DSharpPlus;
 using DSharpPlus.SlashCommands;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace miguelito_bot_slashcommands
 {
@@ -32,19 +30,7 @@ namespace miguelito_bot_slashcommands
 
         public static async Task MainAsync()
         {
-            if (Environment.UserName == "Miguel Oliveira")
-            {
-                config = File.ReadAllLines(@"C:\Users\Miguel Oliveira\Documents\config.miguelito");
-            }
-            else if (Environment.UserName == "Paulo")
-            {
-                config = File.ReadAllLines(@"C:\Users\Paulo\Documents\config.miguelito");
-            }
-            else
-            {
-                config = File.ReadAllLines("/home/ubuntu/github/config/config.miguelito");
-            }
-
+            DotNetEnv.Env.Load();
             DiscordConfiguration discordConfiguration = new()
             {
                 Intents = DiscordIntents.All,
@@ -52,13 +38,13 @@ namespace miguelito_bot_slashcommands
             };
 
             cliente = new(discordConfiguration);
-            
+
             cliente.Ready += Utils.Events.OnReady;
             await cliente.ConnectAsync();
             SlashCommandsExtension slash = cliente.UseSlashCommands();
             slash.SlashCommandErrored += Utils.Events.SlashCommandError;
             slash.SlashCommandExecuted += Utils.Events.SlashCommandExecuted;
-            
+
             Console.WriteLine("Registrando comandos...");
             slash.RegisterCommands<slashcommands.Bot.Info>(880904935787601960);
             /*slash.RegisterCommands<slashcommands.Search.Pokemon>();

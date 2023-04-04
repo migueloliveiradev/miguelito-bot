@@ -1,9 +1,6 @@
 ﻿using DSharpPlus;
 using DSharpPlus.Entities;
-using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
-using System.Net;
-using System.Text;
 
 namespace miguelito_bot_site.Utils
 {
@@ -54,7 +51,7 @@ namespace miguelito_bot_site.Utils
             };
             DiscordRestClient Client = new(cfg);
             await Client.InitializeAsync();
-           
+
             var GuildsUser = await Client.GetCurrentUserGuildsAsync();
             var Guilds = GuildsUser.Where(p => p.Members[Client.CurrentUser.Id].Permissions == Permissions.ManageGuild && p.Members.ContainsKey(949488330620432386));
             Client.Dispose();

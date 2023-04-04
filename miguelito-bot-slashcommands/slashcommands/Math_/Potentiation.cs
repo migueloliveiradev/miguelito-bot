@@ -1,7 +1,5 @@
-﻿using DSharpPlus;
-using DSharpPlus.Entities;
+﻿using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
-using miguelito_bot_slashcommands.Utils;
 
 namespace miguelito_bot_slashcommands.slashcommands.Math_
 {
@@ -14,8 +12,7 @@ namespace miguelito_bot_slashcommands.slashcommands.Math_
         {
             if (expoente == 0)
             {
-                await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
-                    new DiscordInteractionResponseBuilder().WithContent("A potência de um número elevado a zero é 1"));
+                await ctx.CreateResponseAsync(new DiscordInteractionResponseBuilder().WithContent("A potência de um número elevado a zero é 1"));
             }
             else
             {
@@ -24,8 +21,7 @@ namespace miguelito_bot_slashcommands.slashcommands.Math_
                 {
                     potencia *= base_;
                 }
-                await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
-                    new DiscordInteractionResponseBuilder().WithContent($"A potência de {base_} elevado a {expoente} é {potencia}"));
+                await ctx.CreateResponseAsync(new DiscordInteractionResponseBuilder().WithContent($"A potência de {base_} elevado a {expoente} é {potencia}"));
             }
             return;
         }

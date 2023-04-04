@@ -1,17 +1,12 @@
 ﻿using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace miguelito_bot_slashcommands.slashcommands.Search
 {
     internal class Pokemon : ApplicationCommandModule
     {
-        
+
         [SlashCommand("pokemon", "Search ┇ Name or number of the pokemon you want to search")]
         public async Task PokemonInfo(InteractionContext ctx,
                [Option("name", "Name or number of the pokemon you want to search")] string pokemon)
@@ -31,7 +26,7 @@ namespace miguelito_bot_slashcommands.slashcommands.Search
             {
                 case "normal":
                     types = "normal";
-                break;
+                    break;
                 case "fire":
                     types = "fogo";
                     break;

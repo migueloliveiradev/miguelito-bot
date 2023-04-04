@@ -8,6 +8,6 @@
         public ulong Guild_ID { get; set; }
         public string HORA { get; set; }
         public ulong USER_ID { get; set; }
-        
+
     }
 }

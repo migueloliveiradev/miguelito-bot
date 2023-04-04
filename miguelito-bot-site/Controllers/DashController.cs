@@ -20,8 +20,8 @@ namespace miguelito_bot_site.Controllers
             {
                 Guilds = guild
             };
-             return View(_guild);
-           
+            return View(_guild);
+
         }
         public Action Login()
         {

@@ -1,7 +1,6 @@
 ﻿using DSharpPlus;
 using DSharpPlus.Entities;
 using System.Reflection;
-using System.Runtime.InteropServices;
 
 namespace miguelito_bot_slashcommands.Utils
 {
@@ -66,6 +65,6 @@ namespace miguelito_bot_slashcommands.Utils
             return cores[rnd.Next(0, cores.Length)];
         }
 
-       
+
     }
 }
