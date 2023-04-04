@@ -3,7 +3,6 @@ using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using DSharpPlus.SlashCommands;
 using DSharpPlus.SlashCommands.EventArgs;
-using MySql.Data.MySqlClient;
 
 namespace miguelito_bot_slashcommands.Utils
 {
@@ -29,16 +28,6 @@ namespace miguelito_bot_slashcommands.Utils
         }
         public static async Task SlashCommandExecuted(SlashCommandsExtension sender, SlashCommandExecutedEventArgs e)
         {
-            string cs = Program.config[2];
-            using MySqlConnection con = new(cs);
-            await con.OpenAsync();
-            using MySqlCommand cmd = new();
-            cmd.Connection = con;
-            cmd.CommandText =
-                $"INSERT INTO USED_COMMANDS(COMMAND, DATA, HORA, GUILD_ID, USER_ID) " +
-                $"VALUES('{e.Context.CommandName}', '{DateTime.Now:dd/MM/yyyy}', '{DateTime.Now:HH:mm}', '{e.Context.Guild.Id}', '{e.Context.User.Id}')";
-            cmd.ExecuteNonQuery();
-            await con.CloseAsync();
             return;
         }
     }

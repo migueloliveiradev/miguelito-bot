@@ -1,7 +1,6 @@
 ﻿using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
-using MySql.Data.MySqlClient;
 
 namespace miguelito_bot_log.Events
 {
