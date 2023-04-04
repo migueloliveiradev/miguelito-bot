@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <RootNamespace>miguelito_bot_slashcommands</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -13,17 +13,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DSharpPlus" Version="4.3.0-nightly-01169" />
-    <PackageReference Include="DSharpPlus.Interactivity" Version="4.3.0-nightly-01169" />
-    <PackageReference Include="DSharpPlus.SlashCommands" Version="4.3.0-nightly-01169" />
-    <PackageReference Include="Google.Apis.Translate.v2" Version="1.57.0.875" />
-    <PackageReference Include="Google.Cloud.Translation.V2" Version="3.1.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.4.0-1.final" />
-    <PackageReference Include="MySql.Data" Version="8.0.30" />
-    <PackageReference Include="SpotifyAPI.Web" Version="6.3.0" />
-    <PackageReference Include="System.Drawing.Common" Version="7.0.0-preview.7.22375.6" />
+    <PackageReference Include="DSharpPlus" Version="5.0.0-nightly-01485" />
+    <PackageReference Include="DSharpPlus.Interactivity" Version="5.0.0-nightly-01485" />
+    <PackageReference Include="DSharpPlus.SlashCommands" Version="5.0.0-nightly-01485" />
+    <PackageReference Include="Google.Apis.Translate.v2" Version="1.60.0.875" />
+    <PackageReference Include="Google.Cloud.Translation.V2" Version="3.2.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.6.0-1.final" />
+    <PackageReference Include="MySql.Data" Version="8.0.32.1" />
+    <PackageReference Include="SpotifyAPI.Web" Version="7.0.0" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
     <PackageReference Include="TweetinviAPI" Version="5.0.4" />
-    <PackageReference Include="YoutubeExplode" Version="6.2.1" />
+    <PackageReference Include="YoutubeExplode" Version="6.2.12" />
   </ItemGroup>
 
   <ItemGroup>
