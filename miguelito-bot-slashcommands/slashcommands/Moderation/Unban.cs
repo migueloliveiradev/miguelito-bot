@@ -1,7 +1,6 @@
 ﻿using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
-using miguelito_bot_slashcommands.Utils;
 
 namespace miguelito_bot_slashcommands.slashcommands.Moderation
 {
@@ -9,7 +8,7 @@ namespace miguelito_bot_slashcommands.slashcommands.Moderation
     {
         [SlashCommandPermissions(Permissions.BanMembers)]
         [SlashCommand("unban", "Moderation ┇ Unban a user")]
-        public async Task ban(InteractionContext ctx, [Option("user", "User to unban")] DiscordUser user, [Option("reason", "reason of unban")] string reason = "NULL")
+        public async Task unban(InteractionContext ctx, [Option("user", "User to unban")] DiscordUser user, [Option("reason", "reason of unban")] string reason = "NULL")
         {
             try
             {
@@ -17,8 +16,7 @@ namespace miguelito_bot_slashcommands.slashcommands.Moderation
             }
             catch
             {
-                await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
-                    new DiscordInteractionResponseBuilder().WithContent($"O Usuario não esta banido.").AsEphemeral(true));
+                await ctx.CreateResponseAsync(new DiscordInteractionResponseBuilder().WithContent($"O Usuario não esta banido.").AsEphemeral(true));
                 return;
             }
             await ctx.Guild.UnbanMemberAsync(user);

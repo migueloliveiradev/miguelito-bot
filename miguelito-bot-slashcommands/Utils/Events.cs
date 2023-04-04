@@ -21,10 +21,10 @@ namespace miguelito_bot_slashcommands.Utils
                 Description = e.Exception.Message,
             };
             embed.AddField("user", e.Context.User.Id.ToString(), true);
-            embed.AddField("guild", e.Context.Guild.Id.ToString() ,true);
+            embed.AddField("guild", e.Context.Guild.Id.ToString(), true);
             embed.AddField("command", e.Context.CommandName);
             await channel.SendMessageAsync(embed);
-            await e.Context.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, 
+            await e.Context.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
                 new DiscordInteractionResponseBuilder().WithContent($"Ocorreu um erro ao executar esse comando, já recebemos esse erro, pedimos perdão e iremos trabalhar para corrigir o mais breve.").AsEphemeral(true));
         }
         public static async Task SlashCommandExecuted(SlashCommandsExtension sender, SlashCommandExecutedEventArgs e)

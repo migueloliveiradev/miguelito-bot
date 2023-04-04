@@ -1,10 +1,4 @@
-﻿using DSharpPlus.Entities;
-using DSharpPlus.SlashCommands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DSharpPlus.SlashCommands;
 
 namespace miguelito_bot_slashcommands.slashcommands.Programming
 {
@@ -18,7 +12,7 @@ namespace miguelito_bot_slashcommands.slashcommands.Programming
                 [Option("nick", "user nick")] string nick)
             {
 
-                
+
                 //await ctx.CreateResponseAsync();
                 return;
             }

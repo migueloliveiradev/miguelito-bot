@@ -15,8 +15,7 @@ namespace miguelito_bot_slashcommands.slashcommands.Messages
             [Choice("not", 0)]
             [Option("IsWebhook", "Want to send this message via webhook?")] long IsWebhook = 0)
         {
-            await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource,
-                   new DiscordInteractionResponseBuilder().WithContent("Enviando....").AsEphemeral(true));
+            await ctx.CreateResponseAsync(new DiscordInteractionResponseBuilder().WithContent("Enviando....").AsEphemeral(true));
             if (channel == null)
             {
                 channel = ctx.Channel;

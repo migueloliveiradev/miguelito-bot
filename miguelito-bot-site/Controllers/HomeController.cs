@@ -1,5 +1,4 @@
-﻿using DSharpPlus.Entities;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using miguelito_bot_site.Models;
 using miguelito_bot_site.Utils;
 using System.Diagnostics;
@@ -9,7 +8,7 @@ namespace miguelito_bot_site.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-      
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;

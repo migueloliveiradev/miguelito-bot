@@ -39,13 +39,6 @@ namespace miguelito_bot_log
             Console.WriteLine("Loading...");
             cliente = new DiscordClient(cfg);
             cliente.ClientErrored += Events.Events.ClientErrorEvent;
-            cliente.GuildMemberAdded += Events.GuildMemberAddEvent;
-            cliente.GuildCreated += Events.GuildCreateEvent;
-            cliente.ChannelCreated += Events.ChannelCreateEvent;
-            cliente.GuildDeleted += Events.GuildDeleteEvent;
-            cliente.MessageDeleted += Events.MessageDeleteEvent;
-            cliente.MessageUpdated += Events.MessageUpdateEvent;
-            cliente.Ready += Events.ReadyEvent;
             Console.WriteLine("Connecting...");
             await cliente.ConnectAsync();
             Console.WriteLine("Running...");

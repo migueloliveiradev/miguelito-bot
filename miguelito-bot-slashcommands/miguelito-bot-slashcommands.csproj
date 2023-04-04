@@ -13,12 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNetEnv" Version="2.5.0" />
     <PackageReference Include="DSharpPlus" Version="5.0.0-nightly-01485" />
     <PackageReference Include="DSharpPlus.Interactivity" Version="5.0.0-nightly-01485" />
     <PackageReference Include="DSharpPlus.SlashCommands" Version="5.0.0-nightly-01485" />
     <PackageReference Include="Google.Apis.Translate.v2" Version="1.60.0.875" />
     <PackageReference Include="Google.Cloud.Translation.V2" Version="3.2.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.6.0-1.final" />
     <PackageReference Include="MySql.Data" Version="8.0.32.1" />
     <PackageReference Include="SpotifyAPI.Web" Version="7.0.0" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
@@ -28,6 +28,10 @@
 
   <ItemGroup>
     <Folder Include="slashcommands\Embed\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\miguelito-bot\miguelito-bot.csproj" />
   </ItemGroup>
 
 </Project>
