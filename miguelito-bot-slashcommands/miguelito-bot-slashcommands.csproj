@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -19,7 +19,7 @@
     <PackageReference Include="DSharpPlus.SlashCommands" Version="5.0.0-nightly-01485" />
     <PackageReference Include="Google.Apis.Translate.v2" Version="1.60.0.875" />
     <PackageReference Include="Google.Cloud.Translation.V2" Version="3.2.0" />
-    <PackageReference Include="MySql.Data" Version="8.0.32.1" />
+    <PackageReference Include="MySql.Data" Version="8.0.33" />
     <PackageReference Include="SpotifyAPI.Web" Version="7.0.0" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
     <PackageReference Include="TweetinviAPI" Version="5.0.4" />
