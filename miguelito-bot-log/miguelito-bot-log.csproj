@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="DotNetEnv" Version="2.5.0" />
-    <PackageReference Include="DSharpPlus" Version="5.0.0-nightly-01485" />
+    <PackageReference Include="DSharpPlus" Version="5.0.0-nightly-01615" />
     <PackageReference Include="MySql.Data" Version="8.0.32.1" />
   </ItemGroup>
 
