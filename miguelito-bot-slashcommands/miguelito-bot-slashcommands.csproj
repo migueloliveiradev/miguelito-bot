@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="DotNetEnv" Version="2.5.0" />
-    <PackageReference Include="DSharpPlus" Version="5.0.0-nightly-01485" />
+    <PackageReference Include="DSharpPlus" Version="5.0.0-nightly-01663" />
     <PackageReference Include="DSharpPlus.Interactivity" Version="5.0.0-nightly-01485" />
     <PackageReference Include="DSharpPlus.SlashCommands" Version="5.0.0-nightly-01485" />
     <PackageReference Include="Google.Apis.Translate.v2" Version="1.60.0.875" />
